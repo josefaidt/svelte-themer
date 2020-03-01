@@ -1,6 +1,7 @@
 {
   "name": "svelte-themer",
-  "version": "0.1.1",
+  "version": "0.1.2",
+  "homepage": "https://svelte-themer.now.sh/",
   "repository": "https://github.com/josefaidt/svelte-themer",
   "svelte": "src/index.js",
   "module": "dist/index.mjs",
