@@ -1,6 +1,7 @@
 {
   "name": "svelte-themer",
-  "version": "0.1.0",
+  "version": "0.1.1",
+  "repository": "https://github.com/josefaidt/svelte-themer",
   "svelte": "src/index.js",
   "module": "dist/index.mjs",
   "main": "dist/index.js",
@@ -16,6 +17,7 @@
   },
   "keywords": [
     "svelte",
+    "themer",
     "theme"
   ],
   "files": [
