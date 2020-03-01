@@ -1,0 +1,25 @@
+{
+  "name": "svelte-themer",
+  "version": "0.0.0",
+  "svelte": "src/index.js",
+  "module": "dist/index.mjs",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "rollup -c",
+    "prepublishOnly": "yarn build"
+  },
+  "devDependencies": {
+    "@rollup/plugin-node-resolve": "^7.1.1",
+    "rollup": "^1.32.0",
+    "rollup-plugin-svelte": "^5.1.1",
+    "svelte": "^3.19.1"
+  },
+  "keywords": [
+    "svelte",
+    "theme"
+  ],
+  "files": [
+    "src",
+    "dist"
+  ]
+}
