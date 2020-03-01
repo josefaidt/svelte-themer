@@ -4,8 +4,9 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "sirv public",
-    "dev": "rollup -c -w"
+    "start": "sirv public --single",
+    "dev": "rollup -c -w",
+    "build": "rollup -c"
   },
   "devDependencies": {
     "rollup": "^1.32.0",
