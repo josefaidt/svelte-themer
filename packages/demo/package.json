@@ -6,7 +6,8 @@
   "scripts": {
     "start": "sirv public --single",
     "dev": "rollup -c -w",
-    "build": "rollup -c"
+    "build": "rollup -c",
+    "now-build": "yarn build"
   },
   "devDependencies": {
     "rollup": "^1.32.0",
