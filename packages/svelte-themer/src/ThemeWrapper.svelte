@@ -49,8 +49,10 @@
       if (!getCurrentTheme(storedThemeChoice)) {
         // break
       } else {
-        Theme.set(getCurrentTheme(storedThemeChoice))
-        _current = storedThemeChoice
+        if (isNaN(parseInt(storedThemeChoice)) && getCurrentTheme(storedThemeChoice)) {
+          Theme.set(getCurrentTheme(storedThemeChoice))
+          _current = storedThemeChoice
+        }
       }
     } else {
       // set default internal state if cached choice does not exist
