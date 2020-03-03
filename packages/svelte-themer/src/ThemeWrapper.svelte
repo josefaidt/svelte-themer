@@ -6,7 +6,12 @@
   export let themes = [...presets]
   export let storageKey = '__svelte-themer__theme'
   // internal state, useful for quickly setting CSS vars without subscribing
-  let _current = 0
+  let _current = themes[0].name
+  // temporary
+  let _storage = {
+    // name of choice
+    n: themes[0].name,
+  }
 
   export let base = {
     colors: {
@@ -15,37 +20,45 @@
     prefix: 'base',
   }
 
-  let Theme = writable(themes[_current])
+  // utility to get current theme from name
+  const getCurrentTheme = name => themes.find(h => h.name === name)
+  
+  // set up writeable store
+  let Theme = writable(getCurrentTheme(_current))
 
   setContext("theme", {
     theme: Theme,
     toggle: () => {
       // update internal state
-      _current = _current === themes.length - 1 ? 0 : (_current += 1)
+      let _currentIndex = themes.findIndex(h => h.name === _current)
+      _current = themes[_currentIndex === themes.length - 1 ? 0 : (_currentIndex += 1)].name
       // update Theme store
-      Theme.update(t => themes[_current]);
+      Theme.update(t => ({...t, ...getCurrentTheme(_current) }));
       // updatte cached theme choice
       localStorage.setItem(storageKey, _current)
       // update CSS vars
-      setRootColors(themes[_current]);
+      setRootColors(getCurrentTheme(_current));
     }
   })
-
 
 
   onMount(() => {
     let storedThemeChoice = localStorage.getItem(storageKey)
     if (storedThemeChoice) {
       // update Theme store with cached theme choice
-      Theme.update(t => themes[parseInt(storedThemeChoice)])
-      _current = parseInt(storedThemeChoice)
+      if (!getCurrentTheme(storedThemeChoice)) {
+        // break
+      } else {
+        Theme.set(getCurrentTheme(storedThemeChoice))
+        _current = storedThemeChoice
+      }
     } else {
       // set default internal state if cached choice does not exist
       localStorage.setItem(storageKey, _current)
     }
     // set CSS vars on mount
     setRootColors(base)
-    setRootColors(themes[_current])
+    setRootColors(getCurrentTheme(_current))
   })
 
   // sets CSS vars for easy use in components
