@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "sirv public --single",
+    "serve": "sirv public --single",
     "dev": "rollup -c -w",
     "build": "rollup -c",
     "now-build": "yarn build"
