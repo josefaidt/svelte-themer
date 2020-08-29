@@ -24,9 +24,36 @@ For example:
 - `--theme-base-text` where `prefix = 'base'` and `property = 'text'`
 - `--theme-text` where `prefix = null || undefined` and `property = 'text'`
 
+Now supports adding _all_ theme colors as theme-specific CSS variables:
+
+```js
+{
+  name: 'light',
+  colors: {
+    text: '#282230',
+    background: '#f1f1f1',
+    primary: '#01796f',
+    primary_dark: '#016159',
+    secondary: '#562931',
+  },
+},
+```
+
+Turns into
+
+```css
+:root {
+  --theme-light-text: #282230;
+  --theme-light-background: #f1f1f1;
+  --theme-light-primary: #01796f;
+  --theme-light-primary_dark: #016159;
+  --theme-light-secondary: #562931;
+}
+```
+
 ## Getting Started
 
-Use the following as a base for your custom themes:
+You can use the preset themes supplied by svelte-themer or create your own! Ensure each theme object has the necessary keys.
 
 ```js
 // src/theme.js
@@ -83,11 +110,11 @@ By default svelte-themer persists the chosen theme with `localStorage`, and can 
 ```html
 <script>
   import { getContext } from 'svelte'
-  let { toggle, theme } = getContext('theme')
+  let { toggle, current, colors } = getContext('theme')
 </script>
 
 <button on:click="{toggle}">
-  {$theme.name}
+  {$current}
 </button>
 ```
 

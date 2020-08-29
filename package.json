@@ -3,29 +3,35 @@
   "workspaces": ["packages/*"],
   "license": "MIT",
   "devDependencies": {
-    "@josefaidt/eslint-config": "^0.1.11",
     "@josefaidt/prettier-config": "^0.0.2",
-    "@rollup/plugin-node-resolve": "^7.1.1",
-    "eslint": "^6.8.0",
-    "prettier": "^1.19.1"
+    "prettier": "^2.1.1",
+    "prettier-plugin-svelte": "^1.1.1"
   },
-  "eslintConfig": {
-    "extends": "@josefaidt/eslint-config"
+  "prettier": {
+    "printWidth": 120,
+    "trailingComma": "es5",
+    "tabWidth": 2,
+    "semi": false,
+    "bracketSpacing": true,
+    "htmlWhitespaceSensitivity": "ignore",
+    "arrowParens": "avoid",
+    "singleQuote": true,
+    "svelteSortOrder": "scripts-markup-styles",
+    "svelteStrictMode": true,
+    "svelteBracketNewLine": true,
+    "svelteAllowShorthand": false,
+    "plugins": [
+      "./node_modules/prettier-plugin-svelte"
+    ]
   },
-  "prettier": "@josefaidt/prettier-config",
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"
     }
   },
   "lint-staged": {
-    "*.js": [
-      "eslint --fix",
-      "git add"
-    ],
-    "*.{md,mdx,json}": [
-      "prettier --write",
-      "git add"
+    "*.{js,svelte,md,mdx,json}": [
+      "prettier --plugin-search-dir=. --write"
     ]
   }
 }
