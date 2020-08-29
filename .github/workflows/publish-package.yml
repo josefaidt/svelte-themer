@@ -1,8 +1,8 @@
 name: Publish to NPM
 on:
   push:
-      branches:
-        - main
+    branches:
+      - main
 jobs:
   build:
     runs-on: ubuntu-latest
