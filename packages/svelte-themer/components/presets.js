@@ -22,8 +22,8 @@ export const presets = [
   {
     name: 'forest',
     colors: {
-      background: '#3b6c4c',
       text: '#f9f2cf',
+      background: '#3b6c4c',
       primary: '#efdc7e',
       primary_dark: '#e4d589',
       secondary: '#4a875f',
@@ -32,8 +32,8 @@ export const presets = [
   {
     name: 'discord',
     colors: {
-      background: '#2C2F33',
       text: '#FFFFFF',
+      background: '#2C2F33',
       primary: '#7289DA',
       primary_dark: '#7289DA',
       secondary: '#99AAB5',
