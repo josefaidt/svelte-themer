@@ -29,11 +29,6 @@
   }
 
   afterUpdate(function() {
-    setContext('theme', { 
-      current: currentTheme,
-      toggle: toggleTheme,
-      colors: themes.find(theme => theme.name === $currentTheme).colors
-    })
     return window.localStorage.setItem(storageKey, $currentTheme)
   })
   $: document.documentElement.className = `theme--${$currentTheme}`

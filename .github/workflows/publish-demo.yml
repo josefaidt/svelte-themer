@@ -1,4 +1,4 @@
-name: Publish Demo to Vercel
+name: Publish Demo
 on:
   push:
     branches:
