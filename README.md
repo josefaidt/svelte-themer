@@ -113,9 +113,7 @@ By default svelte-themer persists the chosen theme with `localStorage`, and can 
   let { toggle, current, colors } = getContext('theme')
 </script>
 
-<button on:click="{toggle}">
-  {$current}
-</button>
+<button on:click="{toggle}">{$current}</button>
 ```
 
 ## Provided Theme Toggle

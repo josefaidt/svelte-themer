@@ -1,11 +1,36 @@
 {
-  "private": true,
-  "workspaces": ["packages/*"],
+  "name": "svelte-themer",
+  "version": "0.2.0",
+  "homepage": "https://svelte-themer.now.sh",
   "license": "MIT",
+  "repository": {
+    "url": "https://github.com/josefaidt/svelte-themer"
+  },
+  "svelte": "index.js",
+  "module": "./lib/index.mjs",
+  "main": "./lib/index.js",
+  "types": "./types/index.d.ts",
+  "files": [
+    "/lib",
+    "/components",
+    "/types"
+  ],
+  "directories": {
+    "components": "./components"
+  },
+  "scripts": {
+    "build": "rollup -c",
+    "prepublishOnly": "yarn build"
+  },
   "devDependencies": {
     "@josefaidt/prettier-config": "^0.0.2",
+    "@rollup/plugin-json": "^4.1.0",
+    "@rollup/plugin-node-resolve": "^9.0.0",
     "prettier": "^2.1.1",
-    "prettier-plugin-svelte": "^1.1.1"
+    "prettier-plugin-svelte": "^1.1.1",
+    "rollup": "^2.26.7",
+    "rollup-plugin-svelte": "^6.0.0",
+    "svelte": "^3.24.1"
   },
   "prettier": {
     "printWidth": 120,
