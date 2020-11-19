@@ -2,7 +2,7 @@
   import { onMount, afterUpdate, setContext } from 'svelte'
   import { writable } from 'svelte/store'
   import { presets } from './presets'
-  export let storageKey = '__svelte-themer__theme'
+  export let key = '__svelte-themer__theme'
   export let themes = presets
   if (!Array.isArray(themes) || !themes.length) throw new Error('Invalid themes array supplied')
 
@@ -29,20 +29,15 @@
   }
 
   afterUpdate(function() {
-    setContext('theme', { 
-      current: currentTheme,
-      toggle: toggleTheme,
-      colors: themes.find(theme => theme.name === $currentTheme).colors
-    })
-    return window.localStorage.setItem(storageKey, $currentTheme)
+    return window.localStorage.setItem(key, $currentTheme)
   })
   $: document.documentElement.className = `theme--${$currentTheme}`
 
   onMount(function() {
     setCSS()
-    let existing = window.localStorage.getItem(storageKey)
+    let existing = window.localStorage.getItem(key)
     if (existing && themes.some(theme => theme.name === existing)) currentTheme.set(existing)
-    else window.localStorage.setItem(storageKey, $currentTheme)
+    else window.localStorage.setItem(key, $currentTheme)
   })
 
   function setCSS() {

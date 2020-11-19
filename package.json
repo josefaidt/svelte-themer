@@ -23,13 +23,13 @@
     "prepublishOnly": "yarn build"
   },
   "devDependencies": {
-    "@josefaidt/prettier-config": "^0.0.2",
     "@rollup/plugin-json": "^4.1.0",
     "@rollup/plugin-node-resolve": "^9.0.0",
     "prettier": "^2.1.1",
     "prettier-plugin-svelte": "^1.1.1",
     "rollup": "^2.26.7",
     "rollup-plugin-svelte": "^6.0.0",
+    "sveld": "^0.1.0",
     "svelte": "^3.24.1"
   },
   "prettier": {
