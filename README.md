@@ -97,10 +97,10 @@ This allows any components nested to access the theme [Context](https://svelte.d
 
 #### Theme Persistence
 
-By default svelte-themer persists the chosen theme with `localStorage`, and can be modified via the `storageKey` prop.
+By default svelte-themer persists the chosen theme with `localStorage`, and can be modified via the `key` prop.
 
 ```html
-<ThemeWrapper storageKey="my-svelte-app__theme">
+<ThemeWrapper key="my-svelte-app__theme">
   <!--  -->
 </ThemeWrapper>
 ```

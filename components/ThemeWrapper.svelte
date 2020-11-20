@@ -43,9 +43,9 @@
   function setCSS() {
     // create root CSS and document root themes
     let template = `
-      <style>
-        :root {
-          ${presets.map(theme => {
+    <style>
+      :root {
+        ${presets.map(theme => {
             let lines = []
             const create = (prop, value) => `--theme-${theme.name}-${prop}: ${value};`
             for (let [property, color] of Object.entries(theme.colors)) {

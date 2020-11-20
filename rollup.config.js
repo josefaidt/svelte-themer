@@ -1,6 +1,6 @@
 import svelte from 'rollup-plugin-svelte'
 import resolve from '@rollup/plugin-node-resolve'
-import sveld from "sveld";
+import sveld from 'sveld'
 import pkg from './package.json'
 
 const name = pkg.name
