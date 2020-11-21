@@ -2,10 +2,13 @@
 
 export interface ThemeWrapperProps {
   /**
-   * @default '__svelte-themer__theme'
+   * Specify the key used for local storage
    */
   key?: string;
 
+  /**
+   * Themes
+   */
   themes?: undefined;
 }
 

@@ -1,8 +1,25 @@
+<script context="module">
+  export const storageKey = '__svelte-themer__theme'
+  export const contextKey = 'theme'
+</script>
+
 <script>
   import { onMount, afterUpdate, setContext } from 'svelte'
   import { writable } from 'svelte/store'
   import { presets } from './presets'
-  export let key = '__svelte-themer__theme'
+  /**
+   * Specify the key used for local storage
+   * @type {string} [key='__svelte-themer__theme']
+   */
+  export let key = storageKey
+  /**
+   * Themes
+   * @type {Object[]} themes - array of theme objects
+   * @property {string} themes[].name - name of theme
+   * @property {Object} themes[].colors - color palette
+   * @property {string} themes[].colors.text - text color
+   * @property {string} themes[].colors.background - background color
+   */
   export let themes = presets
   if (!Array.isArray(themes) || !themes.length) throw new Error('Invalid themes array supplied')
 
@@ -28,12 +45,12 @@
     else currentTheme.set(themes[currentIndex + 1].name)
   }
 
-  afterUpdate(function() {
+  afterUpdate(function () {
     return window.localStorage.setItem(key, $currentTheme)
   })
   $: document.documentElement.className = `theme--${$currentTheme}`
 
-  onMount(function() {
+  onMount(function () {
     setCSS()
     let existing = window.localStorage.getItem(key)
     if (existing && themes.some(theme => theme.name === existing)) currentTheme.set(existing)
@@ -74,13 +91,13 @@
   }
 </script>
 
+<slot>
+  <!-- children -->
+</slot>
+
 <style>
   :global(html) {
     background-color: var(--theme-background);
     color: var(--theme-text);
   }
 </style>
-
-<slot>
-  <!-- children -->
-</slot>

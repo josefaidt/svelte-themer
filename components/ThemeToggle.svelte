@@ -3,6 +3,8 @@
   let { toggle, current } = getContext('theme')
 </script>
 
+<button on:click="{toggle}" {...$$props}>{$current}</button>
+
 <style>
   button {
     border: none;
@@ -17,5 +19,3 @@
     color: black;
   }
 </style>
-
-<button on:click={toggle}>{$current}</button>
