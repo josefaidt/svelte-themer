@@ -23,17 +23,8 @@
   export let themes = presets
   if (!Array.isArray(themes) || !themes.length) throw new Error('Invalid themes array supplied')
 
-  // const stylesheet = [...document.styleSheets].find(sheet => /\/theme\.css$/.test(sheet.href))
-  // const rootCSS = [...stylesheet.rules].find(rule => /^\:root$/gm.test(rule.selectorText))
-  // if (!rootCSS) throw new Error('ThemeProvider is unable to recognize CSS on root element')
-  // const themeCSS = [...stylesheet.rules].filter(rule =>
-  //   /^html\.theme--[A-z]\w+$/gm.test(rule.selectorText)
-  // )
-  // if (!themeCSS.length) throw new Error('ThemeProvider is unable to recognize presence of themes')
-
-  // const themes = themeCSS.map(theme => /(^html\.theme--)([A-z]\w+)$/g.exec(theme.selectorText)[2])
   let currentTheme = writable(themes[0].name)
-  $: setContext('theme', { 
+  $: setContext(contextKey, { 
     current: currentTheme, 
     toggle: toggleTheme, 
     colors: themes.find(theme => theme.name === $currentTheme).colors
