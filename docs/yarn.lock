@@ -591,7 +591,7 @@ supports-color@^7.0.0:
     has-flag "^4.0.0"
 
 svelte-themer@../:
-  version "0.2.0"
+  version "0.3.0"
 
 svelte@^3.29.7:
   version "3.29.7"
