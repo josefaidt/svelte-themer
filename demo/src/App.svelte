@@ -16,11 +16,6 @@
 </ThemeWrapper>
 
 <style>
-  :global(html) {
-    background-color: var(--theme-background);
-    color: var(--theme-text);
-  }
-
   :global(body) {
     display: flex;
     align-items: center;
