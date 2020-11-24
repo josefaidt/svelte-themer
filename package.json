@@ -18,6 +18,10 @@
   "directories": {
     "components": "./components"
   },
+  "keywords": [
+    "svelte",
+    "theming"
+  ],
   "scripts": {
     "build": "rollup -c",
     "dev": "yarn build -w",
