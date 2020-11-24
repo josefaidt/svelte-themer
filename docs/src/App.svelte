@@ -2,12 +2,20 @@
   import { ThemeWrapper, ThemeToggle } from 'svelte-themer'
 </script>
 
-<style>
-  :global(html) {
-    background-color: var(--theme-background);
-    color: var(--theme-text);
-  }
+<ThemeWrapper>
+  <main>
+    <div class="rail">
+      <h1>Svelte Themer</h1>
+      <ThemeToggle />
+    </div>
+    <div class="apps">
+      <a href="https://www.npmjs.com/package/svelte-themer">npm</a>
+      <a href="https://github.com/josefaidt/svelte-themer">github</a>
+    </div>
+  </main>
+</ThemeWrapper>
 
+<style>
   :global(body) {
     display: flex;
     align-items: center;
@@ -73,16 +81,3 @@
     }
   }
 </style>
-
-<ThemeWrapper>
-  <main>
-    <div class="rail">
-      <h1>Svelte Themer</h1>
-      <ThemeToggle />
-    </div>
-    <div class="apps">
-      <a href="https://www.npmjs.com/package/svelte-themer">npm</a>
-      <a href="https://github.com/josefaidt/svelte-themer">github</a>
-    </div>
-  </main>
-</ThemeWrapper>

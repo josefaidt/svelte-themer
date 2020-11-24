@@ -56,7 +56,7 @@ Turns into
 You can use the preset themes supplied by svelte-themer or create your own! Ensure each theme object has the necessary keys.
 
 ```js
-// src/theme.js
+// src/themes.js
 export const themes = [
   {
     name: 'light',
@@ -83,7 +83,7 @@ Then, provide the new themes to the `ThemeWrapper` component
 <!-- src/App.svelte -->
 <script>
   import { ThemeWrapper } from 'svelte-themer'
-  import { themes } from './theme.js'
+  import themes from './themes.js'
 </script>
 
 <ThemeWrapper themes="{themes}">
@@ -97,10 +97,10 @@ This allows any components nested to access the theme [Context](https://svelte.d
 
 #### Theme Persistence
 
-By default svelte-themer persists the chosen theme with `localStorage`, and can be modified via the `storageKey` prop.
+By default svelte-themer persists the chosen theme with `localStorage`, and can be modified via the `key` prop.
 
 ```html
-<ThemeWrapper storageKey="my-svelte-app__theme">
+<ThemeWrapper key="my-svelte-app__theme">
   <!--  -->
 </ThemeWrapper>
 ```
@@ -113,9 +113,7 @@ By default svelte-themer persists the chosen theme with `localStorage`, and can 
   let { toggle, current, colors } = getContext('theme')
 </script>
 
-<button on:click="{toggle}">
-  {$current}
-</button>
+<button on:click="{toggle}">{$current}</button>
 ```
 
 ## Provided Theme Toggle
@@ -124,7 +122,7 @@ By default svelte-themer persists the chosen theme with `localStorage`, and can 
 <!-- src/App.svelte -->
 <script>
   import { ThemeWrapper, ThemeToggle } from 'svelte-themer'
-  import { themes } from './theme.js'
+  import themes from './themes.js'
 </script>
 
 <ThemeWrapper themes="{themes}">
