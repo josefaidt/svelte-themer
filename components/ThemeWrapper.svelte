@@ -7,6 +7,7 @@
   import { onMount, afterUpdate, setContext } from 'svelte'
   import { writable } from 'svelte/store'
   import { presets } from './presets'
+  import setCSS from '../support/setCSS'
   /**
    * Specify the key used for local storage
    * @type {string} [key='__svelte-themer__theme']
@@ -15,19 +16,16 @@
   /**
    * Themes
    * @type {Object[]} themes - array of theme objects
-   * @property {string} themes[].name - name of theme
-   * @property {Object} themes[].colors - color palette
-   * @property {string} themes[].colors.text - text color
-   * @property {string} themes[].colors.background - background color
    */
   export let themes = presets
+
   if (!Array.isArray(themes) || !themes.length) throw new Error('Invalid themes array supplied')
 
   let currentTheme = writable(themes[0].name)
-  $: setContext(contextKey, { 
-    current: currentTheme, 
-    toggle: toggleTheme, 
-    colors: themes.find(theme => theme.name === $currentTheme).colors
+  $: setContext(contextKey, {
+    current: currentTheme,
+    toggle: toggleTheme,
+    colors: themes.find(theme => theme.name === $currentTheme).colors,
   })
 
   function toggleTheme() {
@@ -42,44 +40,11 @@
   $: document.documentElement.className = `theme--${$currentTheme}`
 
   onMount(function () {
-    setCSS()
+    setCSS(themes)
     let existing = window.localStorage.getItem(key)
     if (existing && themes.some(theme => theme.name === existing)) currentTheme.set(existing)
     else window.localStorage.setItem(key, $currentTheme)
   })
-
-  function setCSS() {
-    // create root CSS and document root themes
-    let template = `
-    <style>
-      :root {
-        ${presets.map(theme => {
-            let lines = []
-            const create = (prop, value) => `--theme-${theme.name}-${prop}: ${value};`
-            for (let [property, color] of Object.entries(theme.colors)) {
-              lines.push(create(property, color))
-            }
-            return lines.join('\n')
-          }).join('')}
-        }
-
-        ${presets.map(theme => {
-          const create = (name, props) => {
-            const prepped = props.map(prop => `--theme-${prop}: var(--theme-${theme.name}-${prop});`).join('\n')
-            return `
-              html.theme--${name} {
-                ${prepped}
-              }
-              :global(.${name}) {
-                ${prepped}
-              }
-          `}
-          return create(theme.name, Object.keys(theme.colors))
-        }).join('\n')}
-      </style>
-      `
-    return document.head.innerHTML = `${template}\n${document.head.innerHTML}`
-  }
 </script>
 
 <slot>
@@ -88,7 +53,7 @@
 
 <style>
   :global(html) {
-    background-color: var(--theme-background);
-    color: var(--theme-text);
+    background-color: var(--theme-background, initial);
+    color: var(--theme-text, initial);
   }
 </style>

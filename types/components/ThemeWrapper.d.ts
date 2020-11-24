@@ -9,7 +9,7 @@ export interface ThemeWrapperProps {
   /**
    * Themes
    */
-  themes?: undefined;
+  themes?: Object[];
 }
 
 export default class ThemeWrapper {
