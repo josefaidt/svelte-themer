@@ -56,7 +56,7 @@ Turns into
 You can use the preset themes supplied by svelte-themer or create your own! Ensure each theme object has the necessary keys.
 
 ```js
-// src/theme.js
+// src/themes.js
 export const themes = [
   {
     name: 'light',
