@@ -83,7 +83,7 @@ Then, provide the new themes to the `ThemeWrapper` component
 <!-- src/App.svelte -->
 <script>
   import { ThemeWrapper } from 'svelte-themer'
-  import { themes } from './theme.js'
+  import themes from './themes.js'
 </script>
 
 <ThemeWrapper themes="{themes}">
@@ -122,7 +122,7 @@ By default svelte-themer persists the chosen theme with `localStorage`, and can 
 <!-- src/App.svelte -->
 <script>
   import { ThemeWrapper, ThemeToggle } from 'svelte-themer'
-  import { themes } from './theme.js'
+  import themes from './themes.js'
 </script>
 
 <ThemeWrapper themes="{themes}">
