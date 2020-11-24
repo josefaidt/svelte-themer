@@ -30,5 +30,7 @@ describe(ThemeWrapper.name, () => {
       },
     })
     expect(localStorage.getItem(key)).toEqual(names[0])
+    // TODO: trigger toggle, then check for updated key
+    // - toggle should roll to first entry if previous is last entry
   })
 })
