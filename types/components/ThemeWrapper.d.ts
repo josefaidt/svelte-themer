@@ -5,11 +5,14 @@ export interface ThemeWrapperProps {
    * Specify the key used for local storage
    */
   key?: string;
-
   /**
    * Themes
    */
   themes?: Object[];
+  /**
+   * Object containing variable definitions
+   */
+  base?: Object;
 }
 
 export default class ThemeWrapper {

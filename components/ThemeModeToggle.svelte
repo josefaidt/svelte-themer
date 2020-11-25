@@ -1,9 +1,9 @@
 <script>
   import { getContext } from 'svelte'
-  let { toggle, current } = getContext('theme')
+  let { darkmode, toggleMode } = getContext('theme')
 </script>
 
-<button on:click="{toggle}" {...$$props}>{$current}</button>
+<button on:click="{toggleMode}" {...$$props}>{$darkmode ? 'Dark' : 'Light'}</button>
 
 <style>
   button {

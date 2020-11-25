@@ -1,42 +1,78 @@
 export const presets = [
   {
-    name: 'light',
-    colors: {
-      text: '#282230',
-      background: '#f1f1f1',
-      primary: '#01796f',
-      primary_dark: '#016159',
-      secondary: '#562931',
+    name: 'bright',
+    defaults: {
+      textColor: '#282230',
+      backgroundColor: '#f1f1f1',
+      colors: {
+        primary: '#01796f',
+        primaryDark: '#016159',
+        secondary: '#562931',
+      },
+    },
+    dark: {
+      textColor: '#fff',
+      backgroundColor: '#121212',
+      colors: {
+        primary: '#016159',
+      },
     },
   },
   {
-    name: 'dark',
-    colors: {
-      text: '#f1f1f1',
-      background: '#27323a',
-      primary: '#01978b',
-      primary_dark: '#00887c',
-      secondary: '#fe8690',
+    name: 'midnight',
+    defaults: {
+      textColor: '#f1f1f1',
+      backgroundColor: '#1e272e',
+      colors: {
+        primary: '#01978b',
+        primaryDark: '#00887c',
+        secondary: '#fe8690',
+      },
+    },
+    dark: {
+      textColor: '#ccc',
+      backgroundColor: '#161d22',
+      colors: {
+        primary: '#026c63',
+      },
     },
   },
   {
     name: 'forest',
-    colors: {
-      text: '#f9f2cf',
-      background: '#3b6c4c',
-      primary: '#efdc7e',
-      primary_dark: '#e4d589',
-      secondary: '#4a875f',
+    defaults: {
+      textColor: '#f9f2cf',
+      backgroundColor: '#3b6c4c',
+      colors: {
+        primary: '#51a56e',
+        primaryDark: '#e4d589',
+        secondary: '#4a875f',
+      },
+    },
+    dark: {
+      textColor: '#beb9a0',
+      backgroundColor: '#1d492c',
+      colors: {
+        primary: '#316643',
+      },
     },
   },
   {
     name: 'discord',
-    colors: {
-      text: '#FFFFFF',
-      background: '#2C2F33',
-      primary: '#7289DA',
-      primary_dark: '#7289DA',
-      secondary: '#99AAB5',
+    defaults: {
+      textColor: '#fff',
+      backgroundColor: '#2c2f33',
+      colors: {
+        primary: '#4a5783',
+        primaryDark: '#7289da',
+        secondary: '#99aab5',
+      },
+    },
+    dark: {
+      textColor: '#2c2f33',
+      backgroundColor: '#1c1e22',
+      colors: {
+        primary: '#7289da',
+      },
     },
   },
 ]

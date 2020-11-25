@@ -8,6 +8,7 @@
   import { writable } from 'svelte/store'
   import { presets } from './presets'
   import setCSS from '../support/setCSS'
+
   /**
    * Specify the key used for local storage
    * @type {string} [key='__svelte-themer__theme']
@@ -18,14 +19,28 @@
    * @type {Object[]} themes - array of theme objects
    */
   export let themes = presets
+  /**
+   * Dark mode flag
+   * @type {Boolean}
+   */
+  export let darkmode = false;
+  /**
+   * Sites default CSS variables
+   * @type {Object}
+   */
+  export let base = {}
 
   if (!Array.isArray(themes) || !themes.length) throw new Error('Invalid themes array supplied')
 
   let currentTheme = writable(themes[0].name)
+  let darkMode = writable(darkmode)
+
   $: setContext(contextKey, {
     current: currentTheme,
+    darkmode: darkMode,
     toggle: toggleTheme,
-    colors: themes.find(theme => theme.name === $currentTheme).colors,
+    toggleMode: toggleDarkMode,
+    theme: themes.find(theme => theme.name === $currentTheme),
   })
 
   function toggleTheme() {
@@ -34,16 +49,23 @@
     else currentTheme.set(themes[currentIndex + 1].name)
   }
 
-  afterUpdate(function () {
+  function toggleDarkMode() {
+    document.documentElement.setAttribute('data-theme-mode', $darkMode ? '' : 'dark');
+    darkMode.set(!$darkMode);
+  }
+
+  afterUpdate(function (){
     return window.localStorage.setItem(key, $currentTheme)
   })
-  $: document.documentElement.className = `theme--${$currentTheme}`
+  $: document.documentElement.setAttribute('data-theme', `theme--${$currentTheme}`);
 
   onMount(function () {
-    setCSS(themes)
+    setCSS(base, themes)
     let existing = window.localStorage.getItem(key)
     if (existing && themes.some(theme => theme.name === existing)) currentTheme.set(existing)
     else window.localStorage.setItem(key, $currentTheme)
+
+    document.documentElement.setAttribute('data-theme-mode', $darkMode ? 'dark' : '');
   })
 </script>
 
@@ -53,7 +75,7 @@
 
 <style>
   :global(html) {
-    background-color: var(--theme-background, initial);
-    color: var(--theme-text, initial);
+    background-color: var(--theme-background-color, initial);
+    color: var(--theme-text-color, initial);
   }
 </style>
