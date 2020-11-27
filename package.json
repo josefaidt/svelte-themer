@@ -1,11 +1,12 @@
 {
   "name": "svelte-themer",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "homepage": "https://svelte-themer.now.sh",
   "license": "MIT",
   "repository": {
     "url": "https://github.com/josefaidt/svelte-themer"
   },
+  "sideEffects": false,
   "svelte": "index.js",
   "module": "./lib/index.mjs",
   "main": "./lib/index.js",

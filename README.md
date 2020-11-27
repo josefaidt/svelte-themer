@@ -93,7 +93,7 @@ Then, provide the new themes to the `ThemeWrapper` component
 </ThemeWrapper>
 ```
 
-This allows any components nested to access the theme [Context](https://svelte.dev/tutorial/context-api) which wraps a writeable `Theme` [store](https://svelte.dev/tutorial/writable-stores)
+This allows any components nested to access the theme [Context](https://svelte.dev/tutorial/context-api) which wraps a writeable `theme` [store](https://svelte.dev/tutorial/writable-stores)
 
 #### Theme Persistence
 
