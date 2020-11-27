@@ -1,18 +1,19 @@
 <script context="module">
-  export const storageKey = '__svelte-themer__theme'
-  export const contextKey = 'theme'
+  export const STORAGE_KEY = '__svelte-themer__theme'
+  export const CONTEXT_KEY = 'theme'
 </script>
 
 <script>
   import { onMount, afterUpdate, setContext } from 'svelte'
-  import { writable } from 'svelte/store'
-  import { presets } from './presets'
+  import presets from './presets'
   import setCSS from '../support/setCSS'
+  import toggleTheme from '../support/toggleTheme'
+  import { currentTheme } from '../support/store'
   /**
    * Specify the key used for local storage
    * @type {string} [key='__svelte-themer__theme']
    */
-  export let key = storageKey
+  export let key = STORAGE_KEY
   /**
    * Themes
    * @type {Object[]} themes - array of theme objects
@@ -21,30 +22,25 @@
 
   if (!Array.isArray(themes) || !themes.length) throw new Error('Invalid themes array supplied')
 
-  let currentTheme = writable(themes[0].name)
-  $: setContext(contextKey, {
-    current: currentTheme,
-    toggle: toggleTheme,
-    colors: themes.find(theme => theme.name === $currentTheme).colors,
-  })
-
-  function toggleTheme() {
-    let currentIndex = themes.findIndex(entry => entry.name === $currentTheme)
-    if (currentIndex === themes.length - 1) currentTheme.set(themes[0].name)
-    else currentTheme.set(themes[currentIndex + 1].name)
-  }
-
-  afterUpdate(function () {
-    return window.localStorage.setItem(key, $currentTheme)
-  })
-  $: document.documentElement.className = `theme--${$currentTheme}`
-
+  currentTheme.set(themes[0].name)
   onMount(function () {
     setCSS(themes)
     let existing = window.localStorage.getItem(key)
     if (existing && themes.some(theme => theme.name === existing)) currentTheme.set(existing)
     else window.localStorage.setItem(key, $currentTheme)
   })
+
+  $: setContext(CONTEXT_KEY, {
+    current: currentTheme,
+    toggle: () => toggleTheme(themes, $currentTheme),
+    colors: themes.find(theme => theme.name === $currentTheme).colors,
+  })
+
+  afterUpdate(function () {
+    return window.localStorage.setItem(key, $currentTheme)
+  })
+
+  $: document.documentElement.className = `theme--${$currentTheme}`
 </script>
 
 <slot>

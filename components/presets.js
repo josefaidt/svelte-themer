@@ -1,4 +1,4 @@
-export const presets = [
+export default [
   {
     name: 'light',
     colors: {
