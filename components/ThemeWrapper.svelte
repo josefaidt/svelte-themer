@@ -22,7 +22,16 @@
 
   if (!Array.isArray(themes) || !themes.length) throw new Error('Invalid themes array supplied')
 
-  currentTheme.set(themes[0].name)
+  /**
+   * Sepecify initial theme name, default to the first theme
+   * @type {string=}
+   */
+  export let initialName = themes[0].name
+  if (!themes.find(theme => theme.name === initialName)) {
+    throw new Error(`Invalid initial theme name: '${initialName}' supplied`)
+  }
+
+  currentTheme.set(initialName)
   onMount(function () {
     setCSS(themes)
     let existing = window.localStorage.getItem(key)

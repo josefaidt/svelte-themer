@@ -33,4 +33,17 @@ describe(ThemeWrapper.name, () => {
       expect(error.message).toEqual('Invalid themes array supplied')
     }
   })
+
+  it('should throw error if supplied with wrong initial theme name', () => {
+    const initialName = 'invalid theme'
+    try {
+      const results = render(ThemeWrapper, {
+        props: {
+          initialName,
+        },
+      })
+    } catch (error) {
+      expect(error.message).toMatch('Invalid initial theme name:')
+    }
+  })
 })
