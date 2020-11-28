@@ -23,8 +23,8 @@
   if (!Array.isArray(themes) || !themes.length) throw new Error('Invalid themes array supplied')
 
   /**
-   * Sepecify initial theme name, default to the first theme
-   * @type {string=}
+   * Specify initial theme name, default to the first theme
+   * @type {string}
    */
   export let initialName = themes[0].name
   if (!themes.find(theme => theme.name === initialName)) {

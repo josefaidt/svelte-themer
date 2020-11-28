@@ -10,6 +10,11 @@ export interface ThemeWrapperProps {
    * Themes
    */
   themes?: Object[];
+
+  /**
+   * Specify initial theme name, default to the first theme
+   */
+  initialName?: string;
 }
 
 export default class ThemeWrapper {
