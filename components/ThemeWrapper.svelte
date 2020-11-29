@@ -2,6 +2,8 @@
   export const STORAGE_KEY = '__svelte-themer__theme'
   export const CONTEXT_KEY = 'theme'
   export const VARIABLE_PREFIX = 'theme'
+  export const INVALID_THEMES_MESSAGE = 'Invalid themes array supplied'
+  export const INVALID_PREFIX_MESSAGE = 'Invalid prefix string supplied'
 </script>
 
 <script>
@@ -27,8 +29,8 @@
    */
   export let prefix = VARIABLE_PREFIX
 
-  if (!Array.isArray(themes) || !themes.length) throw new Error('Invalid themes array supplied')
-  if (typeof prefix === 'string' && !prefix.trim().length) throw new Error('Invalid prefix string supplied')
+  if (!Array.isArray(themes) || !themes.length) throw new Error(INVALID_THEMES_MESSAGE)
+  if (typeof prefix === 'string' && !prefix.trim().length) throw new Error(INVALID_PREFIX_MESSAGE)
 
   currentTheme.set(themes[0].name)
   onMount(function () {

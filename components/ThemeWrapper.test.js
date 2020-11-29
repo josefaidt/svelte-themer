@@ -1,6 +1,10 @@
 import '@testing-library/jest-dom/extend-expect'
 import { render } from '@testing-library/svelte'
-import ThemeWrapper, { STORAGE_KEY } from './ThemeWrapper'
+import ThemeWrapper, {
+  STORAGE_KEY,
+  INVALID_THEMES_MESSAGE,
+  INVALID_PREFIX_MESSAGE,
+} from './ThemeWrapper'
 import presets from './presets'
 
 describe(ThemeWrapper.name, () => {
@@ -30,7 +34,7 @@ describe(ThemeWrapper.name, () => {
         },
       })
     } catch (error) {
-      expect(error.message).toEqual('Invalid themes array supplied')
+      expect(error.message).toEqual(INVALID_THEMES_MESSAGE)
     }
   })
 
@@ -77,7 +81,7 @@ describe(ThemeWrapper.name, () => {
           },
         })
       } catch (error) {
-        expect(error.message).toEqual('Invalid prefix string supplied')
+        expect(error.message).toEqual(INVALID_PREFIX_MESSAGE)
       }
     })
   })
