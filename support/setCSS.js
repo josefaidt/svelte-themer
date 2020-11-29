@@ -30,10 +30,8 @@ export default function setCSS(prefix, themes) {
               .map(prop => `${variablePrefix}${prop}: var(${variablePrefix}${theme.name}-${prop});`)
               .join('\n')
             return `
+            *[data-theme=${name}],
             .theme--${name} {
-              ${prepped}
-            }
-            :global(.${name}) {
               ${prepped}
             }
         `
@@ -41,6 +39,11 @@ export default function setCSS(prefix, themes) {
           return create(theme.name, Object.keys(theme.colors))
         })
         .join('\n')}
+
+      html {
+        background-color: var(${variablePrefix}background, initial);
+        color: var(${variablePrefix}text, initial);
+      }
     </style>
     `
   document.head.innerHTML = `${template}\n${document.head.innerHTML}`
