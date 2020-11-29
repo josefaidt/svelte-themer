@@ -30,7 +30,7 @@
     "build": "rollup -c",
     "dev": "yarn build -w",
     "prepublishOnly": "yarn build",
-    "release": "changesets publish",
+    "release": "changeset publish",
     "test": "jest components"
   },
   "devDependencies": {
