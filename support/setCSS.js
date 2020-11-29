@@ -30,7 +30,7 @@ export default function setCSS(prefix, themes) {
               .map(prop => `${variablePrefix}${prop}: var(${variablePrefix}${theme.name}-${prop});`)
               .join('\n')
             return `
-            *[data-theme=${name}],
+            *[data-theme="${name}"],
             .theme--${name} {
               ${prepped}
             }
