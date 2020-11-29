@@ -52,7 +52,7 @@
     "svelte-jester": "^1.1.5"
   },
   "prettier": {
-    "printWidth": 120,
+    "printWidth": 100,
     "trailingComma": "es5",
     "tabWidth": 2,
     "semi": false,
