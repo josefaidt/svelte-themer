@@ -54,10 +54,3 @@
 <slot>
   <!-- children -->
 </slot>
-
-<style>
-  :global(html) {
-    background-color: var(--theme-background, initial);
-    color: var(--theme-text, initial);
-  }
-</style>
