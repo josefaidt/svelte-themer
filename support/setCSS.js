@@ -1,12 +1,20 @@
-export default function setCSS(themes) {
+/**
+ * Set CSS to document
+ * @name setCSS
+ * @param {string} prefix - CSS variable prefix
+ * @param {Object[]} themes - themes array
+ *
+ */
+export default function setCSS(prefix, themes) {
   // create root CSS and document root themes
+  const variablePrefix = prefix ? `--${prefix}-` : `--`
   let template = `
   <style>
     :root {
       ${themes
         .map(theme => {
           let lines = []
-          const create = (prop, value) => `--theme-${theme.name}-${prop}: ${value};`
+          const create = (prop, value) => `${variablePrefix}${theme.name}-${prop}: ${value};`
           for (let [property, color] of Object.entries(theme.colors)) {
             lines.push(create(property, color))
           }
@@ -18,7 +26,9 @@ export default function setCSS(themes) {
       ${themes
         .map(theme => {
           const create = (name, props) => {
-            const prepped = props.map(prop => `--theme-${prop}: var(--theme-${theme.name}-${prop});`).join('\n')
+            const prepped = props
+              .map(prop => `${variablePrefix}${prop}: var(${variablePrefix}${theme.name}-${prop});`)
+              .join('\n')
             return `
             .theme--${name} {
               ${prepped}

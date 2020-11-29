@@ -10,6 +10,11 @@ export interface ThemeWrapperProps {
    * Themes
    */
   themes?: Object[];
+
+  /**
+   * Specify custom CSS variable prefix
+   */
+  prefix?: string | null;
 }
 
 export default class ThemeWrapper {

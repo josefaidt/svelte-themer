@@ -33,4 +33,52 @@ describe(ThemeWrapper.name, () => {
       expect(error.message).toEqual('Invalid themes array supplied')
     }
   })
+
+  describe('prefix prop', () => {
+    let rootStyle
+    let getCSSVar
+
+    beforeEach(() => {
+      getCSSVar = cssVarName => rootStyle.getPropertyValue(cssVarName)
+    })
+
+    it('should use custom CSS Variables prefix', () => {
+      const prefix = 'custom-theme'
+      const { container } = render(ThemeWrapper, {
+        props: {
+          prefix,
+        },
+      })
+      rootStyle = getComputedStyle(container.parentElement)
+      // TODO: fix root custom props from other ThemeWrapper renders, causes this line to fail
+      // expect(getCSSVar('--theme-text')).toBeFalsy()
+      expect(getCSSVar('--custom-theme-text')).toBeTruthy()
+    })
+
+    it('should not use CSS Variables prefix when prefix is null', () => {
+      const prefix = null
+      const { container } = render(ThemeWrapper, {
+        props: {
+          prefix,
+        },
+      })
+      rootStyle = getComputedStyle(container.parentElement)
+      // TODO: fix root custom props from other ThemeWrapper renders, causes this line to fail
+      // expect(getCSSVar('--theme-text')).toBeFalsy()
+      expect(getCSSVar('--text')).toBeTruthy()
+    })
+
+    it('should error prefix is an empty string', () => {
+      const prefix = ''
+      try {
+        const results = render(ThemeWrapper, {
+          props: {
+            prefix,
+          },
+        })
+      } catch (error) {
+        expect(error.message).toEqual('Invalid prefix string supplied')
+      }
+    })
+  })
 })
