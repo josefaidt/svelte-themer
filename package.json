@@ -89,6 +89,9 @@
       "^.+\\.js$": "babel-jest",
       "^.+\\.svelte$": "svelte-jester"
     },
+    "setupFilesAfterEnv": [
+      "<rootDir>/tests.setup.js"
+    ],
     "moduleFileExtensions": [
       "js",
       "svelte"

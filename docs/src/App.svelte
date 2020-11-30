@@ -2,6 +2,10 @@
   import { ThemeWrapper, ThemeToggle, ThemeModeToggle } from 'svelte-themer'
 
   const base = {
+    link: {
+      color: '#0000ee',
+      visited: '#551A8B',
+    },
     borderColor: '#eee',
     borderRadius: {
       small: '1px',
@@ -38,18 +42,22 @@
       base: '8px',
       large: '16px',
       xlarge: '32px'
+    },
+    button: {
+      primary: {
+        backgroundColor: "lightgrey",
+        color: "black"
+      }
     }
   };
 </script>
 
 <ThemeWrapper base="{base}">
   <main>
-    <div class="rail">
-      <h1>Svelte Themer</h1>
-      <div>
-        <ThemeToggle />
-        <ThemeModeToggle />
-      </div>
+    <h1>Svelte Themer</h1>
+    <div>
+      <ThemeToggle />
+      <ThemeModeToggle />
     </div>
     <div class="apps">
       <a href="https://www.npmjs.com/package/svelte-themer">npm</a>
@@ -59,63 +67,64 @@
 </ThemeWrapper>
 
 <style>
+  :global(html) {
+    background-color: var(--theme-background-color, initial);
+    color: var(--theme-text-color, initial);
+  }
+
   :global(body) {
-    display: flex;
     align-items: center;
+    display: flex;
+  }
+
+  :global(button) {
+    background-color: var(--theme-button-primary-background-color, lightgrey);
+    border: none;
+    border-radius: var(--theme-border-radius-base, 3px);
+    color: var(--theme-button-primary-color, black);
+    cursor: pointer;
+    padding: var(--theme-padding-base, 8px);
+    width: 100px;
+  }
+
+  :global(button + button) {
+    margin-left: 8px;
   }
 
   main {
-    text-align: center;
-    padding: var(--theme-padding-large);
-    max-width: 240px;
-    margin: 0 auto;
-
     display: grid;
     grid-auto-flow: row;
     grid-gap: 2rem;
+    max-width: 240px;
+    margin: 0 auto;
+    padding: var(--theme-padding-large);
+    text-align: center;
+  }
+
+  .apps {
+    display: grid;
+    grid-auto-flow: column;
+    grid-gap: 3rem;
+    justify-content: center;
+  }
+
+  h1 {
+    color: var(--theme-text-color);
+    font-size: 4em;
+    font-weight: var(--theme-font-weight-lighter);
+    margin: 0;
+    text-transform: lowercase;
+  }
+
+  a,
+  a:visited {
+    color: var(--theme-text-color);
   }
 
   @media (max-width: 768px) {
     main {
       max-width: initial;
     }
-  }
-
-  .rail {
-    display: grid;
-    grid-auto-flow: column;
-    grid-gap: 3rem;
-    align-items: flex-end;
-  }
-
-  @media (max-width: 768px) {
-    .rail {
-      grid-auto-flow: row;
-      justify-items: center;
-      grid-gap: 1rem;
-    }
-  }
-
-  .apps {
-    display: grid;
-    grid-auto-flow: column;
-    justify-content: center;
-    grid-gap: 3rem;
-  }
-
-  h1 {
-    color: var(--theme-text-color);
-    text-transform: lowercase;
-    font-size: 4em;
-    font-weight: var(--theme-font-weight-lighter);
-    margin: 0;
-  }
-
-  a {
-    color: var(--theme-color-primary);
-  }
-  a:visited {
-    color: var(--theme-color-primary-dark);
   }
 
   @media (min-width: 640px) {

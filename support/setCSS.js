@@ -48,11 +48,11 @@ export default function setCSS(base = {}, themes = []) {
   rootCSSContent.push(baseVariables);
 
   themes.forEach(theme => {
-    const { name, defaults = {}, dark = {} } = theme;
+    const { name, light = {}, dark = {} } = theme;
 
     const themeName = `theme--${name}`;
 
-    const defaultConfig = processConfig(defaults, name);
+    const defaultConfig = processConfig(light, name);
     const defaultVariables = Object.keys(defaultConfig);
     const defaultThemeVariables = createVariables(name, defaultVariables, defaultConfig);
 

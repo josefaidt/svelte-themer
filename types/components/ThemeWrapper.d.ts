@@ -5,12 +5,27 @@ export interface ThemeWrapperProps {
    * Specify the key used for local storage
    */
   key?: string;
+
+  /**
+   * Themes
+   * @default null
+   */
+  theme?: string;
+
   /**
    * Themes
    */
   themes?: Object[];
+
   /**
-   * Object containing variable definitions
+   * Mode
+   * @default null
+   */
+  mode?: string;
+
+  /**
+   * Sites default CSS variables
+   * @default {}
    */
   base?: Object;
 }
