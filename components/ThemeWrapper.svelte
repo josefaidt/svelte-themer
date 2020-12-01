@@ -67,8 +67,8 @@
     current: currentTheme,
     mode: currentMode,
     toggle: toggleTheme,
-    _toggleTheme: () => toggleTheme(themes, $currentTheme),
-    _toggleMode: () => toggleMode($currentMode),
+    _toggleTheme: () => toggleTheme(themes),
+    _toggleMode: toggleMode,
     theme: themes.find(({ name }) => name === $currentTheme),
   })
 
