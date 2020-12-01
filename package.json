@@ -31,6 +31,7 @@
     "dev": "yarn build -w",
     "prepublishOnly": "yarn build",
     "release": "changeset publish",
+    "format": "prettier --write \"{components,support,docs}/**/*.{js,json,svelte}\"",
     "test": "jest components"
   },
   "devDependencies": {
@@ -72,7 +73,7 @@
   },
   "lint-staged": {
     "*.{js,svelte,md,mdx,json}": [
-      "prettier --plugin-search-dir=. --write"
+      "prettier --write"
     ]
   },
   "babel": {

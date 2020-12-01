@@ -10,7 +10,7 @@
     borderRadius: {
       small: '1px',
       base: '3px',
-      large: '6px'
+      large: '6px',
     },
     fontSize: {
       xxxlarge: '32px',
@@ -20,7 +20,7 @@
       base: '14px',
       medium: '13px',
       small: '12px',
-      xsmall: '9px'
+      xsmall: '9px',
     },
     fontWeight: {
       lightest: 100,
@@ -35,21 +35,21 @@
       small: '4px',
       base: '8px',
       large: '16px',
-      xlarge: '32px'
+      xlarge: '32px',
     },
     padding: {
       small: '4px',
       base: '8px',
       large: '16px',
-      xlarge: '32px'
+      xlarge: '32px',
     },
     button: {
       primary: {
-        backgroundColor: "lightgrey",
-        color: "black"
-      }
-    }
-  };
+        backgroundColor: 'lightgrey',
+        color: 'black',
+      },
+    },
+  }
 </script>
 
 <ThemeWrapper base="{base}">

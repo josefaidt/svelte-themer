@@ -8,11 +8,11 @@ export const presets = [
         primary: {
           backgroundColor: 'var(--theme-colors-primary)',
           color: 'var(--theme-text-color)',
-        }
+        },
       },
       colors: {
         primary: '#fff',
-        secondary: '#562931'
+        secondary: '#562931',
       },
     },
     dark: {
@@ -22,7 +22,7 @@ export const presets = [
         primary: {
           backgroundColor: '#222',
           color: '#f1f1f1',
-        }
+        },
       },
     },
   },
@@ -35,7 +35,7 @@ export const presets = [
         primary: {
           backgroundColor: 'var(--theme-colors-primary)',
           color: 'var(--theme-text-color)',
-        }
+        },
       },
       colors: {
         primary: '#4b9eff',
@@ -60,7 +60,7 @@ export const presets = [
         primary: {
           backgroundColor: 'var(--theme-colors-primary)',
           color: 'var(--theme-text-color)',
-        }
+        },
       },
       colors: {
         primary: '#51a56e',

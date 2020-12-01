@@ -10,7 +10,7 @@
   import setCSS from '../support/setCSS'
 
   // detect dark mode
-  const darkModeQuery = window.matchMedia('(prefers-color-scheme: dark)');
+  const darkModeQuery = window.matchMedia('(prefers-color-scheme: dark)')
 
   /**
    * Specify the key used for local storage
@@ -21,7 +21,7 @@
    * Dark mode localStorage key
    * @type {string}
    */
-  const darkModeLSKey = `${key}__mode`;
+  const darkModeLSKey = `${key}__mode`
   /**
    * Themes
    * @type {string} themes - name of the theme to use
@@ -57,18 +57,18 @@
     mode: currentMode,
     toggle: toggleTheme,
     toggleMode: toggleDarkMode,
-    theme: themes.find(({ name }) => name === $currentTheme)
+    theme: themes.find(({ name }) => name === $currentTheme),
   })
 
   function toggleTheme() {
-    let currentIndex = themes.findIndex(({ name }) => name === $currentTheme);
+    let currentIndex = themes.findIndex(({ name }) => name === $currentTheme)
     if (currentIndex === themes.length - 1) currentTheme.set(themes[0].name)
     else currentTheme.set(themes[currentIndex + 1].name)
   }
 
   function toggleDarkMode() {
-    const mode = $currentMode === 'dark' ? 'light' : 'dark';
-    currentMode.set(mode);
+    const mode = $currentMode === 'dark' ? 'light' : 'dark'
+    currentMode.set(mode)
   }
 
   afterUpdate(() => {
@@ -85,7 +85,8 @@
     const savedTheme = localStorage.getItem(key)
     const savedMode = localStorage.getItem(darkModeLSKey)
 
-    if (!theme && savedTheme && themes.some(({ name }) => name === savedTheme)) currentTheme.set(savedTheme)
+    if (!theme && savedTheme && themes.some(({ name }) => name === savedTheme))
+      currentTheme.set(savedTheme)
     else localStorage.setItem(key, $currentTheme)
 
     if (!mode && savedMode) currentMode.set(savedMode)
