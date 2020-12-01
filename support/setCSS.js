@@ -12,8 +12,7 @@ const processConfig = (obj, name) => {
       if(value && typeof value === 'object') {
         recurse(value, key);
       } else {
-        result[key] = value;
-      }
+        result[key] = value;      }
     }
   };
 
@@ -22,44 +21,44 @@ const processConfig = (obj, name) => {
   return result;
 };
 
-const createVariables = (themeName, themeVariableNames, themeVariables) => {
+const createVariables = (prefix, themeName, themeVariableNames, themeVariables) => {
   return themeVariableNames.map(variableName => {
     // returns base variables
     if (!themeName) {
-      return `--theme-${variableName}: ${themeVariables[variableName]};`;
+      return `${prefix}${variableName}: ${themeVariables[variableName]};`;
     }
 
     // returns theme variable
     if (themeVariables) {
-      return `--theme-${themeName}-${variableName}: ${themeVariables[variableName]};`;
+      return `${prefix}${themeName}-${variableName}: ${themeVariables[variableName]};`;
     }
 
     // returns global theme overrides of current theme
-    return `--theme-${variableName}: var(--theme-${themeName}-${variableName});`;
+    return `${prefix}${variableName}: var(${prefix}${themeName}-${variableName});`;
   }).join('\n\t');
 };
 
-export default function setCSS(base = {}, themes = []) {
+export default function setCSS(base = {}, themes = [], prefix = 'theme') {
   const rootCSSContent = [];
   const themeCSSContent = [];
+  const prefixed = prefix ? `--${prefix}-` : '--';
   const baseConfig = processConfig(base);
-  const baseVariables = createVariables('', Object.keys(baseConfig), baseConfig);
+  const baseVariables = createVariables(prefixed, null, Object.keys(baseConfig), baseConfig);
 
   rootCSSContent.push(baseVariables);
 
   themes.forEach(theme => {
     const { name, light = {}, dark = {} } = theme;
 
-    const themeName = `theme--${name}`;
-
+    const themeName = `${prefix}--${name}`;
     const defaultConfig = processConfig(light, name);
     const defaultVariables = Object.keys(defaultConfig);
-    const defaultThemeVariables = createVariables(name, defaultVariables, defaultConfig);
+    const defaultThemeVariables = createVariables(prefixed, name, defaultVariables, defaultConfig);
 
     const darkConfig = processConfig(dark, name);
-    const darkThemeVariables = createVariables(name, Object.keys(darkConfig), darkConfig);
+    const darkThemeVariables = createVariables(prefixed, name, Object.keys(darkConfig), darkConfig);
 
-    const themeVariables = createVariables(name, defaultVariables);
+    const themeVariables = createVariables(prefixed, name, defaultVariables);
 
     rootCSSContent.push(defaultThemeVariables);
 

@@ -18,6 +18,11 @@ export interface ThemeWrapperProps {
   themes?: Object[];
 
   /**
+   * Specify custom CSS variable prefix
+   */
+  prefix?: string | null;
+
+  /**
    * Mode
    * @default null
    */

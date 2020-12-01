@@ -1,13 +1,18 @@
 <script context="module">
-  export const storageKey = '__svelte-themer__theme'
-  export const contextKey = 'theme'
+  export const STORAGE_KEY = '__svelte-themer__theme'
+  export const CONTEXT_KEY = 'theme'
+  export const VARIABLE_PREFIX = 'theme'
+  export const INVALID_THEMES_MESSAGE = 'Invalid themes array supplied'
+  export const INVALID_PREFIX_MESSAGE = 'Invalid prefix string supplied'
 </script>
 
 <script>
   import { onMount, afterUpdate, setContext } from 'svelte'
-  import { writable } from 'svelte/store'
-  import { presets } from './presets'
+  import presets from './presets'
   import setCSS from '../support/setCSS'
+  import toggleTheme from '../support/toggleTheme'
+  import toggleMode from '../support/toggleMode'
+  import { currentMode, currentTheme } from '../support/store'
 
   // detect dark mode
   const darkModeQuery = window.matchMedia('(prefers-color-scheme: dark)');
@@ -16,7 +21,7 @@
    * Specify the key used for local storage
    * @type {string} [key='__svelte-themer__theme']
    */
-  export let key = storageKey
+  export let key = STORAGE_KEY
   /**
    * Dark mode localStorage key
    * @type {string}
@@ -33,7 +38,11 @@
    */
   export let themes = presets
   /**
-   * Mode
+   * Specify custom CSS variable prefix
+   * @type {string | null} [prefix='theme']
+   */
+  export let prefix = VARIABLE_PREFIX
+  /** Mode
    * @type {string} mode The preferred color scheme (defaults to 'light')
    */
   export let mode = null
@@ -43,36 +52,26 @@
    */
   export let base = {}
 
-  if (!Array.isArray(themes) || !themes.length) throw new Error('Invalid themes array supplied')
+  if (!Array.isArray(themes) || !themes.length) throw new Error(INVALID_THEMES_MESSAGE)
+  if (typeof prefix === 'string' && !prefix.trim().length) throw new Error(INVALID_PREFIX_MESSAGE)
 
   // check for a user-defined theme value and then fallback to the
   // first theme in our themes array
-  let currentTheme = writable(theme || themes[0].name)
+  currentTheme.set(theme || themes[0].name)
   // check for a user-defined mode and then the preferred color scheme and
   // finally fallback to the default 'light' value
-  let currentMode = writable(mode || darkModeQuery.matches ? 'dark' : 'light')
+  currentMode.set(mode || darkModeQuery.matches ? 'dark' : 'light')
 
-  $: setContext(contextKey, {
+  $: setContext(CONTEXT_KEY, {
     current: currentTheme,
     mode: currentMode,
-    toggle: toggleTheme,
-    toggleMode: toggleDarkMode,
-    theme: themes.find(({ name }) => name === $currentTheme)
+    toggle: () => toggleTheme(themes, $currentTheme),
+    toggleMode: () => toggleMode($currentMode),
+    theme: themes.find(({ name }) => name === $currentTheme),
   })
 
-  function toggleTheme() {
-    let currentIndex = themes.findIndex(({ name }) => name === $currentTheme);
-    if (currentIndex === themes.length - 1) currentTheme.set(themes[0].name)
-    else currentTheme.set(themes[currentIndex + 1].name)
-  }
-
-  function toggleDarkMode() {
-    const mode = $currentMode === 'dark' ? 'light' : 'dark';
-    currentMode.set(mode);
-  }
-
   afterUpdate(() => {
-    document.documentElement.setAttribute('data-theme', `theme--${$currentTheme}`)
+    document.documentElement.setAttribute('data-theme', `${prefix}--${$currentTheme}`)
     localStorage.setItem(key, $currentTheme)
 
     localStorage.setItem(darkModeLSKey, $currentMode)
@@ -80,7 +79,7 @@
   })
 
   onMount(() => {
-    setCSS(base, themes)
+    setCSS(base, themes, prefix)
 
     const savedTheme = localStorage.getItem(key)
     const savedMode = localStorage.getItem(darkModeLSKey)
