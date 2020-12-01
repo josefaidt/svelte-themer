@@ -14,7 +14,6 @@
 
 <script>
   import { onMount, afterUpdate, setContext } from 'svelte'
-  import { writable } from 'svelte/store'
   import { presets } from './presets'
   import toggleTheme from '../support/toggleTheme'
   import setCSS from '../support/setCSS'
@@ -68,18 +67,14 @@
     current: currentTheme,
     mode: currentMode,
     toggle: toggleTheme,
-    _toggleTheme: toggleTheme,
-    _toggleMode: toggleDarkMode,
+    _toggleTheme: () => toggleTheme(themes, $currentTheme),
+    _toggleMode: () => toggleMode($currentMode),
     theme: themes.find(({ name }) => name === $currentTheme),
   })
+
   let value = `${$currentTheme}-${$currentMode}`
   $: value = `${$currentTheme}-${$currentMode}`
   $: console.log({ value, preferredMode })
-
-  function toggleDarkMode() {
-    const mode = $currentMode === 'dark' ? 'light' : 'dark'
-    currentMode.set(mode)
-  }
 
   afterUpdate(() => {
     document.documentElement.setAttribute('data-theme', value)
