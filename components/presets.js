@@ -1,6 +1,6 @@
 export const presets = [
   {
-    name: 'pure',
+    name: 'themer',
     light: {
       textColor: '#818d9f',
       backgroundColor: '#f1f1f1',

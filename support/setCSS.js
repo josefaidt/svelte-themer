@@ -41,7 +41,7 @@ const createVariables = (themeName, themeVariableNames, themeVariables) => {
     .join('\n\t')
 }
 
-export default function setCSS(base = {}, themes = []) {
+export default function setCSS(base = {}, prefix, themes = []) {
   const rootCSSContent = []
   const themeCSSContent = []
   const baseConfig = processConfig(base)
@@ -74,10 +74,6 @@ export default function setCSS(base = {}, themes = []) {
       [data-theme-mode="dark"][data-theme="${themeName}"],
       [data-theme-mode="dark"] .${themeName} {
         ${darkThemeVariables}
-      }
-
-      :global(.${name}) {
-        ${themeVariables}
       }`)
   })
 
