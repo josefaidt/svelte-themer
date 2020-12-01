@@ -1,6 +1,7 @@
 <script context="module">
   export const STORAGE_KEY = '__svelte-themer__theme'
   export const CONTEXT_KEY = 'theme'
+  export const MODE_KEY = 'theme--mode'
   export const VARIABLE_PREFIX = 'theme'
   export const INVALID_THEMES_MESSAGE = 'Invalid themes array supplied'
   export const INVALID_PREFIX_MESSAGE = 'Invalid prefix string supplied'
@@ -22,11 +23,6 @@
    * @type {string} [key='__svelte-themer__theme']
    */
   export let key = STORAGE_KEY
-  /**
-   * Dark mode localStorage key
-   * @type {string}
-   */
-  const darkModeLSKey = `${key}__mode`;
   /**
    * Themes
    * @type {string} themes - name of the theme to use
@@ -74,7 +70,7 @@
     document.documentElement.setAttribute('data-theme', `${prefix}--${$currentTheme}`)
     localStorage.setItem(key, $currentTheme)
 
-    localStorage.setItem(darkModeLSKey, $currentMode)
+    localStorage.setItem(MODE_KEY, $currentMode)
     document.documentElement.setAttribute('data-theme-mode', $currentMode)
   })
 
@@ -82,13 +78,13 @@
     setCSS(base, themes, prefix)
 
     const savedTheme = localStorage.getItem(key)
-    const savedMode = localStorage.getItem(darkModeLSKey)
+    const savedMode = localStorage.getItem(MODE_KEY)
 
     if (!theme && savedTheme && themes.some(({ name }) => name === savedTheme)) currentTheme.set(savedTheme)
     else localStorage.setItem(key, $currentTheme)
 
     if (!mode && savedMode) currentMode.set(savedMode)
-    else localStorage.setItem(darkModeLSKey, $currentMode)
+    else localStorage.setItem(MODE_KEY, $currentMode)
   })
 </script>
 
