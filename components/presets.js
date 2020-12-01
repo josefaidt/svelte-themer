@@ -6,8 +6,8 @@ export default [
       backgroundColor: '#f1f1f1',
       button: {
         primary: {
-          backgroundColor: 'var(--theme-colors-primary)',
-          color: 'var(--theme-text-color)',
+          backgroundColor: 'var(--{prefix}-colors-primary)',
+          color: 'var(--{prefix}-text-color)',
         }
       },
       colors: {
@@ -33,8 +33,8 @@ export default [
       backgroundColor: '#1e272e',
       button: {
         primary: {
-          backgroundColor: 'var(--theme-colors-primary)',
-          color: 'var(--theme-text-color)',
+          backgroundColor: 'var(--{prefix}-colors-primary)',
+          color: 'var(--{prefix}-text-color)',
         }
       },
       colors: {
@@ -58,8 +58,8 @@ export default [
       backgroundColor: '#3b6c4c',
       button: {
         primary: {
-          backgroundColor: 'var(--theme-colors-primary)',
-          color: 'var(--theme-text-color)',
+          backgroundColor: 'var(--{prefix}-colors-primary)',
+          color: 'var(--{prefix}-text-color)',
         }
       },
       colors: {

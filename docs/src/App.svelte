@@ -29,7 +29,7 @@
       base: 400,
       medium: 500,
       bold: 700,
-      boldest: 900,
+      boldest: 900
     },
     margin: {
       small: '4px',

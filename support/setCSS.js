@@ -1,4 +1,4 @@
-const processConfig = (obj, name) => {
+const processConfig = (obj, name, prefix) => {
   const result = {};
 
   const recurse = (obj, current) => {
@@ -12,7 +12,8 @@ const processConfig = (obj, name) => {
       if(value && typeof value === 'object') {
         recurse(value, key);
       } else {
-        result[key] = value;      }
+        result[key] = `${value}`.replace(/\{prefix\}/g, prefix);
+      }
     }
   };
 
@@ -42,7 +43,7 @@ export default function setCSS(base = {}, themes = [], prefix = 'theme') {
   const rootCSSContent = [];
   const themeCSSContent = [];
   const prefixed = prefix ? `--${prefix}-` : '--';
-  const baseConfig = processConfig(base);
+  const baseConfig = processConfig(base, null, prefix);
   const baseVariables = createVariables(prefixed, null, Object.keys(baseConfig), baseConfig);
 
   rootCSSContent.push(baseVariables);
@@ -51,11 +52,11 @@ export default function setCSS(base = {}, themes = [], prefix = 'theme') {
     const { name, light = {}, dark = {} } = theme;
 
     const themeName = `${prefix}--${name}`;
-    const defaultConfig = processConfig(light, name);
+    const defaultConfig = processConfig(light, name, prefix);
     const defaultVariables = Object.keys(defaultConfig);
     const defaultThemeVariables = createVariables(prefixed, name, defaultVariables, defaultConfig);
 
-    const darkConfig = processConfig(dark, name);
+    const darkConfig = processConfig(dark, name, prefix);
     const darkThemeVariables = createVariables(prefixed, name, Object.keys(darkConfig), darkConfig);
 
     const themeVariables = createVariables(prefixed, name, defaultVariables);
