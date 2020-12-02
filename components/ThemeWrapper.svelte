@@ -17,6 +17,7 @@
   import { presets } from './presets'
   import toggleTheme from '../support/toggleTheme'
   import toggleMode from '../support/toggleMode'
+  import toggle from '../support/toggle'
   import setCSS from '../support/setCSS'
   import { currentTheme, currentMode, themes as themesStore } from '../support/store'
 
@@ -68,7 +69,7 @@
   $: setContext(CONTEXT_KEY, {
     current: currentTheme,
     mode: currentMode,
-    toggle: toggleTheme,
+    toggle: toggle,
     _toggleTheme: () => toggleTheme(themes),
     _toggleMode: toggleMode,
     theme: themes.find(({ name }) => name === $currentTheme),
@@ -85,7 +86,7 @@
 
   onMount(() => {
     themesStore.set(theme === null ? presets : themes.find(({ name }) => name === theme))
-    setCSS(base, prefix, themes)
+    setCSS(base, themes, prefix)
 
     const saved = localStorage.getItem(key)
     if (saved) {

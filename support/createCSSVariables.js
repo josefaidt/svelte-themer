@@ -7,7 +7,8 @@
  * @param {Object} theme.colors - theme color palette
  *
  */
-export default function createCSSVariables(prefix, theme) {
+// export default function createCSSVariables(prefix, theme) {
+export default function createCSSVariables(prefix, themeName, themeVariableNames, themeVariables) {
   return themeVariableNames
     .map(variableName => {
       // returns base variables
