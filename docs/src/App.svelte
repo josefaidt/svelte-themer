@@ -52,7 +52,7 @@
   }
 </script>
 
-<ThemeWrapper base="{base}">
+<ThemeWrapper base="{base}" theme="{null}">
   <main>
     <h1>Svelte Themer</h1>
     <div>

@@ -2,7 +2,7 @@
   export const STORAGE_KEY = '__svelte-themer__theme'
   export const CONTEXT_KEY = 'theme'
   export const VARIABLE_PREFIX = 'theme'
-  export const VALID_MODES = ['prefers', 'light', 'dark']
+  export const VALID_MODES = ['auto', 'light', 'dark']
 
   export const INVALID_THEME_MESSAGE = 'Invalid theme name supplied'
   export const INVALID_THEMES_MESSAGE = 'Invalid themes array supplied'
@@ -16,8 +16,9 @@
   import { onMount, afterUpdate, setContext } from 'svelte'
   import { presets } from './presets'
   import toggleTheme from '../support/toggleTheme'
+  import toggleMode from '../support/toggleMode'
   import setCSS from '../support/setCSS'
-  import { currentTheme, currentMode } from '../support/store'
+  import { currentTheme, currentMode, themes as themesStore } from '../support/store'
 
   const preferredMode = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
   /**
@@ -44,7 +45,7 @@
    * Specify preferred theme mode
    * @type {"prefers" | "dark" | "light"} [mode='prefers']
    */
-  export let mode = 'prefers'
+  export let mode = 'auto'
   /**
    * Sites default CSS variables
    * @type {Object} [base={}]
@@ -54,14 +55,15 @@
   if (!Array.isArray(themes) || !themes.length) throw new Error(INVALID_THEMES_MESSAGE)
   if (typeof prefix === 'string' && !prefix.trim().length) throw new Error(INVALID_PREFIX_MESSAGE)
   if (!VALID_MODES.includes(mode)) throw new Error(INVALID_MODE_MESSAGE)
-  if (!themes.some(({ name }) => name === theme)) throw new Error(INVALID_THEME_MESSAGE)
+  if (theme !== null && !themes.some(({ name }) => name === theme))
+    throw new Error(INVALID_THEME_MESSAGE)
 
   // check for a user-defined theme value and then fallback to the
   // first theme in our themes array
   currentTheme.set(theme || themes[0].name)
   // check for a user-defined mode and then the preferred color scheme and
   // finally fallback to the default 'light' value
-  currentMode.set(mode === 'prefers' ? preferredMode : mode)
+  currentMode.set(mode === 'auto' ? preferredMode : mode)
 
   $: setContext(CONTEXT_KEY, {
     current: currentTheme,
@@ -82,6 +84,7 @@
   })
 
   onMount(() => {
+    themesStore.set(theme === null ? presets : themes.find(({ name }) => name === theme))
     setCSS(base, prefix, themes)
 
     const saved = localStorage.getItem(key)

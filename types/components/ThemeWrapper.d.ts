@@ -25,7 +25,7 @@ export interface ThemeWrapperProps {
 
   /**
    * Specify preferred theme mode
-   * @default 'prefers'
+   * @default 'auto'
    */
   mode?: "prefers" | "dark" | "light";
 
