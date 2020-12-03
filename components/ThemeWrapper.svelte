@@ -90,7 +90,6 @@
     const saved = localStorage.getItem(key)
     if (saved) {
       const [theme, mode] = saved.split('-')
-      console.log({ saved, theme, mode })
       currentTheme.set(theme)
       currentMode.set(mode)
     } else localStorage.setItem(key, value)
