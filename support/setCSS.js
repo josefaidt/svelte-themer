@@ -1,5 +1,7 @@
+import { get } from 'svelte/store'
 import createVariables from './createCSSVariables'
 import processConfig from './processConfig'
+import { themes as themesStore } from './store'
 
 /**
  * Set CSS to document
@@ -8,7 +10,9 @@ import processConfig from './processConfig'
  * @param {Object[]} themes - themes array
  *
  */
-export default function setCSS(base = {}, themes = [], prefix = 'theme') {
+export default function setCSS(prefix, base = {}) {
+  const themes = get(themesStore)
+
   const rootCSSContent = []
   const themeCSSContent = []
   const prefixed = prefix ? `--${prefix}-` : '--'
@@ -20,27 +24,30 @@ export default function setCSS(base = {}, themes = [], prefix = 'theme') {
   themes.forEach(theme => {
     const { name, light = {}, dark = {} } = theme
 
-    const themeName = `${prefix}--${name}`
-    const defaultConfig = processConfig(light, name)
-    const defaultVariables = Object.keys(defaultConfig)
-    const defaultThemeVariables = createVariables(prefixed, name, defaultVariables, defaultConfig)
+    const lightConfig = processConfig(light, name)
+    const lightVariables = Object.keys(lightConfig)
+    const lightThemeVariables = createVariables(prefixed, name, lightVariables, lightConfig)
 
     const darkConfig = processConfig(dark, name)
     const darkThemeVariables = createVariables(prefixed, name, Object.keys(darkConfig), darkConfig)
 
-    const themeVariables = createVariables(prefixed, name, defaultVariables)
+    const themeVariables = createVariables(prefixed, name, lightVariables)
 
-    rootCSSContent.push(defaultThemeVariables)
+    rootCSSContent.push(lightThemeVariables)
 
     themeCSSContent.push(`
-      [data-theme="${themeName}"],
-      .${themeName} {
-        ${themeVariables}
+      [data-theme="${name}-light"],
+      .${prefix}--${name}-light {
+        ${lightThemeVariables}
       }
 
-      [data-theme-mode="dark"][data-theme="${themeName}"],
-      [data-theme-mode="dark"] .${themeName} {
+      [data-theme="${name}-dark"],
+      .${prefix}--${name}-dark {
         ${darkThemeVariables}
+      }
+
+      [data-theme^="${name}"] {
+        ${themeVariables}
       }
 
       :global(.${name}) {

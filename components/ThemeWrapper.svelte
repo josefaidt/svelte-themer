@@ -77,7 +77,6 @@
 
   let value = `${$currentTheme}-${$currentMode}`
   $: value = `${$currentTheme}-${$currentMode}`
-  $: console.log({ value, preferredMode })
 
   afterUpdate(() => {
     document.documentElement.setAttribute('data-theme', value)
@@ -86,7 +85,7 @@
 
   onMount(() => {
     themesStore.set(theme === null ? presets : themes.find(({ name }) => name === theme))
-    setCSS(base, themes, prefix)
+    setCSS(prefix, base, themes)
 
     const saved = localStorage.getItem(key)
     if (saved) {

@@ -2,10 +2,10 @@
  * Recursively process configuration object
  * @name processConfig
  * @param {Object} obj
- * @param {string} namem - theme name
+ * @param {string} name - theme name
  *
  */
-export default function processConfig(obj, name) {
+export default function processConfig(obj) {
   const result = {}
 
   const recurse = (obj, current) => {
