@@ -13,57 +13,57 @@ import { themes as themesStore } from './store'
 export default function setCSS(prefix, base = {}) {
   const themes = get(themesStore)
 
-  const rootCSSContent = []
-  const themeCSSContent = []
-  const prefixed = prefix ? `--${prefix}-` : '--'
-  const baseConfig = processConfig(base)
-  const baseVariables = createVariables(prefixed, null, Object.keys(baseConfig), baseConfig)
+  // const rootCSSContent = []
+  // const themeCSSContent = []
+  // const prefixed = prefix ? `--${prefix}-` : '--'
+  // const baseConfig = processConfig(base)
+  // const baseVariables = createVariables(prefixed, null, Object.keys(baseConfig), baseConfig)
 
-  rootCSSContent.push(baseVariables)
+  // rootCSSContent.push(baseVariables)
 
-  themes.forEach(theme => {
-    const { name, light = {}, dark = {} } = theme
+  // themes.forEach(theme => {
+  //   const { name, light = {}, dark = {} } = theme
 
-    const lightConfig = processConfig(light, name)
-    const lightVariables = Object.keys(lightConfig)
-    const lightThemeVariables = createVariables(prefixed, name, lightVariables, lightConfig)
+  //   const lightConfig = processConfig(light, name)
+  //   const lightVariables = Object.keys(lightConfig)
+  //   const lightThemeVariables = createVariables(prefixed, name, lightVariables, lightConfig)
 
-    const darkConfig = processConfig(dark, name)
-    const darkThemeVariables = createVariables(prefixed, name, Object.keys(darkConfig), darkConfig)
+  //   const darkConfig = processConfig(dark, name)
+  //   const darkThemeVariables = createVariables(prefixed, name, Object.keys(darkConfig), darkConfig)
 
-    const themeVariables = createVariables(prefixed, name, lightVariables)
+  //   const themeVariables = createVariables(prefixed, name, lightVariables)
 
-    rootCSSContent.push(lightThemeVariables)
+  //   rootCSSContent.push(lightThemeVariables)
 
-    themeCSSContent.push(`
-      [data-theme="${name}-light"],
-      .${prefix}--${name}-light {
-        ${lightThemeVariables}
-      }
+  //   themeCSSContent.push(`
+  //     [data-theme="${name}-light"],
+  //     .${prefix}--${name}-light {
+  //       ${lightThemeVariables}
+  //     }
 
-      [data-theme="${name}-dark"],
-      .${prefix}--${name}-dark {
-        ${darkThemeVariables}
-      }
+  //     [data-theme="${name}-dark"],
+  //     .${prefix}--${name}-dark {
+  //       ${darkThemeVariables}
+  //     }
 
-      [data-theme^="${name}"] {
-        ${themeVariables}
-      }
+  //     [data-theme^="${name}"] {
+  //       ${themeVariables}
+  //     }
 
-      :global(.${name}) {
-        ${themeVariables}
-      }`)
-  })
+  //     :global(.${name}) {
+  //       ${themeVariables}
+  //     }`)
+  // })
 
-  const style = `
-    <style>
-      :root {
-        ${rootCSSContent.join('\n')}
-      }
+  // const style = `
+  //   <style>
+  //     :root {
+  //       ${rootCSSContent.join('\n')}
+  //     }
 
-      ${themeCSSContent.join('\n')}
-    </style>
-  `
+  //     ${themeCSSContent.join('\n')}
+  //   </style>
+  // `
 
-  document.head.innerHTML = `${style}\n${document.head.innerHTML}`
+  // document.head.innerHTML = `${style}\n${document.head.innerHTML}`
 }

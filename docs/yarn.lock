@@ -590,8 +590,10 @@ supports-color@^7.0.0:
   dependencies:
     has-flag "^4.0.0"
 
-svelte-themer@../:
-  version "0.3.5"
+svelte-themer@^0.4.0-rc.1:
+  version "0.4.0-rc.1"
+  resolved "https://registry.yarnpkg.com/svelte-themer/-/svelte-themer-0.4.0-rc.1.tgz#148ffefa11148c813c010738260fc49b5a2ac875"
+  integrity sha512-aMnWu08QnE8GvuaYmhvqZyibsauCWDU3PYdS0uJliDW8f8UyiYtCquU4zQhmOhiSq2s7R1b3M0AQ24DZDLxBUA==
 
 svelte@^3.29.7:
   version "3.29.7"

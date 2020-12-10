@@ -1,5 +1,5 @@
 <script>
-  import { ThemeWrapper, ThemeToggle, ThemeModeToggle } from 'svelte-themer'
+  import { ThemeWrapper, ThemeToggle } from 'svelte-themer'
 
   const base = {
     link: {
@@ -57,7 +57,6 @@
     <h1>Svelte Themer</h1>
     <div>
       <ThemeToggle />
-      <ThemeModeToggle />
     </div>
     <div class="apps">
       <a href="https://www.npmjs.com/package/svelte-themer">npm</a>
