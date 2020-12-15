@@ -1,5 +1,4 @@
 import { get } from 'svelte/store'
-import createVariables from './createCSSVariables'
 import processConfig from './processConfig'
 import { themes as themesStore } from './store'
 
@@ -11,59 +10,65 @@ import { themes as themesStore } from './store'
  *
  */
 export default function setCSS(prefix, base = {}) {
+  const variablePrefix = prefix ? `--${prefix}` : '--'
+
+  function createVariable(key, prop, value) {
+    if (key) return `${variablePrefix}-${key}-${prop}: ${value};`
+    else return `${variablePrefix}-${prop}: ${value};`
+  }
+
+  function createOverride(key, prop) {
+    return `${variablePrefix}-${prop}: var(${variablePrefix}-${key}-${prop});`
+  }
+
   const themes = get(themesStore)
+  const rootCSSContent = []
+  const style = []
 
-  // const rootCSSContent = []
-  // const themeCSSContent = []
-  // const prefixed = prefix ? `--${prefix}-` : '--'
-  // const baseConfig = processConfig(base)
-  // const baseVariables = createVariables(prefixed, null, Object.keys(baseConfig), baseConfig)
+  // process and add base config to root content
+  const processedBaseConfig = processConfig(base)
+  rootCSSContent.push(
+    ...Object.entries(processedBaseConfig).map(([prop, value]) => createVariable(null, prop, value))
+  )
 
-  // rootCSSContent.push(baseVariables)
+  const rootThemeVars = []
+  const rootInitialVars = []
+  for (let [themeName, themeValues] of Object.entries(themes)) {
+    const processed = processConfig(themeValues)
+    const themeClassName = prefix ? `${prefix}--${themeName}` : themeName
 
-  // themes.forEach(theme => {
-  //   const { name, light = {}, dark = {} } = theme
+    const overrides = []
+    for (let [prop, value] of Object.entries(processed)) {
+      // add theme vars to root theme array
+      rootThemeVars.push(createVariable(themeName, prop, value))
+      // add theme-specific overrides of initial variables
+      overrides.push(createOverride(themeName, prop))
+      // create and add initial variables
+      const initialVar = createVariable(null, prop, 'initial')
+      if (!rootInitialVars.includes(initialVar)) rootInitialVars.push(initialVar)
+    }
 
-  //   const lightConfig = processConfig(light, name)
-  //   const lightVariables = Object.keys(lightConfig)
-  //   const lightThemeVariables = createVariables(prefixed, name, lightVariables, lightConfig)
+    style.push(`
+      [data-theme="${themeName}"],
+      .${themeClassName},
+      :global(.${themeClassName}) {
+        ${overrides.join('\n')}
+      }
+    `)
+  }
+  // add to root
+  rootCSSContent.push(...rootInitialVars)
+  rootCSSContent.push(...rootThemeVars)
 
-  //   const darkConfig = processConfig(dark, name)
-  //   const darkThemeVariables = createVariables(prefixed, name, Object.keys(darkConfig), darkConfig)
+  const template = `
+    <style>
+      :root {
+        ${rootCSSContent.join('\n')}
+      }
 
-  //   const themeVariables = createVariables(prefixed, name, lightVariables)
+      ${style.join('\n')}
+    </style>
+  `
 
-  //   rootCSSContent.push(lightThemeVariables)
-
-  //   themeCSSContent.push(`
-  //     [data-theme="${name}-light"],
-  //     .${prefix}--${name}-light {
-  //       ${lightThemeVariables}
-  //     }
-
-  //     [data-theme="${name}-dark"],
-  //     .${prefix}--${name}-dark {
-  //       ${darkThemeVariables}
-  //     }
-
-  //     [data-theme^="${name}"] {
-  //       ${themeVariables}
-  //     }
-
-  //     :global(.${name}) {
-  //       ${themeVariables}
-  //     }`)
-  // })
-
-  // const style = `
-  //   <style>
-  //     :root {
-  //       ${rootCSSContent.join('\n')}
-  //     }
-
-  //     ${themeCSSContent.join('\n')}
-  //   </style>
-  // `
-
-  // document.head.innerHTML = `${style}\n${document.head.innerHTML}`
+  document.head.innerHTML = `${template.trim()}\n${document.head.innerHTML}`
 }

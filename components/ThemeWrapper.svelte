@@ -50,11 +50,13 @@
   if (typeof prefix === 'string' && !prefix.trim().length) throw new Error(INVALID_PREFIX_MESSAGE)
   if (!VALID_MODES.includes(mode)) throw new Error(INVALID_MODE_MESSAGE)
 
+  const [fallback] = Object.keys(themes)
   $: setContext(CONTEXT_KEY, {
     current: currentTheme,
     toggle: toggle,
     theme: themes[$currentTheme],
   })
+  $: if (!Object.keys(themes).includes($currentTheme)) currentTheme.set(fallback)
 
   afterUpdate(() => {
     document.documentElement.setAttribute('data-theme', $currentTheme)
@@ -72,8 +74,10 @@
     } else {
       if (mode === 'auto') {
         currentTheme.set(preferredMode)
+      } else if (['light', 'dark'].includes(mode)) {
+        currentTheme.set(mode)
       } else {
-        currentTheme.set(Object.keys(themes)[0])
+        currentTheme.set(fallback)
       }
     }
 
