@@ -49,10 +49,9 @@ export default function setCSS(prefix, base = {}) {
     }
 
     style.push(`
-      [data-theme="${themeName}"],
-      .${themeClassName},
-      :global(.${themeClassName}) {
-        ${overrides.join('\n')}
+      [theme='${themeName}'],
+      .${themeClassName} {
+        ${overrides.join('\n\t')}
       }
     `)
   }
@@ -63,10 +62,10 @@ export default function setCSS(prefix, base = {}) {
   const template = `
     <style>
       :root {
-        ${rootCSSContent.join('\n')}
+        ${rootCSSContent.join('\n\t')}
       }
 
-      ${style.join('\n')}
+      ${style.join('')}
     </style>
   `
 

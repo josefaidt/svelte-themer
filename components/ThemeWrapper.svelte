@@ -59,7 +59,7 @@
   $: if (!Object.keys(themes).includes($currentTheme)) currentTheme.set(fallback)
 
   afterUpdate(() => {
-    document.documentElement.setAttribute('data-theme', $currentTheme)
+    document.documentElement.setAttribute('theme', $currentTheme)
     localStorage.setItem(key, $currentTheme)
   })
 
