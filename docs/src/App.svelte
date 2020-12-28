@@ -1,52 +1,30 @@
 <script>
-  import { ThemeWrapper, ThemeToggle, ThemeModeToggle } from 'svelte-themer'
+  import { ThemeWrapper, ThemeToggle } from 'svelte-themer'
 
   const base = {
-    link: {
-      color: '#0000ee',
-      visited: '#551A8B',
-    },
-    borderColor: '#eee',
-    borderRadius: {
-      small: '1px',
-      base: '3px',
-      large: '6px',
-    },
-    fontSize: {
-      xxxlarge: '32px',
-      xxlarge: '21px',
-      xlarge: '17px',
-      large: '15px',
-      base: '14px',
-      medium: '13px',
-      small: '12px',
+    layout: {
+      xxsmall: '4px',
       xsmall: '9px',
     },
-    fontWeight: {
-      lightest: 100,
-      lighter: 200,
-      light: 300,
-      base: 400,
-      medium: 500,
-      bold: 700,
-      boldest: 900,
-    },
-    margin: {
-      small: '4px',
-      base: '8px',
-      large: '16px',
-      xlarge: '32px',
-    },
-    padding: {
-      small: '4px',
-      base: '8px',
-      large: '16px',
-      xlarge: '32px',
-    },
-    button: {
-      primary: {
-        backgroundColor: 'lightgrey',
-        color: 'black',
+    font: {
+      size: {
+        xxxlarge: '32px',
+        xxlarge: '21px',
+        xlarge: '17px',
+        large: '15px',
+        base: '14px',
+        medium: '13px',
+        small: '12px',
+        xsmall: '9px',
+      },
+      weight: {
+        lightest: 100,
+        lighter: 200,
+        light: 300,
+        base: 400,
+        medium: 500,
+        bold: 700,
+        boldest: 900,
       },
     },
   }
@@ -57,7 +35,6 @@
     <h1>Svelte Themer</h1>
     <div>
       <ThemeToggle />
-      <ThemeModeToggle />
     </div>
     <div class="apps">
       <a href="https://www.npmjs.com/package/svelte-themer">npm</a>

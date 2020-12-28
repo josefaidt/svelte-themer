@@ -7,7 +7,7 @@ import ThemeWrapper, {
 } from './ThemeWrapper'
 import presets from './presets'
 
-const TestHarness = (props) => render(ThemeWrapper, { props })
+const TestHarness = props => render(ThemeWrapper, { props })
 
 const getCSSVar = (node, cssVarName) => getComputedStyle(node).getPropertyValue(cssVarName)
 
@@ -25,17 +25,17 @@ describe(ThemeWrapper.name, () => {
   })
 
   it('should throw error if supplied with empty themes', () => {
-    expect(() => TestHarness({ themes: [] })).toThrow(INVALID_THEMES_MESSAGE)
+    expect(() => TestHarness({ themes: {} })).toThrow(INVALID_THEMES_MESSAGE)
   })
 
   describe('prefix prop', () => {
     it('should use custom CSS Variables prefix', () => {
-      const { container } = TestHarness({ prefix: 'custom-theme'})
+      const { container } = TestHarness({ prefix: 'custom-theme' })
       expect(getCSSVar(container.parentElement, '--custom-theme-text-color')).toBeTruthy()
     })
 
     it('should not use CSS Variables prefix when prefix is null', () => {
-      const { container } = TestHarness({ prefix: null })
+      const { container } = TestHarness({ prefix: null })
       // TODO: fix root custom props from other ThemeWrapper renders, causes this line to fail
       // expect(getCSSVar('--theme-text')).toBeFalsy()
       expect(getCSSVar(container.parentElement, '--text-color')).toBeTruthy()
