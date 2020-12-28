@@ -23,7 +23,7 @@ export default function setCSS(prefix, base = {}) {
 
   const themes = get(themesStore)
   const rootCSSContent = []
-  const style = []
+  const themeCSSContent = []
 
   // process and add base config to root content
   const processedBaseConfig = processConfig(base)
@@ -48,7 +48,7 @@ export default function setCSS(prefix, base = {}) {
       if (!rootInitialVars.includes(initialVar)) rootInitialVars.push(initialVar)
     }
 
-    style.push(`
+    themeCSSContent.push(`
       [theme='${themeName}'],
       .${themeClassName} {
         ${overrides.join('\n\t')}
@@ -65,7 +65,7 @@ export default function setCSS(prefix, base = {}) {
         ${rootCSSContent.join('\n\t')}
       }
 
-      ${style.join('')}
+      ${themeCSSContent.join('')}
     </style>
   `
 
