@@ -45,27 +45,13 @@
 
 <style>
   :global(html) {
-    background-color: var(--theme-background-color, initial);
-    color: var(--theme-text-color, initial);
+    background-color: var(--theme-colors-background, initial);
+    color: var(--theme-colors-text, initial);
   }
 
   :global(body) {
     align-items: center;
     display: flex;
-  }
-
-  :global(button) {
-    background-color: var(--theme-button-primary-background-color, lightgrey);
-    border: none;
-    border-radius: var(--theme-border-radius-base, 3px);
-    color: var(--theme-button-primary-color, black);
-    cursor: pointer;
-    padding: var(--theme-padding-base, 8px);
-    width: 100px;
-  }
-
-  :global(button + button) {
-    margin-left: 8px;
   }
 
   main {
@@ -86,7 +72,7 @@
   }
 
   h1 {
-    color: var(--theme-text-color);
+    color: var(--theme-colors-text);
     font-size: 4em;
     font-weight: var(--theme-font-weight-lighter);
     margin: 0;
@@ -95,7 +81,7 @@
 
   a,
   a:visited {
-    color: var(--theme-text-color);
+    color: var(--theme-colors-primary);
   }
 
   @media (max-width: 768px) {
