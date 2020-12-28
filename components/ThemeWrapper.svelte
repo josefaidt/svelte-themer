@@ -19,7 +19,6 @@
   import { currentTheme, themes as themesStore } from '../support/store'
   import isObject from '../support/isObject'
 
-  const preferredMode = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
   /**
    * Specify the key used for local storage
    * @type {string} [key='__svelte-themer__theme']
@@ -47,6 +46,15 @@
   export let base = {}
 
   if (!isObject(themes) || !Object.keys(themes).length) throw new Error(INVALID_THEMES_MESSAGE)
+  // detect dark mode
+  const darkSchemeQuery = window.matchMedia('(prefers-color-scheme: dark)')
+  // determine the users preferred mode
+  const preferredMode = darkSchemeQuery.matches ? 'dark' : 'light'
+  // listen for media query status change
+  darkSchemeQuery.addListener(
+    ({ matches }) => mode === 'auto' && currentMode.set(matches ? 'dark' : 'light')
+  )
+
   if (typeof prefix === 'string' && !prefix.trim().length) throw new Error(INVALID_PREFIX_MESSAGE)
   if (!VALID_MODES.includes(mode)) throw new Error(INVALID_MODE_MESSAGE)
 
