@@ -8,12 +8,6 @@ export interface ThemeWrapperProps {
   key?: string;
 
   /**
-   * Specify preferred theme name
-   * @default 'themer'
-   */
-  theme?: string | null;
-
-  /**
    * Themes collection
    */
   themes?: Object[];
@@ -27,7 +21,7 @@ export interface ThemeWrapperProps {
    * Specify preferred theme mode
    * @default 'auto'
    */
-  mode?: "prefers" | "dark" | "light";
+  mode?: "auto" | "dark" | "light";
 
   /**
    * Sites default CSS variables

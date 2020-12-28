@@ -14,5 +14,11 @@ export default {
     { file: pkg.module, format: 'es' },
     { file: pkg.main, format: 'umd', name },
   ],
-  plugins: [svelte(), resolve(), sveld()],
+  plugins: [
+    svelte({
+      emitCss: false,
+    }),
+    resolve(),
+    sveld(),
+  ],
 }
