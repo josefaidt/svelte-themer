@@ -5,15 +5,32 @@ import ThemeWrapper, {
   INVALID_THEMES_MESSAGE,
   INVALID_PREFIX_MESSAGE,
 } from './ThemeWrapper'
-import presets from './presets'
-
-const TestHarness = props => render(ThemeWrapper, { props })
-
-const getCSSVar = (node, cssVarName) => getComputedStyle(node).getPropertyValue(cssVarName)
+import { presets } from './presets'
 
 describe(ThemeWrapper.name, () => {
+  let style
+  let getCSSVar
+  let TestHarness
+
+  beforeEach(() => {
+    TestHarness = props => render(ThemeWrapper, { props })
+    style = doc =>
+      Array.from(doc.styleSheets).reduce((acc, sheet) => {
+        let rules = Array.from(sheet.cssRules)
+        if (rules.some(rule => rule.selectorText === ':root')) {
+          acc = rules.find(rule => rule.selectorText === ':root')?.style
+        }
+        return acc
+      }, {})
+    getCSSVar = cssVarName => style(document).getPropertyValue(cssVarName)
+  })
+
+  afterEach(() => {
+    document.querySelectorAll('style').forEach(sheet => sheet.remove())
+  })
+
   it('should render', () => {
-    const { component } = render(ThemeWrapper)
+    const { component } = TestHarness()
     expect(component).toBeTruthy()
     expect(localStorage.getItem(STORAGE_KEY)).toBeTruthy()
   })
@@ -21,7 +38,13 @@ describe(ThemeWrapper.name, () => {
   it('should use custom storage key', () => {
     const key = 'my-custom-key'
     const results = TestHarness({ key })
-    expect(localStorage.getItem(key)).toEqual(presets[0].name)
+    expect(localStorage.getItem(key)).toEqual(Object.keys(presets)[0])
+  })
+
+  it('should disable persistent storage with null key', () => {
+    const key = null
+    const results = TestHarness({ key })
+    expect(localStorage.getItem(key)).toBeFalsy()
   })
 
   it('should throw error if supplied with empty themes', () => {
@@ -30,15 +53,16 @@ describe(ThemeWrapper.name, () => {
 
   describe('prefix prop', () => {
     it('should use custom CSS Variables prefix', () => {
-      const { container } = TestHarness({ prefix: 'custom-theme' })
-      expect(getCSSVar(container.parentElement, '--custom-theme-text-color')).toBeTruthy()
+      const { container } = TestHarness({
+        prefix: 'custom-theme',
+        themes: { test: { colors: { primary: 'blue' } } },
+      })
+      expect(getCSSVar('--custom-theme-test-colors-primary')).toBeTruthy()
     })
 
     it('should not use CSS Variables prefix when prefix is null', () => {
       const { container } = TestHarness({ prefix: null })
-      // TODO: fix root custom props from other ThemeWrapper renders, causes this line to fail
-      // expect(getCSSVar('--theme-text')).toBeFalsy()
-      expect(getCSSVar(container.parentElement, '--text-color')).toBeTruthy()
+      expect(getCSSVar('--colors-text')).toBeTruthy()
     })
 
     it('should error prefix is an empty string', () => {

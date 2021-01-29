@@ -26,7 +26,7 @@
   export let key = STORAGE_KEY
   /**
    * Themes collection
-   * @type {Object[]} themes - array of theme objects
+   * @type {Object} themes - theme object
    */
   export let themes = presets
   /**
@@ -40,7 +40,7 @@
    */
   export let mode = 'auto'
   /**
-   * Sites default CSS variables
+   * Site default CSS variables
    * @type {Object} [base={}]
    */
   export let base = {}
@@ -68,7 +68,7 @@
 
   afterUpdate(() => {
     document.documentElement.setAttribute('theme', $currentTheme)
-    localStorage.setItem(key, $currentTheme)
+    if (key) localStorage.setItem(key, $currentTheme)
   })
 
   onMount(() => {
@@ -76,20 +76,20 @@
     setCSS(prefix, base, themes)
 
     // loading order: saved, prefers, fallback
-    const saved = localStorage.getItem(key)
+    const saved = key ? localStorage.getItem(key) : null
     if (saved && themes[saved]) {
       currentTheme.set(saved)
     } else {
       if (mode === 'auto') {
         currentTheme.set(preferredMode)
-      } else if (['light', 'dark'].includes(mode)) {
+      } else if (['light', 'dark'].includes(mode) && themes[mode]) {
         currentTheme.set(mode)
       } else {
         currentTheme.set(fallback)
       }
     }
 
-    return () => localStorage.setItem(key, $currentTheme)
+    return () => key && localStorage.setItem(key, $currentTheme)
   })
 </script>
 

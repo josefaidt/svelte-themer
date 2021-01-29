@@ -10,7 +10,6 @@ export default function processConfig(obj) {
   const recurse = (obj, current) => {
     for (let prop in obj) {
       const value = obj[prop]
-      console.log({ current, prop })
       const key = (current ? `${current}-${prop}` : prop)
         .replace(/-_$/g, '')
         // .replace(/([a-z0-9])([A-Z])/g, '$1-$2')

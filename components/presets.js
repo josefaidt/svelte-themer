@@ -14,7 +14,10 @@ export const presets = {
   dark: {
     colors: {
       text: '#f1f1f1',
-      background: '#27323a',
+      background: {
+        _: '#27323a',
+        contrast: '#0d1215',
+      },
       primary: '#01978b',
       primary_dark: '#00887c',
       secondary: '#fe8690',
@@ -23,7 +26,10 @@ export const presets = {
   forest: {
     colors: {
       text: '#f9f2cf',
-      background: '#3b6c4c',
+      background: {
+        _: '#3b6c4c',
+        contrast: '#1d492c',
+      },
       primary: '#efdc7e',
       primary_dark: '#e4d589',
       secondary: '#4a875f',
