@@ -1,6 +1,6 @@
 # svelte-themer
 
-Styling your Svelte apps with CSS Variables, persisted.
+A theming engine for your Svelte apps using CSS Variables, persisted.
 
 ```html
 <script>
@@ -21,13 +21,14 @@ CSS variables are created for app-wide consumption using the nomenclature `--[pr
 
 For example:
 
+- `--theme-text` by default where `property = 'text'`
 - `--base-text` where `prefix = 'base'` and `property = 'text'`
-- `--theme-text` where `prefix = null || undefined` and `property = 'text'`
+- `--text` where `prefix = null || undefined` and `property = 'text'`
 
 Now supports adding _all_ theme colors as theme-specific CSS variables:
 
 ```js
-{
+const lightTheme = {
   light: {
     colors: {
       text: '#282230',
@@ -68,7 +69,7 @@ Turns into
 
 ## Getting Started
 
-You can use the preset themes supplied by svelte-themer or create your own! Theme names are specified by the key, and all properties are transformed into CSS Variables.
+Use the preset themes supplied by svelte-themer or create your own! Theme names are specified by the key, and all properties are transformed into CSS Variables.
 
 **NOTE**: svelte-themer is preset with 3 themes to showcase the flexible functionality of `toggle()`
 
@@ -124,7 +125,7 @@ This allows any components nested to access the theme [Context](https://svelte.d
 
 #### Theme Persistence
 
-By default svelte-themer persists the chosen theme with `localStorage`, and can be modified via the `key` prop.
+By default svelte-themer persists the chosen theme with `localStorage`, and can be modified via the `key` prop. To disabled persistence, provide `key={null}`.
 
 ```html
 <ThemeWrapper key="my-svelte-app__theme">
@@ -150,13 +151,17 @@ By default, the "prefers" step will choose a theme based on OS settings, however
 
 ### Accessing Theme Context
 
+Described below is the pattern used for accessing `theme` context to create your own toggle button.
+
 ```html
 <script>
   import { getContext } from 'svelte'
   let { toggle, current, theme } = getContext('theme')
 </script>
 
-<button on:click="{toggle}">{$current}</button>
+<button on:click="{toggle}">
+  <slot>{$current}</slot>
+</button>
 ```
 
 ### Provided Theme Toggle

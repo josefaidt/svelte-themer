@@ -2,20 +2,9 @@
   import { ThemeWrapper, ThemeToggle } from 'svelte-themer'
 
   const base = {
-    layout: {
-      xxsmall: '4px',
-      xsmall: '9px',
-    },
     font: {
       size: {
-        xxxlarge: '32px',
-        xxlarge: '21px',
-        xlarge: '17px',
-        large: '15px',
-        base: '14px',
-        medium: '13px',
-        small: '12px',
-        xsmall: '9px',
+        _: '18px',
       },
       weight: {
         lightest: 100,
@@ -31,16 +20,35 @@
 </script>
 
 <ThemeWrapper base="{base}" theme="{null}">
-  <main>
-    <h1>Svelte Themer</h1>
-    <div>
-      <ThemeToggle />
+  <div id="container">
+    <div id="nav--container">
+      <nav>
+        <!-- links -->
+      </nav>
+      <div>
+        <ThemeToggle />
+      </div>
     </div>
-    <div class="apps">
-      <a href="https://www.npmjs.com/package/svelte-themer">npm</a>
-      <a href="https://github.com/josefaidt/svelte-themer">github</a>
-    </div>
-  </main>
+    <main>
+      <section id="intro">
+        <header>
+          <h1>Svelte Themer</h1>
+          <p>Styling your Svelte apps with CSS Variables, persisted.</p>
+        </header>
+        <div class="apps">
+          <a
+            href="https://github.com/josefaidt/svelte-themer/blob/main/README.md#svelte-themer"
+          >readme</a>
+          <a href="https://www.npmjs.com/package/svelte-themer">npm</a>
+          <a href="https://github.com/josefaidt/svelte-themer">github</a>
+        </div>
+      </section>
+    </main>
+    <footer>
+      <span>v{PKG_VERSION}</span>
+      <!-- <a href="https://twitter.com/josefaidt">@josefaidt</a> -->
+    </footer>
+  </div>
 </ThemeWrapper>
 
 <style>
@@ -52,18 +60,48 @@
   :global(body) {
     align-items: center;
     display: flex;
+    font-size: var(--theme-font-size);
+  }
+
+  #nav--container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
   }
 
   main {
+    margin: 0 auto;
     display: grid;
     grid-auto-flow: row;
-    grid-gap: 2rem;
-    max-width: 240px;
-    margin: 0 auto;
-    padding: var(--theme-padding-large);
-    text-align: center;
+    /* grid-template-rows: 100vh max-content; */
+    grid-template-areas: 'intro';
   }
 
+  #container {
+    margin: 0 auto;
+    display: grid;
+    grid-auto-flow: row;
+  }
+
+  section {
+    display: grid;
+    grid-auto-flow: row;
+    grid-auto-rows: min-content;
+    grid-gap: 2rem;
+    place-items: center;
+    place-content: center;
+    padding: var(--theme-padding-large);
+    text-align: center;
+    /* max-width: 240px; */
+  }
+
+  #intro {
+    grid-area: intro;
+  }
   .apps {
     display: grid;
     grid-auto-flow: column;
@@ -71,12 +109,25 @@
     justify-content: center;
   }
 
-  h1 {
+  footer {
+    position: fixed;
+    bottom: 1vh;
+    left: 2vw;
+    right: 2vw;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  h1,
+  h2 {
     color: var(--theme-colors-text);
-    font-size: 4em;
-    font-weight: var(--theme-font-weight-lighter);
     margin: 0;
     text-transform: lowercase;
+  }
+
+  h1 {
+    font-size: 4rem;
+    font-weight: var(--theme-font-weight-lighter);
   }
 
   a,
