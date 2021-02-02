@@ -3,4 +3,4 @@ import { SvelteComponent } from "svelte";
 
 export interface ThemeToggleProps {}
 
-export default class ThemeToggle extends SvelteComponent<ThemeToggleProps, {}, {}> {}
+export default class ThemeToggle extends SvelteComponent<ThemeToggleProps, {}, { default: {} }> {}

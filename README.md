@@ -1,6 +1,6 @@
 # svelte-themer
 
-Styling your Svelte apps with CSS Variables, persisted.
+A theming engine for your Svelte apps using CSS Variables, persisted.
 
 ```html
 <script>
@@ -15,28 +15,92 @@ Styling your Svelte apps with CSS Variables, persisted.
 </ThemeWrapper>
 ```
 
+## CSS Variables
+
+CSS variables are created for app-wide consumption using the nomenclature `--[prefix]-[property!]`
+
+For example:
+
+- `--theme-text` by default where `property = 'text'`
+- `--base-text` where `prefix = 'base'` and `property = 'text'`
+- `--text` where `prefix = null || undefined` and `property = 'text'`
+
+Now supports adding _all_ theme colors as theme-specific CSS variables:
+
+```js
+const lightTheme = {
+  light: {
+    colors: {
+      text: '#282230',
+      background: {
+        _: '#f1f1f1',
+        contrast: '#b1b1b1',
+      },
+      primary: '#01796f',
+      primary_dark: '#016159',
+      secondary: '#562931',
+    },
+  },
+}
+```
+
+Turns into
+
+```css
+:root {
+  --theme-light-colors-text: #282230;
+  --theme-light-colors-background: #f1f1f1;
+  --theme-light-colors-background-contrast: #b1b1b1;
+  --theme-light-colors-primary: #01796f;
+  --theme-light-colors-primary_dark: #016159;
+  --theme-light-colors-secondary: #562931;
+}
+
+[theme='light'],
+.theme--light {
+  --theme-colors-text: var(--theme-light-colors-text);
+  --theme-colors-background: var(--theme-light-colors-background);
+  --theme-colors-background-contrast: --var(theme-light-colors-background-contrast);
+  --theme-colors-primary: var(--theme-light-colors-primary);
+  --theme-colors-primary_dark: var(--theme-light-colors-primary_dark);
+  --theme-colors-secondary: var(--theme-light-colors-secondary);
+}
+```
+
 ## Getting Started
 
-You can use the preset themes supplied by svelte-themer or create your own! Ensure each theme object has the necessary keys.
+Use the preset themes supplied by svelte-themer or create your own! Theme names are specified by the key, and all properties are transformed into CSS Variables.
+
+**NOTE**: svelte-themer is preset with 3 themes to showcase the flexible functionality of `toggle()`
 
 ```js
 // src/themes.js
-export default [
-  {
-    name: 'light',
+export const themes = {
+  light: {
     colors: {
       text: '#282230',
-      background: '#f1f1f1',
+      background: {
+        _: '#f1f1f1',
+        contrast: '#b1b1b1',
+      },
+      primary: '#01796f',
+      primary_dark: '#016159',
+      secondary: '#562931',
     },
   },
-  {
-    name: 'dark',
+  dark: {
     colors: {
       text: '#f1f1f1',
-      background: '#27323a',
+      background: {
+        _: '#27323a',
+        contrast: '#0d1215',
+      },
+      primary: '#01978b',
+      primary_dark: '#00887c',
+      secondary: '#fe8690',
     },
   },
-]
+}
 ```
 
 ## CSS Variables
@@ -102,11 +166,11 @@ With svelte-themer there are two components: a wrapper component, and a button f
 </ThemeWrapper>
 ```
 
-The wrapper allows child components to access the theme [Context](https://svelte.dev/tutorial/context-api) which wraps a writeable [store](https://svelte.dev/tutorial/writable-stores) for storing the current theme's name.
+This allows any components nested to access the theme [Context](https://svelte.dev/tutorial/context-api) which wraps a writeable `theme` [store](https://svelte.dev/tutorial/writable-stores)
 
 #### Theme Persistence
 
-By default svelte-themer persists the chosen theme with `localStorage`, and can be modified via the `key` prop.
+By default svelte-themer persists the chosen theme with `localStorage`, and can be modified via the `key` prop. To disabled persistence, provide `key={null}`.
 
 ```html
 <ThemeWrapper key="my-svelte-app__theme">
@@ -114,35 +178,39 @@ By default svelte-themer persists the chosen theme with `localStorage`, and can 
 </ThemeWrapper>
 ```
 
-#### Customizing CSS Variable Prefix
+#### Theme Loading Order
 
-By default CSS variables are prefixed with `theme`, and can be customized via the `prefix` prop.
+`ThemeWrapper` will load a theme on first visit based on the following order:
+
+1. Saved - User's stored choice (from `localStorage`)
+2. Prefers - User's Operating System settings (via `prefers-color-scheme`)
+3. Fallback - First theme in `themes` specified (from presets, `light`)
+
+By default, the "prefers" step will choose a theme based on OS settings, however this can be modified to directly choose "light" or "dark" by leveraging the `mode` prop:
 
 ```html
-<ThemeWrapper prefix="custom">
+<ThemeWrapper mode="auto|light|dark">
   <!--  -->
 </ThemeWrapper>
 ```
 
-Example of CSS variable: `--custom-text`
+### Accessing Theme Context
 
-**To remove the prefix** specify `prefix` as `null`
-
-#### Accessing Theme Context
+Described below is the pattern used for accessing `theme` context to create your own toggle button.
 
 ```html
 <!-- src/MyToggleButton.svelte -->
 <script>
   import { getContext } from 'svelte'
-  let { toggle, current, colors } = getContext('theme')
+  let { toggle, current, theme } = getContext('theme')
 </script>
 
-<button on:click="{toggle}">{$current}</button>
+<button on:click="{toggle}">
+  <slot>{$current}</slot>
+</button>
 ```
 
-## ThemeToggle
-
-For convenience, a button is provided to toggle the theme choice.
+### Provided Theme Toggle
 
 ```html
 <!-- src/App.svelte -->

@@ -1,6 +1,6 @@
 {
   "name": "svelte-themer",
-  "version": "0.3.5",
+  "version": "0.4.0-rc.6",
   "homepage": "https://svelte-themer.now.sh",
   "license": "MIT",
   "repository": {
@@ -31,6 +31,7 @@
     "dev": "yarn build -w",
     "prepublishOnly": "yarn build",
     "release": "changeset publish",
+    "format": "prettier --write \"{components,support,docs}/**/*.{js,json,svelte}\"",
     "test": "jest components"
   },
   "devDependencies": {
@@ -72,7 +73,7 @@
   },
   "lint-staged": {
     "*.{js,svelte,md,mdx,json}": [
-      "prettier --plugin-search-dir=. --write"
+      "prettier --write"
     ]
   },
   "babel": {
@@ -92,6 +93,9 @@
       "^.+\\.js$": "babel-jest",
       "^.+\\.svelte$": "svelte-jester"
     },
+    "setupFilesAfterEnv": [
+      "<rootDir>/tests.setup.js"
+    ],
     "moduleFileExtensions": [
       "js",
       "svelte"

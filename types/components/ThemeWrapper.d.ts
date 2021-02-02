@@ -8,7 +8,7 @@ export interface ThemeWrapperProps {
   key?: string;
 
   /**
-   * Themes
+   * Themes collection
    */
   themes?: Object[];
 
@@ -16,6 +16,18 @@ export interface ThemeWrapperProps {
    * Specify custom CSS variable prefix
    */
   prefix?: string | null;
+
+  /**
+   * Specify preferred theme mode
+   * @default 'auto'
+   */
+  mode?: "auto" | "dark" | "light";
+
+  /**
+   * Sites default CSS variables
+   * @default {}
+   */
+  base?: Object;
 }
 
 export default class ThemeWrapper extends SvelteComponent<ThemeWrapperProps, {}, { default: {} }> {}

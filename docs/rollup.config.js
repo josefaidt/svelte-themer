@@ -1,8 +1,10 @@
 import svelte from 'rollup-plugin-svelte'
 import resolve from '@rollup/plugin-node-resolve'
 import commonjs from '@rollup/plugin-commonjs'
+import replace from '@rollup/plugin-replace'
 import livereload from 'rollup-plugin-livereload'
 import { terser } from 'rollup-plugin-terser'
+import pkg from '../package.json'
 
 const production = !process.env.ROLLUP_WATCH
 
@@ -47,6 +49,10 @@ export default {
     // If we're building for production (yarn build
     // instead of yarn dev), minify
     production && terser(),
+
+    replace({
+      PKG_VERSION: JSON.stringify(pkg.version),
+    }),
   ],
   watch: {
     clearScreen: false,
