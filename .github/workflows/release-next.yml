@@ -2,7 +2,6 @@ name: Publish to NPM
 on:
   push:
     branches:
-      - main
       - next
 jobs:
   publish:
