@@ -10,7 +10,7 @@ export interface ThemeWrapperProps {
   /**
    * Themes collection
    */
-  themes?: Object[];
+  themes?: Object;
 
   /**
    * Specify custom CSS variable prefix
@@ -24,7 +24,7 @@ export interface ThemeWrapperProps {
   mode?: "auto" | "dark" | "light";
 
   /**
-   * Sites default CSS variables
+   * Site default CSS variables
    * @default {}
    */
   base?: Object;
