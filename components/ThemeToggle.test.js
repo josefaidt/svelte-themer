@@ -1,6 +1,6 @@
 import '@testing-library/jest-dom/extend-expect'
 import { render, fireEvent, getByTestId } from '@testing-library/svelte'
-import { currentTheme } from '../support/store'
+import { currentThemeName } from '../support/store'
 import { presets } from './presets'
 import ThemeToggle from './ThemeToggle.test.component'
 
@@ -24,7 +24,7 @@ describe(ThemeToggle.name, () => {
       key,
     })
     let current
-    let unsub = currentTheme.subscribe(value => (current = value))
+    let unsub = currentThemeName.subscribe(value => (current = value))
     const toggleButton = getByTestId(container, 'test-toggle')
 
     expect(current).toEqual(names[0])
