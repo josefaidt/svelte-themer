@@ -16,7 +16,7 @@
   import { presets } from './presets'
   import toggle from '../support/toggle'
   import setCSS from '../support/setCSS'
-  import { currentTheme, themes as themesStore } from '../support/store'
+  import { currentThemeName, currentThemeObject, themes as themesStore } from '../support/store'
   import isObject from '../support/isObject'
 
   /**
@@ -60,15 +60,16 @@
 
   const [fallback] = Object.keys(themes)
   $: setContext(CONTEXT_KEY, {
-    current: currentTheme,
+    current: currentThemeName,
     toggle: toggle,
-    theme: themes[$currentTheme],
+    theme: currentThemeObject,
   })
-  $: if (!Object.keys(themes).includes($currentTheme)) currentTheme.set(fallback)
+  $: if (!Object.keys(themes).includes($currentThemeName)) currentThemeName.set(fallback)
+  $: currentThemeObject.set(themes[$currentThemeName])
 
   afterUpdate(() => {
-    document.documentElement.setAttribute('theme', $currentTheme)
-    if (key) localStorage.setItem(key, $currentTheme)
+    document.documentElement.setAttribute('theme', $currentThemeName)
+    if (key) localStorage.setItem(key, $currentThemeName)
   })
 
   onMount(() => {
@@ -78,18 +79,18 @@
     // loading order: saved, prefers, fallback
     const saved = key ? localStorage.getItem(key) : null
     if (saved && themes[saved]) {
-      currentTheme.set(saved)
+      currentThemeName.set(saved)
     } else {
       if (mode === 'auto') {
-        currentTheme.set(preferredMode)
+        currentThemeName.set(preferredMode)
       } else if (['light', 'dark'].includes(mode) && themes[mode]) {
-        currentTheme.set(mode)
+        currentThemeName.set(mode)
       } else {
-        currentTheme.set(fallback)
+        currentThemeName.set(fallback)
       }
     }
 
-    return () => key && localStorage.setItem(key, $currentTheme)
+    return () => key && localStorage.setItem(key, $currentThemeName)
   })
 </script>
 

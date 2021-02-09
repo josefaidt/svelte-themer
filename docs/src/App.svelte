@@ -19,7 +19,7 @@
   }
 </script>
 
-<ThemeWrapper base="{base}" theme="{null}">
+<ThemeWrapper base="{base}">
   <div id="container">
     <div id="nav--container">
       <nav>
