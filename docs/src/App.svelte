@@ -33,7 +33,7 @@
       <section id="intro">
         <header>
           <h1>Svelte Themer</h1>
-          <p>Styling your Svelte apps with CSS Variables, persisted.</p>
+          <p>A theming engine for your Svelte apps using CSS Variables, persisted.</p>
         </header>
         <div class="apps">
           <a

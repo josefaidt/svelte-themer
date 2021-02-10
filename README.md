@@ -13,6 +13,13 @@ A theming engine for your Svelte apps using CSS Variables, persisted.
     <ThemeToggle />
   </main>
 </ThemeWrapper>
+
+<style>
+  :global(html) {
+    background-color: var(--theme-colors-background, initial);
+    color: var(--theme-colors-text, initial);
+  }
+</style>
 ```
 
 ## CSS Variables
