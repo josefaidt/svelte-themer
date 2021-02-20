@@ -1804,6 +1804,11 @@ cross-spawn@^7.0.0:
     shebang-command "^2.0.0"
     which "^2.0.1"
 
+css-vars-ponyfill@^2.4.3:
+  version "2.4.3"
+  resolved "https://registry.yarnpkg.com/css-vars-ponyfill/-/css-vars-ponyfill-2.4.3.tgz#320a5b47d36d86d5175e41ee85e56a126b64b9b4"
+  integrity sha512-PBfIwjSu27s8kebu8taEYFM8ehVr8o2Qw4H4nSlJzHAJgcduAqxz4oPmYTJuzgauOKaWII9SHWStQ965fxsdZA==
+
 css.escape@^1.5.1:
   version "1.5.1"
   resolved "https://registry.yarnpkg.com/css.escape/-/css.escape-1.5.1.tgz#42e27d4fa04ae32f931a4b4d4191fa9cddee97cb"

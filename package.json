@@ -95,5 +95,8 @@
   },
   "setupFilesAfterEnv": [
     "@testing-library/jest-dom/extend-expect"
-  ]
+  ],
+  "dependencies": {
+    "css-vars-ponyfill": "^2.4.3"
+  }
 }
