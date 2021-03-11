@@ -69,4 +69,18 @@ describe(ThemeWrapper.name, () => {
       expect(() => TestHarness({ prefix: '' })).toThrow(INVALID_PREFIX_MESSAGE)
     })
   })
+
+  describe('server-side context', () => {
+    const { window } = global
+    beforeEach(() => {
+      delete global.window
+    })
+    afterAll(() => {
+      global.window = window
+    })
+    it('should not fail to render', () => {
+      const { component } = TestHarness()
+      expect(component).toBeTruthy()
+    })
+  })
 })

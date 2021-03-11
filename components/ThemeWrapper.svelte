@@ -46,18 +46,10 @@
   export let base = {}
 
   if (!isObject(themes) || !Object.keys(themes).length) throw new Error(INVALID_THEMES_MESSAGE)
-  // detect dark mode
-  const darkSchemeQuery = window.matchMedia('(prefers-color-scheme: dark)')
-  // determine the users preferred mode
-  const preferredMode = darkSchemeQuery.matches ? 'dark' : 'light'
-  // listen for media query status change
-  darkSchemeQuery.addListener(
-    ({ matches }) => mode === 'auto' && currentMode.set(matches ? 'dark' : 'light')
-  )
-
   if (typeof prefix === 'string' && !prefix.trim().length) throw new Error(INVALID_PREFIX_MESSAGE)
   if (!VALID_MODES.includes(mode)) throw new Error(INVALID_MODE_MESSAGE)
 
+  themesStore.set(themes)
   const [fallback] = Object.keys(themes)
   $: setContext(CONTEXT_KEY, {
     current: currentThemeName,
@@ -67,21 +59,24 @@
   $: if (!Object.keys(themes).includes($currentThemeName)) currentThemeName.set(fallback)
   $: currentThemeObject.set(themes[$currentThemeName])
 
-  afterUpdate(() => {
-    document.documentElement.setAttribute('theme', $currentThemeName)
-    if (key) localStorage.setItem(key, $currentThemeName)
-  })
-
   onMount(() => {
-    themesStore.set(themes)
+    // detect dark mode
+    const darkSchemeQuery = matchMedia('(prefers-color-scheme: dark)')
+    // determine the users preferred mode
+    const preferredMode = darkSchemeQuery.matches ? 'dark' : 'light'
+    // listen for media query status change
+    darkSchemeQuery.addListener(
+      ({ matches }) => mode === 'auto' && currentMode.set(matches ? 'dark' : 'light')
+    )
+    // create and apply CSS to document
     setCSS(prefix, base, themes)
 
     // loading order: saved, prefers, fallback
-    const saved = key ? localStorage.getItem(key) : null
+    const saved = key ? localStorage?.getItem(key) : null
     if (saved && themes[saved]) {
       currentThemeName.set(saved)
     } else {
-      if (mode === 'auto') {
+      if (mode === 'auto' && preferredMode) {
         currentThemeName.set(preferredMode)
       } else if (['light', 'dark'].includes(mode) && themes[mode]) {
         currentThemeName.set(mode)
@@ -90,7 +85,12 @@
       }
     }
 
-    return () => key && localStorage.setItem(key, $currentThemeName)
+    return () => key && localStorage?.setItem(key, $currentThemeName)
+  })
+
+  afterUpdate(() => {
+    document?.documentElement.setAttribute('theme', $currentThemeName)
+    if (key) localStorage?.setItem(key, $currentThemeName)
   })
 </script>
 
