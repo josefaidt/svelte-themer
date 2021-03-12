@@ -15,6 +15,17 @@ jobs:
     - run: yarn --frozen-lockfile
     - run: yarn test
 
+    - name: Update package.json version
+      run: |
+        version=$(jq -r '.version' package.json)
+        regex='(.*)(\-rc\.[0-9]+)$'
+        if [[ $version =~ $regex ]]; then
+          temp=$(mktemp)
+          newVersion=$(echo $version | sed -E "s/${regex}/\1/g")
+          jq ".version=\"$newVersion\"" package.json > "$temp" && mv "$temp" package.json
+        fi
+
+
     - name: Publish to npm
       uses: changesets/action@master
       with:
@@ -28,5 +39,7 @@ jobs:
           git config --global user.name 'GitHub Actions'
           git config --global user.email 'josefaidt@users.noreply.github.com'
           git add types
-          git commit -m "update types"
+          git commit -m "[automated] update types"
+          git add package.json
+          git commit -m "[automated] update version"
           git push
