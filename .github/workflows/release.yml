@@ -8,8 +8,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-      with:
-        fetch-depth: 0
     - uses: actions/setup-node@v1
       with:
         node-version: '12.x'
@@ -17,10 +15,18 @@ jobs:
     - run: yarn --frozen-lockfile
     - run: yarn test
 
-    - name: Create Release Pull Request or Publish to npm
+    - name: Publish to npm
       uses: changesets/action@master
       with:
         publish: yarn release
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+    - name: Update types
+      run: |
+          git config --global user.name 'GitHub Actions'
+          git config --global user.email 'josefaidt@users.noreply.github.com'
+          git add types
+          git commit -m "update types"
+          git push
