@@ -4,7 +4,7 @@ on:
     branches:
       - next
 jobs:
-  publish:
+  release:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -15,13 +15,7 @@ jobs:
     - run: yarn --frozen-lockfile
     - run: yarn test
 
-    - name: Publish production
-      if: github.ref == 'refs/heads/main'
-      run: yarn publish
-      env:
-        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-    - name: Publish next
+    - name: Publish next to npm
       if: github.ref == 'refs/heads/next'
       run: yarn publish --tag next
       env:
