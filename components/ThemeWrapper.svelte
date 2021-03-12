@@ -65,7 +65,8 @@
     // determine the users preferred mode
     const preferredMode = darkSchemeQuery.matches ? 'dark' : 'light'
     // listen for media query status change
-    darkSchemeQuery.addListener(
+    darkSchemeQuery.addEventListener(
+      'change',
       ({ matches }) => mode === 'auto' && currentMode.set(matches ? 'dark' : 'light')
     )
     // create and apply CSS to document
