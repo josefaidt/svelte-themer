@@ -73,7 +73,7 @@
     setCSS(prefix, base, themes)
 
     // loading order: saved, prefers, fallback
-    const saved = key ? localStorage?.getItem(key) : null
+    const saved = key ? localStorage && localStorage.getItem(key) : null
     if (saved && themes[saved]) {
       currentThemeName.set(saved)
     } else {
@@ -86,12 +86,12 @@
       }
     }
 
-    return () => key && localStorage?.setItem(key, $currentThemeName)
+    return () => key && localStorage && localStorage.setItem(key, $currentThemeName)
   })
 
   afterUpdate(() => {
-    document?.documentElement.setAttribute('theme', $currentThemeName)
-    if (key) localStorage?.setItem(key, $currentThemeName)
+    document && document.documentElement.setAttribute('theme', $currentThemeName)
+    if (key) localStorage && localStorage.setItem(key, $currentThemeName)
   })
 </script>
 
