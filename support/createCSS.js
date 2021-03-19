@@ -12,11 +12,13 @@ import { themes as themesStore } from './store'
 export default function setCSS(prefix, base = {}) {
   const variablePrefix = prefix ? `--${prefix}` : '-'
 
+  // helper function to create CSS Variable
   function createVariable(key, prop, value) {
     if (key) return `${variablePrefix}-${key}-${prop}: ${value};`
     else return `${variablePrefix}-${prop}: ${value};`
   }
 
+  // helper function to override CSS Variable
   function createOverride(key, prop) {
     return `${variablePrefix}-${prop}: var(${variablePrefix}-${key}-${prop});`
   }
@@ -69,5 +71,5 @@ export default function setCSS(prefix, base = {}) {
     </style>
   `
 
-  document.head.innerHTML = `${template.trim()}\n${document.head.innerHTML}`
+  return template.trim()
 }
