@@ -45,6 +45,8 @@
    */
   export let base = {}
 
+  let loaded = true;
+
   if (!isObject(themes) || !Object.keys(themes).length) throw new Error(INVALID_THEMES_MESSAGE)
   if (typeof prefix === 'string' && !prefix.trim().length) throw new Error(INVALID_PREFIX_MESSAGE)
   if (!VALID_MODES.includes(mode)) throw new Error(INVALID_MODE_MESSAGE)
@@ -62,11 +64,8 @@
       'change',
       ({ matches }) => mode === 'auto' && currentMode.set(matches ? 'dark' : 'light')
     )
-    // hack to fix flash
-    document.body.style.opacity = 0;
     // create and apply CSS to document
     setCSS(prefix, base, themes)
-
     // loading order: saved, prefers, fallback
     const saved = key ? localStorage?.getItem(key) : null
 
@@ -81,8 +80,8 @@
         currentThemeName.set(fallback)
       }
     }
-    // tiny delay to prevent unwanted flashing
-    setTimeout(() => (document.body.style.opacity = 1), 50);
+    // tiny delay to prevent unwanted flashing and restore body style
+    setTimeout(() => (loaded = false), 100);
 
     return () => key && localStorage?.setItem(key, $currentThemeName)
   })
@@ -105,6 +104,16 @@
   }
 </script>
 
-<slot>
-  <!-- children -->
-</slot>
+<span>
+  {#if !loaded}
+    <slot>
+      <!-- children -->
+    </slot>
+  {/if}
+</span>
+
+<style>
+span {
+  display: contents;
+}
+</style>
