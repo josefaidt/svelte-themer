@@ -1,18 +1,22 @@
-name: Publish to NPM
+name: Release NEXT
 on:
   push:
     branches:
-      - main
+      - next
 jobs:
-  build:
+  release:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
     - uses: actions/setup-node@v1
       with:
-        node-version: '12.x'
+        node-version: '14.x'
         registry-url: 'https://registry.npmjs.org'
-    - run: yarn
-    - run: yarn publish
+    - run: yarn --frozen-lockfile
+    - run: yarn test
+
+    - name: Publish next to npm
+      if: github.ref == 'refs/heads/next'
+      run: yarn publish --tag next
       env:
         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

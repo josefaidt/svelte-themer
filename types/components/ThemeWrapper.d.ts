@@ -1,4 +1,5 @@
 /// <reference types="svelte" />
+import { SvelteComponent } from "svelte";
 
 export interface ThemeWrapperProps {
   /**
@@ -7,16 +8,26 @@ export interface ThemeWrapperProps {
   key?: string;
 
   /**
-   * Themes
+   * Themes collection
    */
-  themes?: Object[];
+  themes?: Object;
+
+  /**
+   * Specify custom CSS variable prefix
+   */
+  prefix?: string | null;
+
+  /**
+   * Specify preferred theme mode
+   * @default 'auto'
+   */
+  mode?: "auto" | "dark" | "light";
+
+  /**
+   * Site default CSS variables
+   * @default {}
+   */
+  base?: Object;
 }
 
-export default class ThemeWrapper {
-  $$prop_def: ThemeWrapperProps;
-  $$slot_def: {
-    default: {};
-  };
-
-  $on(eventname: string, cb: (event: Event) => void): () => void;
-}
+export default class ThemeWrapper extends SvelteComponent<ThemeWrapperProps, {}, { default: {} }> {}

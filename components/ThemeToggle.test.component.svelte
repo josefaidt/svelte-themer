@@ -4,5 +4,5 @@
 </script>
 
 <ThemeWrapper>
-  <ThemeToggle {...$$props} />
+  <ThemeToggle data-testid="test-toggle" {...$$props} />
 </ThemeWrapper>

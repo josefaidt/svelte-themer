@@ -1,9 +1,11 @@
 <script>
   import { getContext } from 'svelte'
-  let { toggle, current } = getContext('theme')
+  const { current, toggle } = getContext('theme')
 </script>
 
-<button on:click="{toggle}" {...$$props}>{$current}</button>
+<button on:click="{toggle}" {...$$props}>
+  <slot>{$current}</slot>
+</button>
 
 <style>
   button {
@@ -12,7 +14,6 @@
     border-radius: 3px;
     background-color: lightgrey;
     cursor: pointer;
-
     min-width: 8ch;
     max-width: 15ch;
     max-height: 60px;
