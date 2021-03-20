@@ -51,13 +51,6 @@
 
   themesStore.set(themes)
   const [fallback] = Object.keys(themes)
-  $: setContext(CONTEXT_KEY, {
-    current: currentThemeName,
-    toggle: toggle,
-    theme: currentThemeObject,
-  })
-  $: if (!Object.keys(themes).includes($currentThemeName)) currentThemeName.set(fallback)
-  $: currentThemeObject.set(themes[$currentThemeName])
 
   onMount(() => {
     // detect dark mode
@@ -69,11 +62,14 @@
       'change',
       ({ matches }) => mode === 'auto' && currentMode.set(matches ? 'dark' : 'light')
     )
+    // hack to fix flash
+    document.body.style.opacity = 0;
     // create and apply CSS to document
     setCSS(prefix, base, themes)
 
     // loading order: saved, prefers, fallback
     const saved = key ? localStorage?.getItem(key) : null
+
     if (saved && themes[saved]) {
       currentThemeName.set(saved)
     } else {
@@ -85,6 +81,8 @@
         currentThemeName.set(fallback)
       }
     }
+    // tiny delay to prevent unwanted flashing
+    setTimeout(() => (document.body.style.opacity = 1), 50);
 
     return () => key && localStorage?.setItem(key, $currentThemeName)
   })
@@ -93,6 +91,18 @@
     document?.documentElement.setAttribute('theme', $currentThemeName)
     if (key) localStorage?.setItem(key, $currentThemeName)
   })
+
+  $: {
+    setContext(CONTEXT_KEY, {
+      current: currentThemeName,
+      toggle: toggle,
+      theme: currentThemeObject,
+    })
+
+    if (!Object.keys(themes).includes($currentThemeName)) currentThemeName.set(fallback)
+
+    currentThemeObject.set(themes[$currentThemeName])
+  }
 </script>
 
 <slot>
