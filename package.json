@@ -18,8 +18,10 @@
     "/index.js",
     "/support"
   ],
-  "directories": {
-    "components": "./components"
+  "exports": {
+    "require": "./lib/index.js",
+    "import": "./lib/index.mjs",
+    "support": "./support"
   },
   "keywords": [
     "svelte",
