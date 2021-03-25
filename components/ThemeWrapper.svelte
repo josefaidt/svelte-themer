@@ -91,8 +91,8 @@
   })
 
   afterUpdate(() => {
-    document && document.documentElement.setAttribute('theme', $currentThemeName)
-    if (key) localStorage && localStorage.setItem(key, $currentThemeName)
+    if (document) document.documentElement.setAttribute('theme', $currentThemeName)
+    if (key && localStorage) localStorage.setItem(key, $currentThemeName)
   })
 </script>
 
