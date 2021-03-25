@@ -14,6 +14,7 @@ export default {
     { file: pkg.module, format: 'es' },
     { file: pkg.main, format: 'umd', name },
   ],
+  external: Object.keys(pkg.dependencies),
   plugins: [
     svelte({
       emitCss: false,
