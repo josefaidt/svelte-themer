@@ -16,6 +16,6 @@
     "svelte-hmr": "^0.13.0",
     "svelte-preprocess": "^4.6.9",
     "svelte-themer": "../",
-    "vite": "^2.1.0"
+    "vite": "^2.1.3"
   }
 }
