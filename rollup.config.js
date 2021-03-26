@@ -18,6 +18,9 @@ export default {
   plugins: [
     svelte({
       emitCss: false,
+      compilerOptions: {
+        generate: 'ssr',
+      },
     }),
     resolve(),
     sveld(),
