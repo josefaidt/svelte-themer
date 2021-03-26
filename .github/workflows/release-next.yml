@@ -26,5 +26,6 @@ jobs:
         git commit -m "[automated] publish next"
         yarn changeset publish
         git push --follow-tags
+        yarn changeset pre exit
       env:
         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
