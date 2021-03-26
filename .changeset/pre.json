@@ -1,0 +1,8 @@
+{
+  "mode": "pre",
+  "tag": "next",
+  "initialVersions": {
+    "svelte-themer": "0.4.6-next.4"
+  },
+  "changesets": []
+}
