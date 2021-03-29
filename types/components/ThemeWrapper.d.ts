@@ -1,5 +1,5 @@
 /// <reference types="svelte" />
-import { SvelteComponent } from "svelte";
+import { SvelteComponentTyped } from "svelte";
 
 export interface ThemeWrapperProps {
   /**
@@ -30,4 +30,8 @@ export interface ThemeWrapperProps {
   base?: Object;
 }
 
-export default class ThemeWrapper extends SvelteComponent<ThemeWrapperProps, {}, { default: {} }> {}
+export default class ThemeWrapper extends SvelteComponentTyped<
+  ThemeWrapperProps,
+  {},
+  { default: {} }
+> {}

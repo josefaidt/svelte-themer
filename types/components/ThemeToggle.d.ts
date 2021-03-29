@@ -1,6 +1,10 @@
 /// <reference types="svelte" />
-import { SvelteComponent } from "svelte";
+import { SvelteComponentTyped } from "svelte";
 
 export interface ThemeToggleProps {}
 
-export default class ThemeToggle extends SvelteComponent<ThemeToggleProps, {}, { default: {} }> {}
+export default class ThemeToggle extends SvelteComponentTyped<
+  ThemeToggleProps,
+  {},
+  { default: {} }
+> {}
