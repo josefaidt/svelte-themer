@@ -21,6 +21,7 @@ jobs:
         current=$(jq -r '.version' package.json)
         published=$(npm view svelte-themer@next version)
         if [[ $current == $published ]]; then
+          echo 'version already published, updating package.json'
           npm version prerelease --preid=next
         fi
 
@@ -28,16 +29,19 @@ jobs:
         yarn publish --tag next
 
         # check differences and commit back to repo
-        git config --global user.name 'GitHub Actions'
-        git config --global user.email 'josefaidt@users.noreply.github.com'
-        if [[ ! `git diff --quiet HEAD -- types` ]]; then
-          git add types
-          git commit -m "[automated] update types"
+        changed=$(git status --porcelain)
+        if [[ -n "$changed" ]]; then
+          git config --global user.name 'GitHub Actions'
+          git config --global user.email 'josefaidt@users.noreply.github.com'
+          if [[ ! `git diff --quiet HEAD -- types` ]]; then
+            git add types
+            git commit -m "[automated] update types"
+          fi
+          if [[ ! `git diff --quiet HEAD -- package.json` ]]; then
+            git add package.json
+            git commit -m "[automated] update version"
+          fi
+          git push
         fi
-        if [[ ! `git diff --quiet HEAD -- package.json` ]]; then
-          git add package.json
-          git commit -m "[automated] update version"
-        fi
-        git push
       env:
         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
