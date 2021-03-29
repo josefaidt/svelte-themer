@@ -18,14 +18,26 @@ jobs:
     - name: Publish next to npm
       if: github.ref == 'refs/heads/next'
       run: |
-        yarn changeset pre enter next
-        yarn changeset version
+        current=$(jq -r '.version' package.json)
+        published=$(npm view svelte-themer@next version)
+        if [[ $current == $published ]]; then
+          npm version prerelease --preid=next
+        fi
+
+        # publish @next, this will build types
+        yarn publish --tag next
+
+        # check differences and commit back to repo
         git config --global user.name 'GitHub Actions'
         git config --global user.email 'josefaidt@users.noreply.github.com'
-        git add .
-        git commit -m "[automated] publish next"
-        yarn changeset publish
-        git push --follow-tags
-        yarn changeset pre exit
+        if [[ ! `git diff --quiet HEAD -- types` ]]; then
+          git add types
+          git commit -m "[automated] update types"
+        fi
+        if [[ ! `git diff --quiet HEAD -- package.json` ]]; then
+          git add package.json
+          git commit -m "[automated] update version"
+        fi
+        git push
       env:
         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
