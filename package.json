@@ -21,7 +21,8 @@
   "exports": {
     "require": "./lib/index.js",
     "import": "./lib/index.mjs",
-    "support": "./support"
+    "support": "./support",
+    "package.json": "./package.json"
   },
   "keywords": [
     "svelte",
