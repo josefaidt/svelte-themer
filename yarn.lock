@@ -2013,11 +2013,6 @@ chalk@^4.0.0, chalk@^4.1.0:
     ansi-styles "^4.1.0"
     supports-color "^7.1.0"
 
-changesets@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/changesets/-/changesets-1.0.2.tgz#d4eb67f826c6b5e19b56ced4f5add72e1e0cadb8"
-  integrity sha1-1Otn+CbGteGbVs7U9a3XLh4Mrbg=
-
 char-regex@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/char-regex/-/char-regex-1.0.2.tgz#d744358226217f981ed58f479b1d6bcc29545dcf"
