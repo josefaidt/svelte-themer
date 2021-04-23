@@ -13,6 +13,12 @@ export interface ThemeWrapperProps {
   themes?: Object;
 
   /**
+   * Sets the specified theme as active
+   * @default null
+   */
+  theme?: string | null;
+
+  /**
    * Specify custom CSS variable prefix
    */
   prefix?: string | null;
