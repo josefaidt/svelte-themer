@@ -30,6 +30,11 @@
    */
   export let themes = presets
   /**
+   * Sets the specified theme as active
+   * @type {string | null} [theme='dark']
+   */
+  export let theme = null;
+  /**
    * Specify custom CSS variable prefix
    * @type {string | null} [prefix='theme']
    */
@@ -75,7 +80,10 @@
 
     // loading order: saved, prefers, fallback
     const saved = key ? localStorage && localStorage.getItem(key) : null
-    if (saved && themes[saved]) {
+
+    if (theme && themes[theme]) {
+      currentThemeName.set(theme)
+    } else  if (saved && themes[saved]) {
       currentThemeName.set(saved)
     } else {
       if (mode === 'auto' && preferredMode) {

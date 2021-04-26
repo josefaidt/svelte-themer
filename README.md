@@ -146,9 +146,10 @@ By default svelte-themer persists the chosen theme with `localStorage`, and can 
 
 `ThemeWrapper` will load a theme on first visit based on the following order:
 
-1. Saved - User's stored choice (from `localStorage`)
-2. Prefers - User's Operating System settings (via `prefers-color-scheme`)
-3. Fallback - First theme in `themes` specified (from presets, `light`)
+1. User-provided - The value specified in the `theme` prop.
+2. Saved - User's stored choice (from `localStorage`)
+3. Prefers - User's Operating System settings (via `prefers-color-scheme`)
+4. Fallback - First theme in `themes` specified (from presets, `light`)
 
 By default, the "prefers" step will choose a theme based on OS settings, however this can be modified to directly choose "light" or "dark" by leveraging the `mode` prop:
 
