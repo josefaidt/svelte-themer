@@ -7,23 +7,17 @@
     "url": "https://github.com/josefaidt/svelte-themer"
   },
   "sideEffects": false,
-  "svelte": "index.js",
+  "svelte": "./index.js",
   "module": "./lib/index.mjs",
   "main": "./lib/index.js",
   "types": "./types/index.d.ts",
   "files": [
-    "/lib",
-    "/types",
-    "/components",
-    "/index.js",
-    "/support"
+    "lib",
+    "types",
+    "components",
+    "index.js",
+    "support"
   ],
-  "exports": {
-    "require": "./lib/index.js",
-    "import": "./lib/index.mjs",
-    "support": "./support",
-    "package.json": "./package.json"
-  },
   "keywords": [
     "svelte",
     "theme",
@@ -38,25 +32,25 @@
     "test": "jest components"
   },
   "dependencies": {
-    "css-vars-ponyfill": "^2.4.3"
+    "css-vars-ponyfill": "^2.4.5"
   },
   "devDependencies": {
-    "@babel/core": "^7.13.10",
-    "@babel/preset-env": "^7.13.10",
-    "@changesets/cli": "^2.14.1",
+    "@babel/core": "^7.14.0",
+    "@babel/preset-env": "^7.14.0",
+    "@changesets/cli": "^2.16.0",
     "@rollup/plugin-json": "^4.1.0",
-    "@rollup/plugin-node-resolve": "^11.2.0",
-    "@testing-library/jest-dom": "^5.11.9",
+    "@rollup/plugin-node-resolve": "^11.2.1",
+    "@testing-library/jest-dom": "^5.12.0",
     "@testing-library/svelte": "^3.0.3",
     "babel-jest": "^26.6.3",
     "jest": "^26.6.3",
     "prettier": "^2.2.1",
     "prettier-plugin-svelte": "^2.2.0",
-    "rollup": "^2.41.4",
+    "rollup": "^2.46.0",
     "rollup-plugin-svelte": "^7.1.0",
     "sveld": "^0.7.1",
-    "svelte": "^3.35.0",
-    "svelte-jester": "^1.3.0"
+    "svelte": "^3.38.1",
+    "svelte-jester": "^1.5.0"
   },
   "prettier": {
     "printWidth": 100,
