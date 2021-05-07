@@ -17,7 +17,7 @@ jobs:
     - run: yarn --frozen-lockfile
     - run: yarn test
 
-    - name: Update package.json version
+    - name: Update package.json version from NEXT
       run: |
         version=$(jq -r '.version' package.json)
         regex='(.*)(\-next\.[0-9]+)$'
@@ -39,7 +39,7 @@ jobs:
     - name: Update types
       run: |
         changed=$(git status --porcelain)
-        if [[ -n "$changed" ]]; then
+        if [[ -z "$changed" ]]; then
           git config --global user.name 'GitHub Actions'
           git config --global user.email 'josefaidt@users.noreply.github.com'
           if [[ ! `git diff --quiet HEAD -- types` ]]; then
