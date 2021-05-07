@@ -50,5 +50,7 @@ jobs:
             git add package.json
             git commit -m "[automated] update version"
           fi
-          git push
+          if [[ -z "$(git log origin/main..HEAD); then
+            git push
+          fi
         fi
