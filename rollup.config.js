@@ -27,12 +27,12 @@ const svelteConfig = {
   ],
 }
 
-const preprocessConfig = {
-  input: 'support/preprocess.js',
-  output: [
-    { file: './lib/preprocess.mjs', format: 'es' },
-    { file: './lib/preprocess.js', format: 'cjs' },
-  ],
-}
+// const preprocessConfig = {
+//   input: 'support/preprocess.js',
+//   output: [
+//     { file: './lib/preprocess.mjs', format: 'es' },
+//     { file: './lib/preprocess.js', format: 'cjs' },
+//   ],
+// }
 
 export default [svelteConfig]
