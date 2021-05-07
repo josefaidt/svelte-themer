@@ -15,7 +15,7 @@
   import { onMount, afterUpdate, setContext } from 'svelte'
   import { presets } from './presets'
   import toggle from '../support/toggle'
-  import setCSS from '../support/setCSS'
+  import createCSS from '../support/createCSS'
   import { currentThemeName, currentThemeObject, themes as themesStore } from '../support/store'
   import isObject from '../support/isObject'
 
@@ -64,6 +64,9 @@
   $: if (!Object.keys(themes).includes($currentThemeName)) currentThemeName.set(fallback)
   $: currentThemeObject.set(themes[$currentThemeName])
 
+  // create CSS
+  const style = createCSS(prefix, base, themes)
+
   onMount(() => {
     // detect dark mode
     const darkSchemeQuery = matchMedia('(prefers-color-scheme: dark)')
@@ -74,11 +77,9 @@
       'change',
       ({ matches }) => mode === 'auto' && currentMode.set(matches ? 'dark' : 'light')
     )
-    // create and apply CSS to document
-    setCSS(prefix, base, themes)
 
     // loading order: saved, prefers, fallback
-    const saved = key ? localStorage?.getItem(key) : null
+    const saved = key ? localStorage && localStorage.getItem(key) : null
 
     if (theme && themes[theme]) {
       currentThemeName.set(theme)
@@ -94,14 +95,18 @@
       }
     }
 
-    return () => key && localStorage?.setItem(key, $currentThemeName)
+    return () => key && localStorage && localStorage.setItem(key, $currentThemeName)
   })
 
   afterUpdate(() => {
-    document?.documentElement.setAttribute('theme', $currentThemeName)
-    if (key) localStorage?.setItem(key, $currentThemeName)
+    if (document) document.documentElement.setAttribute('theme', $currentThemeName)
+    if (key && localStorage) localStorage.setItem(key, $currentThemeName)
   })
 </script>
+
+<svelte:head>
+  {@html style}
+</svelte:head>
 
 <slot>
   <!-- children -->

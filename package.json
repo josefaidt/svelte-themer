@@ -1,26 +1,33 @@
 {
   "name": "svelte-themer",
-  "version": "0.4.6",
+  "version": "0.4.7-next.3",
   "homepage": "https://svelte-themer.now.sh",
   "license": "MIT",
   "repository": {
     "url": "https://github.com/josefaidt/svelte-themer"
   },
   "sideEffects": false,
-  "svelte": "index.js",
+  "svelte": "./index.js",
   "module": "./lib/index.mjs",
   "main": "./lib/index.js",
   "types": "./types/index.d.ts",
-  "files": [
-    "/lib",
-    "/types",
-    "/components",
-    "/index.js",
-    "/support"
-  ],
-  "directories": {
-    "components": "./components"
+  "exports": {
+    ".": {
+      "default": "./lib/index.mjs",
+      "node": "./lib/index.js"
+    },
+    "./preprocess": {
+      "default": "./lib/preprocess.mjs",
+      "node": "./lib/preprocess.js"
+    }
   },
+  "files": [
+    "lib",
+    "types",
+    "components",
+    "index.js",
+    "support"
+  ],
   "keywords": [
     "svelte",
     "theme",
@@ -34,26 +41,29 @@
     "format": "prettier --write \"{components,support,docs}/**/*.{js,json,svelte}\"",
     "test": "jest components"
   },
+  "dependencies": {
+    "css-vars-ponyfill": "^2.4.5"
+  },
   "devDependencies": {
-    "@babel/core": "^7.12.9",
-    "@babel/preset-env": "^7.12.7",
-    "@changesets/cli": "^2.11.2",
+    "@babel/core": "^7.14.0",
+    "@babel/preset-env": "^7.14.0",
+    "@changesets/cli": "^2.16.0",
     "@rollup/plugin-json": "^4.1.0",
-    "@rollup/plugin-node-resolve": "^10.0.0",
-    "@testing-library/jest-dom": "^5.11.6",
-    "@testing-library/svelte": "^3.0.0",
+    "@rollup/plugin-node-resolve": "^13.0.0",
+    "@testing-library/jest-dom": "^5.12.0",
+    "@testing-library/svelte": "^3.0.3",
     "babel-jest": "^26.6.3",
     "jest": "^26.6.3",
     "prettier": "^2.2.1",
-    "prettier-plugin-svelte": "^1.4.1",
-    "rollup": "^2.34.0",
-    "rollup-plugin-svelte": "^7.0.0",
-    "sveld": "^0.4.2",
-    "svelte": "^3.30.0",
-    "svelte-jester": "^1.1.5"
+    "prettier-plugin-svelte": "^2.2.0",
+    "rollup": "^2.47.0",
+    "rollup-plugin-svelte": "^7.1.0",
+    "sveld": "^0.7.1",
+    "svelte": "^3.38.2",
+    "svelte-jester": "^1.5.0"
   },
   "prettier": {
-    "printWidth": 100,
+    "printWidth": 80,
     "trailingComma": "es5",
     "tabWidth": 2,
     "semi": false,
@@ -82,7 +92,7 @@
         "@babel/preset-env",
         {
           "targets": {
-            "node": "current"
+            "node": "12"
           }
         }
       ]
@@ -103,8 +113,5 @@
   },
   "setupFilesAfterEnv": [
     "@testing-library/jest-dom/extend-expect"
-  ],
-  "dependencies": {
-    "css-vars-ponyfill": "^2.4.3"
-  }
+  ]
 }

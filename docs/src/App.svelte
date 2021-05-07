@@ -45,8 +45,8 @@
       </section>
     </main>
     <footer>
+      <!-- svelte-ignore missing-declaration -->
       <span>v{PKG_VERSION}</span>
-      <!-- <a href="https://twitter.com/josefaidt">@josefaidt</a> -->
     </footer>
   </div>
 </ThemeWrapper>

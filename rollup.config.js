@@ -8,17 +8,31 @@ const name = pkg.name
   .replace(/^\w/, m => m.toUpperCase())
   .replace(/-\w/g, m => m[1].toUpperCase())
 
-export default {
+const svelteConfig = {
   input: pkg.svelte,
   output: [
     { file: pkg.module, format: 'es' },
     { file: pkg.main, format: 'umd', name },
   ],
+  external: Object.keys(pkg.dependencies),
   plugins: [
     svelte({
       emitCss: false,
+      compilerOptions: {
+        generate: 'ssr',
+      },
     }),
     resolve(),
     sveld(),
   ],
 }
+
+// const preprocessConfig = {
+//   input: 'support/preprocess.js',
+//   output: [
+//     { file: './lib/preprocess.mjs', format: 'es' },
+//     { file: './lib/preprocess.js', format: 'cjs' },
+//   ],
+// }
+
+export default [svelteConfig]

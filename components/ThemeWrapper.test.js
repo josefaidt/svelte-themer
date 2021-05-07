@@ -26,7 +26,7 @@ describe(ThemeWrapper.name, () => {
   })
 
   afterEach(() => {
-    document.querySelectorAll('style').forEach(sheet => sheet.remove())
+    document.querySelectorAll('style').forEach(sheet => sheet.cssRules && sheet.remove())
   })
 
   it('should render', () => {
