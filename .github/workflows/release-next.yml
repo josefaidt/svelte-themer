@@ -37,6 +37,10 @@ jobs:
             git add types
             git commit -m "[automated] update types"
           fi
+          if [[ ! `git diff --quiet HEAD -- package.json` ]]; then
+            git add package.json
+            git commit -m "[automated] update version"
+          fi
           git push
         fi
       env:
