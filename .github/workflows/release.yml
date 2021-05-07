@@ -20,7 +20,7 @@ jobs:
     - name: Update package.json version
       run: |
         version=$(jq -r '.version' package.json)
-        regex='(.*)(\-rc\.[0-9]+)$'
+        regex='(.*)(\-next\.[0-9]+)$'
         if [[ $version =~ $regex ]]; then
           temp=$(mktemp)
           newVersion=$(echo $version | sed -E "s/${regex}/\1/g")
