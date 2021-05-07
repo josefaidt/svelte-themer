@@ -35,4 +35,4 @@ const preprocessConfig = {
   ],
 }
 
-export default [svelteConfig, process.env.RELEASE_PREPROCESSOR && preprocessConfig].filter(Boolean)
+export default [svelteConfig]
