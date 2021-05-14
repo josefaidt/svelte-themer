@@ -9,48 +9,47 @@ jobs:
   release:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-node@v1
-      with:
-        node-version: '14.x'
-        registry-url: 'https://registry.npmjs.org'
-    - run: yarn --frozen-lockfile
-    - run: yarn test
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '14.x'
+          registry-url: 'https://registry.npmjs.org'
+      - run: yarn --frozen-lockfile
+      - run: yarn test
 
-    - name: Update package.json version from NEXT
-      run: |
-        version=$(jq -r '.version' package.json)
-        regex='(.*)(\-next\.[0-9]+)$'
-        if [[ $version =~ $regex ]]; then
-          temp=$(mktemp)
-          newVersion=$(echo $version | sed -E "s/${regex}/\1/g")
-          jq ".version=\"$newVersion\"" package.json > "$temp" && mv "$temp" package.json
-        fi
-
-
-    - name: Publish to npm
-      uses: changesets/action@master
-      with:
-        publish: yarn release
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-    - name: Update types
-      run: |
-        changed=$(git status --porcelain)
-        if [[ -z "$changed" ]]; then
-          git config --global user.name 'GitHub Actions'
-          git config --global user.email 'josefaidt@users.noreply.github.com'
-          if [[ ! `git diff --quiet HEAD -- types` ]]; then
-            git add types
-            git commit -m "[automated] update types"
+      - name: Update package.json version from NEXT
+        run: |
+          version=$(jq -r '.version' package.json)
+          regex='(.*)(\-next\.[0-9]+)$'
+          if [[ $version =~ $regex ]]; then
+            temp=$(mktemp)
+            newVersion=$(echo $version | sed -E "s/${regex}/\1/g")
+            jq ".version=\"$newVersion\"" package.json > "$temp" && mv "$temp" package.json
           fi
-          if [[ ! `git diff --quiet HEAD -- package.json` ]]; then
-            git add package.json
-            git commit -m "[automated] update version"
+
+      # - name: Publish to npm
+      #   uses: changesets/action@master
+      #   with:
+      #     publish: yarn release
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #     NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Update types
+        run: |
+          changed=$(git status --porcelain)
+          if [[ -n "$changed" ]]; then
+            git config --global user.name 'GitHub Actions'
+            git config --global user.email 'josefaidt@users.noreply.github.com'
+            if [[ ! `git diff --quiet HEAD -- types` ]]; then
+              git add types
+              git commit -m "[automated] update types"
+            fi
+            if [[ ! `git diff --quiet HEAD -- package.json` ]]; then
+              git add package.json
+              git commit -m "[automated] update version"
+            fi
+            if [[ -z "$(git log origin/main..HEAD); then
+              git push
+            fi
           fi
-          if [[ -z "$(git log origin/main..HEAD); then
-            git push
-          fi
-        fi

@@ -7,41 +7,43 @@ jobs:
   release:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-node@v1
-      with:
-        node-version: '14.x'
-        registry-url: 'https://registry.npmjs.org'
-    - run: yarn --frozen-lockfile
-    - run: yarn test
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '14.x'
+          registry-url: 'https://registry.npmjs.org'
+      - run: yarn --frozen-lockfile
+      - run: yarn test
 
-    - name: Publish next to npm
-      if: github.ref == 'refs/heads/next'
-      run: |
-        current=$(jq -r '.version' package.json)
-        published=$(npm view svelte-themer@next version)
-        if [[ $current == $published ]]; then
-          echo 'version already published, updating package.json'
+      - name: Publish next to npm
+        if: github.ref == 'refs/heads/next'
+        run: |
           git config --global user.name 'GitHub Actions'
           git config --global user.email 'josefaidt@users.noreply.github.com'
-          npm version prerelease --preid=next -m "[automated] update version"
-        fi
 
-        # publish @next, this will build types
-        yarn publish --tag next
+          # check whether version is same as current, bump next
+          current=$(jq -r '.version' package.json)
+          published=$(npm view svelte-themer@next version)
+          if [[ $current == $published ]]; then
+            echo 'version already published, updating package.json'
+            npm version prerelease --preid=next -m "[automated] update version"
+          fi
 
-        # check differences and commit back to repo
-        changed=$(git status --porcelain)
-        if [[ -n "$changed" ]]; then
-          if [[ ! `git diff --quiet HEAD -- types` ]]; then
-            git add types
-            git commit -m "[automated] update types"
+          # publish @next, this will build types
+          # yarn publish --tag next
+
+          # check differences and commit back to repo
+          changed=$(git status --porcelain)
+          if [[ -n "$changed" ]]; then
+            if [[ ! `git diff --quiet HEAD -- types` ]]; then
+              git add types
+              git commit -m "[automated] update types"
+            fi
+            if [[ ! `git diff --quiet HEAD -- package.json` ]]; then
+              git add package.json
+              git commit -m "[automated] update version"
+            fi
+            git push
           fi
-          if [[ ! `git diff --quiet HEAD -- package.json` ]]; then
-            git add package.json
-            git commit -m "[automated] update version"
-          fi
-          git push
-        fi
-      env:
-        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
