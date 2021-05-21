@@ -1,6 +1,6 @@
 {
   "name": "svelte-themer",
-  "version": "0.4.8",
+  "version": "0.4.9-next.0",
   "homepage": "https://svelte-themer.now.sh",
   "license": "MIT",
   "repository": {
@@ -15,10 +15,6 @@
     ".": {
       "default": "./lib/index.mjs",
       "node": "./lib/index.js"
-    },
-    "./preprocess": {
-      "default": "./lib/preprocess.mjs",
-      "node": "./lib/preprocess.js"
     }
   },
   "files": [
