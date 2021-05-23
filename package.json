@@ -1,6 +1,6 @@
 {
   "name": "svelte-themer",
-  "version": "0.4.9",
+  "version": "0.4.10",
   "homepage": "https://svelte-themer.now.sh",
   "license": "MIT",
   "repository": {
@@ -32,7 +32,7 @@
   "scripts": {
     "build": "rollup -c",
     "dev": "yarn build -w",
-    "prepublishOnly": "yarn build",
+    "prepublishOnly": "yarn test && yarn build",
     "release": "changeset publish",
     "format": "prettier --write \"{components,support,docs}/**/*.{js,json,svelte}\"",
     "test": "jest components"
