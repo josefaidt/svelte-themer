@@ -16,7 +16,11 @@
   import { presets } from './presets'
   import toggle from '../support/toggle'
   import createCSS from '../support/createCSS'
-  import { currentThemeName, currentThemeObject, themes as themesStore } from '../support/store'
+  import {
+    currentThemeName,
+    currentThemeObject,
+    themes as themesStore,
+  } from '../support/store'
   import isObject from '../support/isObject'
 
   /**
@@ -33,7 +37,7 @@
    * Sets the specified theme as active
    * @type {string | null} [theme='dark']
    */
-  export let theme = null;
+  export let theme = null
   /**
    * Specify custom CSS variable prefix
    * @type {string | null} [prefix='theme']
@@ -50,22 +54,26 @@
    */
   export let base = {}
 
-  if (!isObject(themes) || !Object.keys(themes).length) throw new Error(INVALID_THEMES_MESSAGE)
-  if (typeof prefix === 'string' && !prefix.trim().length) throw new Error(INVALID_PREFIX_MESSAGE)
+  if (!isObject(themes) || !Object.keys(themes).length)
+    throw new Error(INVALID_THEMES_MESSAGE)
+  if (typeof prefix === 'string' && !prefix.trim().length)
+    throw new Error(INVALID_PREFIX_MESSAGE)
   if (!VALID_MODES.includes(mode)) throw new Error(INVALID_MODE_MESSAGE)
 
   themesStore.set(themes)
   const [fallback] = Object.keys(themes)
-  $: setContext(CONTEXT_KEY, {
-    current: currentThemeName,
-    toggle: toggle,
-    theme: currentThemeObject,
-  })
-  $: if (!Object.keys(themes).includes($currentThemeName)) currentThemeName.set(fallback)
+  $: if (!Object.keys(themes).includes($currentThemeName))
+    currentThemeName.set(fallback)
   $: currentThemeObject.set(themes[$currentThemeName])
 
   // create CSS
   const style = createCSS(prefix, base, themes)
+
+  setContext(CONTEXT_KEY, {
+    current: currentThemeName,
+    toggle,
+    theme: currentThemeName,
+  })
 
   onMount(() => {
     // detect dark mode
@@ -75,7 +83,8 @@
     // listen for media query status change
     darkSchemeQuery.addEventListener(
       'change',
-      ({ matches }) => mode === 'auto' && currentMode.set(matches ? 'dark' : 'light')
+      ({ matches }) =>
+        mode === 'auto' && currentMode.set(matches ? 'dark' : 'light')
     )
 
     // loading order: saved, prefers, fallback
@@ -83,7 +92,7 @@
 
     if (theme && themes[theme]) {
       currentThemeName.set(theme)
-    } else  if (saved && themes[saved]) {
+    } else if (saved && themes[saved]) {
       currentThemeName.set(saved)
     } else {
       if (mode === 'auto' && preferredMode) {
@@ -95,11 +104,13 @@
       }
     }
 
-    return () => key && localStorage && localStorage.setItem(key, $currentThemeName)
+    return () =>
+      key && localStorage && localStorage.setItem(key, $currentThemeName)
   })
 
   afterUpdate(() => {
-    if (document) document.documentElement.setAttribute('theme', $currentThemeName)
+    if (document)
+      document.documentElement.setAttribute('theme', $currentThemeName)
     if (key && localStorage) localStorage.setItem(key, $currentThemeName)
   })
 </script>
