@@ -304,7 +304,7 @@ svelte-hmr@^0.14.2:
   integrity sha512-N56xX405zLMw2tpGHKRx5h+kmdeZwxI21pvyC6OyBHJDCF6DlwWBm9TifdQmSD4dloWSmpDPzHWYa3CSjfopUg==
 
 svelte-themer@../:
-  version "0.4.7-next.2"
+  version "0.4.9-next.1"
   dependencies:
     css-vars-ponyfill "^2.4.5"
 

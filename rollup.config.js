@@ -1,5 +1,6 @@
 import svelte from 'rollup-plugin-svelte'
 import resolve from '@rollup/plugin-node-resolve'
+import commonjs from '@rollup/plugin-commonjs'
 import sveld from 'sveld'
 import pkg from './package.json'
 
@@ -20,8 +21,12 @@ export default ['es', 'umd'].map(format => {
       file: UMD ? pkg.main : pkg.module,
       format,
       name: UMD ? pkg.name : undefined,
+      exports: 'named',
+      globals: {
+        'css-vars-ponyfill': 'cssVariablesPolyfill',
+      },
     },
     external: Object.keys(pkg.dependencies),
-    plugins: [svelte(svelteConfig), resolve(), UMD && sveld()],
+    plugins: [svelte(svelteConfig), resolve(), commonjs(), UMD && sveld()],
   }
 })
