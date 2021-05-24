@@ -1,6 +1,6 @@
 {
   "name": "svelte-themer",
-  "version": "0.4.10",
+  "version": "0.4.11-next.0",
   "homepage": "https://svelte-themer.now.sh",
   "license": "MIT",
   "repository": {
@@ -13,8 +13,8 @@
   "types": "./types/index.d.ts",
   "exports": {
     ".": {
-      "default": "./lib/index.mjs",
-      "node": "./lib/index.js"
+      "import": "./lib/index.mjs",
+      "require": "./lib/index.js"
     }
   },
   "files": [
