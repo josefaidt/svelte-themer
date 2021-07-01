@@ -14,7 +14,8 @@
   "exports": {
     ".": {
       "import": "./lib/index.mjs",
-      "require": "./lib/index.js"
+      "require": "./lib/index.js",
+      "./package.json": "./package.json"
     }
   },
   "files": [
