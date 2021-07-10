@@ -27,6 +27,14 @@ export default ['es', 'umd'].map(format => {
       },
     },
     external: Object.keys(pkg.dependencies),
-    plugins: [svelte(svelteConfig), resolve(), commonjs(), UMD && sveld()],
+    plugins: [
+      svelte(svelteConfig),
+      resolve({
+        browser: true,
+        dedupe: ['svelte'],
+      }),
+      commonjs(),
+      UMD && sveld(),
+    ],
   }
 })
