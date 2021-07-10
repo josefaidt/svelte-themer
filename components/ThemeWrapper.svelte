@@ -74,11 +74,6 @@
     toggle,
     theme: currentThemeName,
   })
-  $: setContext(CONTEXT_KEY, {
-    current: currentThemeName,
-    toggle,
-    theme: currentThemeName,
-  })
 
   onMount(() => {
     // detect dark mode
