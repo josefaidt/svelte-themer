@@ -58,7 +58,7 @@
     "rollup-plugin-svelte": "^7.1.0",
     "sveld": "^0.10.2",
     "svelte": "^3.42.4",
-    "svelte-jester": "^2.1.1"
+    "svelte-jester": "1.8.2"
   },
   "prettier": {
     "printWidth": 80,
@@ -90,7 +90,7 @@
         "@babel/preset-env",
         {
           "targets": {
-            "node": "12"
+            "node": "current"
           }
         }
       ]

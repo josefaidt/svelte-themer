@@ -1,3 +1,6 @@
+/**
+ * @jest-environment jsdom
+ */
 import '@testing-library/jest-dom/extend-expect'
 import { render } from '@testing-library/svelte'
 import ThemeWrapper, {
@@ -26,7 +29,9 @@ describe(ThemeWrapper.name, () => {
   })
 
   afterEach(() => {
-    document.querySelectorAll('style').forEach(sheet => sheet.cssRules && sheet.remove())
+    document
+      .querySelectorAll('style')
+      .forEach(sheet => sheet.cssRules && sheet.remove())
   })
 
   it('should render', () => {
