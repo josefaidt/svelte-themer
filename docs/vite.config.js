@@ -1,6 +1,6 @@
 import { readFile } from 'fs/promises'
 import { resolve } from 'path'
-import svelte from '@sveltejs/vite-plugin-svelte'
+import { svelte } from '@sveltejs/vite-plugin-svelte'
 import replace from '@rollup/plugin-replace'
 import autoprefixer from 'autoprefixer'
 import { defineConfig } from 'vite'
