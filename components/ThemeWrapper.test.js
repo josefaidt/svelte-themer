@@ -66,13 +66,33 @@ describe(ThemeWrapper.name, () => {
     })
 
     it('should not use CSS Variables prefix when prefix is null', () => {
-      const { container } = TestHarness({ prefix: null })
+      const { container } = TestHarness({
+        prefix: null,
+      })
       expect(getCSSVar('--colors-text')).toBeTruthy()
     })
 
     it('should error prefix is an empty string', () => {
       expect(() => TestHarness({ prefix: '' })).toThrow(INVALID_PREFIX_MESSAGE)
     })
+  })
+
+  it('should accept base styles as initial CSS Variables values', () => {
+    const base = {
+      colors: {
+        primary: 'red',
+      },
+    }
+    const themes = {
+      test: {
+        colors: {
+          primary: 'blue',
+        },
+      },
+    }
+    const results = TestHarness({ base, themes })
+    expect(getCSSVar('--theme-colors-primary')).not.toEqual('initial')
+    expect(getCSSVar('--theme-colors-primary')).toEqual('red')
   })
 
   describe('server-side context', () => {
@@ -83,7 +103,7 @@ describe(ThemeWrapper.name, () => {
     afterAll(() => {
       global.window = window
     })
-    it('should not fail to render', () => {
+    it('should render', () => {
       const { component } = TestHarness()
       expect(component).toBeTruthy()
     })
