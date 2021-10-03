@@ -15,10 +15,11 @@
   import { onMount, afterUpdate, setContext } from 'svelte'
   import { presets } from './presets'
   import toggle from '../support/toggle'
-  import createCSS from '../support/createCSS'
+  import { createCSS } from '../support/css'
   import {
     currentThemeName,
     currentThemeObject,
+    currentMode,
     themes as themesStore,
   } from '../support/store'
   import isObject from '../support/isObject'

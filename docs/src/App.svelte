@@ -33,12 +33,17 @@
       <section id="intro">
         <header>
           <h1>Svelte Themer</h1>
-          <p>A theming engine for your Svelte apps using CSS Variables, persisted.</p>
+          <p>
+            A theming engine for your Svelte apps using CSS Variables,
+            persisted.
+          </p>
         </header>
         <div class="apps">
           <a
             href="https://github.com/josefaidt/svelte-themer/blob/main/README.md#svelte-themer"
-          >readme</a>
+          >
+            readme
+          </a>
           <a href="https://www.npmjs.com/package/svelte-themer">npm</a>
           <a href="https://github.com/josefaidt/svelte-themer">github</a>
         </div>
