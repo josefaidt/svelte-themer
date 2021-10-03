@@ -8,7 +8,7 @@ import { themes as themesStore } from './store'
  */
 
 /**
- * Set CSS to document
+ * Create CSS template
  * @name setCSS
  * @param {string} prefix - CSS variable prefix
  * @param {Object[]} themes - themes array
