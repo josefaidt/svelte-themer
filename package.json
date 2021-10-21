@@ -52,6 +52,7 @@
     "babel-jest": "^27.1.1",
     "eslint": "^8.0.0",
     "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-jest": "^25.2.2",
     "eslint-plugin-svelte3": "^3.2.1",
     "jest": "^27.1.1",
     "prettier": "^2.3.2",
@@ -90,7 +91,8 @@
       "prettier"
     ],
     "plugins": [
-      "svelte3"
+      "svelte3",
+      "jest"
     ],
     "ignorePatterns": [
       "*.cjs"
@@ -106,11 +108,11 @@
     "parser": "@babel/eslint-parser",
     "parserOptions": {
       "sourceType": "module",
-      "ecmaVersion": 2021
+      "ecmaVersion": 2020
     },
     "env": {
       "browser": true,
-      "es2017": true,
+      "es2020": true,
       "node": true
     }
   },
