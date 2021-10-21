@@ -1,71 +1,57 @@
 <script>
-  import { ThemeWrapper, ThemeToggle } from 'svelte-themer'
-
-  const base = {
-    font: {
-      size: {
-        _: '18px',
-      },
-      weight: {
-        lightest: 100,
-        lighter: 200,
-        light: 300,
-        base: 400,
-        medium: 500,
-        bold: 700,
-        boldest: 900,
-      },
-    },
-  }
+  import { ThemeToggle } from 'svelte-themer'
 </script>
 
-<ThemeWrapper base="{base}">
-  <div id="container">
-    <div id="nav--container">
-      <nav>
-        <!-- links -->
-      </nav>
-      <div>
-        <ThemeToggle />
-      </div>
+<div id="container">
+  <div id="nav--container">
+    <nav>
+      <!-- links -->
+    </nav>
+    <div>
+      <ThemeToggle />
     </div>
-    <main>
-      <section id="intro">
-        <header>
-          <h1>Svelte Themer</h1>
-          <p>
-            A theming engine for your Svelte apps using CSS Variables,
-            persisted.
-          </p>
-        </header>
-        <div class="apps">
-          <a
-            href="https://github.com/josefaidt/svelte-themer/blob/main/README.md#svelte-themer"
-          >
-            readme
-          </a>
-          <a href="https://www.npmjs.com/package/svelte-themer">npm</a>
-          <a href="https://github.com/josefaidt/svelte-themer">github</a>
-        </div>
-      </section>
-    </main>
-    <footer>
-      <!-- svelte-ignore missing-declaration -->
-      <span>v{PKG_VERSION}</span>
-    </footer>
   </div>
-</ThemeWrapper>
+  <main>
+    <section id="intro">
+      <header>
+        <h1>Svelte Themer</h1>
+        <p>
+          A theming engine for your Svelte apps using CSS Variables, persisted.
+        </p>
+      </header>
+      <div class="apps">
+        <a
+          href="https://github.com/josefaidt/svelte-themer/blob/main/README.md#svelte-themer"
+        >
+          readme
+        </a>
+        <a href="https://www.npmjs.com/package/svelte-themer">npm</a>
+        <a href="https://github.com/josefaidt/svelte-themer">github</a>
+      </div>
+    </section>
+  </main>
+  <footer>
+    <!-- svelte-ignore missing-declaration -->
+    <!-- <span>v{PKG_VERSION}</span> -->
+  </footer>
+</div>
 
 <style>
-  :global(html) {
-    background-color: var(--theme-colors-background, initial);
-    color: var(--theme-colors-text, initial);
+  :global(body) {
+    display: flex;
+    place-items: center;
+    place-content: center;
+    font-size: var(--theme-font-size);
+    text-size-adjust: 100%;
+    font-feature-settings: 'kern', 'liga', 'clig', 'calt';
   }
 
-  :global(body) {
-    align-items: center;
-    display: flex;
-    font-size: var(--theme-font-size);
+  :global(*) {
+    transition-property: background-color;
+    transition-duration: 0.2s;
+    transition-timing-function: ease;
+    text-rendering: optimizeLegibility;
+    text-shadow: rgb(0 0 0 / 1%) 0 0 1px;
   }
 
   #nav--container {
@@ -123,21 +109,22 @@
     justify-content: space-between;
   }
 
-  h1,
-  h2 {
+  h1 {
     color: var(--theme-colors-text);
     margin: 0;
     text-transform: lowercase;
-  }
-
-  h1 {
     font-size: 4rem;
     font-weight: var(--theme-font-weight-lighter);
+  }
+
+  p {
+    font-size: 1rem;
   }
 
   a,
   a:visited {
     color: var(--theme-colors-primary);
+    font-size: 1rem;
   }
 
   @media (max-width: 768px) {
