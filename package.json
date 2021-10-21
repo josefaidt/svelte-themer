@@ -1,20 +1,18 @@
 {
   "name": "svelte-themer",
-  "version": "0.4.13",
-  "homepage": "https://svelte-themer.now.sh",
+  "type": "module",
+  "version": "0.4.13-next.0",
+  "homepage": "https://svelte-themer.vercel.app",
   "license": "MIT",
   "repository": {
     "url": "https://github.com/josefaidt/svelte-themer"
   },
-  "sideEffects": false,
-  "svelte": "./index.js",
-  "module": "./lib/index.mjs",
-  "main": "./lib/index.js",
+  "svelte": "./src/index.js",
   "types": "./types/index.d.ts",
   "exports": {
     ".": {
-      "import": "./lib/index.mjs",
-      "require": "./lib/index.js"
+      "import": "./lib/index.js",
+      "require": "./lib/index.cjs"
     },
     "./package.json": "./package.json"
   },
@@ -31,9 +29,9 @@
     "theming"
   ],
   "scripts": {
-    "build": "rollup -c",
-    "dev": "yarn build -w",
-    "prepublishOnly": "yarn test && yarn build",
+    "dev": "vite",
+    "build": "vite build",
+    "prepublishOnly": "pnpm test && pnpm build",
     "release": "changeset publish",
     "format": "prettier --write \"{components,support,docs}/**/*.{js,json,svelte}\"",
     "test": "jest components"
@@ -42,16 +40,17 @@
     "css-vars-ponyfill": "^2.4.7"
   },
   "devDependencies": {
-    "@babel/core": "^7.15.5",
-    "@babel/preset-env": "^7.15.4",
+    "@babel/core": "^7.15.8",
+    "@babel/eslint-parser": "^7.15.8",
+    "@babel/plugin-syntax-top-level-await": "^7.14.5",
+    "@babel/preset-env": "^7.15.8",
     "@changesets/cli": "^2.17.0",
-    "@rollup/plugin-commonjs": "^20.0.0",
-    "@rollup/plugin-json": "^4.1.0",
-    "@rollup/plugin-node-resolve": "^13.0.4",
+    "@leveluptuts/svelte-toy": "^0.0.15",
+    "@sveltejs/vite-plugin-svelte": "next",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/svelte": "^3.0.3",
     "babel-jest": "^27.1.1",
-    "eslint": "^7.32.0",
+    "eslint": "^8.0.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-svelte3": "^3.2.1",
     "jest": "^27.1.1",
@@ -60,8 +59,12 @@
     "rollup": "^2.56.3",
     "rollup-plugin-svelte": "^7.1.0",
     "sveld": "^0.10.2",
-    "svelte": "^3.42.4",
-    "svelte-jester": "1.8.2"
+    "svelte": "^3.43.2",
+    "svelte-jester": "1.8.2",
+    "vite": "^2.6.7"
+  },
+  "peerDependencies": {
+    "svelte": "^3.43.2"
   },
   "prettier": {
     "printWidth": 80,
@@ -72,10 +75,59 @@
     "htmlWhitespaceSensitivity": "ignore",
     "arrowParens": "avoid",
     "singleQuote": true,
-    "svelteSortOrder": "scripts-markup-styles",
+    "svelteSortOrder": "options-scripts-markup-styles",
     "svelteStrictMode": true,
     "svelteBracketNewLine": true,
-    "svelteAllowShorthand": false
+    "svelteAllowShorthand": false,
+    "plugins": [
+      "./node_modules/prettier-plugin-svelte"
+    ]
+  },
+  "eslintConfig": {
+    "root": true,
+    "extends": [
+      "eslint:recommended",
+      "prettier"
+    ],
+    "plugins": [
+      "svelte3"
+    ],
+    "ignorePatterns": [
+      "*.cjs"
+    ],
+    "overrides": [
+      {
+        "files": [
+          "*.svelte"
+        ],
+        "processor": "svelte3/svelte3"
+      }
+    ],
+    "parser": "@babel/eslint-parser",
+    "parserOptions": {
+      "sourceType": "module",
+      "ecmaVersion": 2021
+    },
+    "env": {
+      "browser": true,
+      "es2017": true,
+      "node": true
+    }
+  },
+  "babel": {
+    "presets": [
+      [
+        "@babel/preset-env",
+        {
+          "targets": {
+            "node": "current"
+          }
+        }
+      ]
+    ],
+    "plugins": [
+      "@babel/plugin-syntax-top-level-await"
+    ]
   },
   "husky": {
     "hooks": {
@@ -88,18 +140,6 @@
     ],
     "*.{js,svelte,md,mdx,json}": [
       "prettier --write"
-    ]
-  },
-  "babel": {
-    "presets": [
-      [
-        "@babel/preset-env",
-        {
-          "targets": {
-            "node": "current"
-          }
-        }
-      ]
     ]
   },
   "jest": {
