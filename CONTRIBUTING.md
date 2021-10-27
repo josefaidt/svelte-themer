@@ -1,11 +1,13 @@
-# How To: Release
+# Contributing
 
-## Latest
+## Releasing
 
-1. `yarn version --<major|minor|patch>`
-2. `yarn publish`
+### Latest
 
-## Next
+1. `pnpm version --<major|minor|patch>`
+2. `pnpm publish`
 
-1. `yarn version --prerelease --preid next`
-2. `yarn publish --tag next`
+### Next
+
+1. `pnpm version prerelease --preid next`
+2. `pnpm publish --tag next`
