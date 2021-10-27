@@ -1,27 +1,25 @@
 import { readFile } from 'fs/promises'
 import { resolve } from 'path'
 import { svelte } from '@sveltejs/vite-plugin-svelte'
-import { defineConfig } from 'vite'
+import sveld from 'sveld'
 
 const { npm_package_svelte, npm_package_name } = process.env
 const pkg = JSON.parse(await readFile(resolve('./package.json')))
 
-export default defineConfig({
-  mode: 'production',
-  plugins: [
-    svelte({
-      emitCss: false,
-      compilerOptions: {
-        generate: 'ssr',
-      },
-    }),
-  ],
+/**
+ * @type {import('vite').UserConfig}
+ */
+export default {
+  plugins: [svelte()],
   build: {
     minify: true,
     outDir: resolve('./lib'),
+    emptyOutDir: true,
     lib: {
       entry: npm_package_svelte,
       name: npm_package_name,
+      formats: ['es', 'umd'],
+      fileName: format => `svelte-themer${format === 'umd' ? '.umd' : ''}.js`,
     },
     rollupOptions: {
       external: [...Object.keys(pkg.dependencies || {}), 'svelte'],
@@ -31,9 +29,8 @@ export default defineConfig({
           svelte: 'svelte',
         },
       },
-      // exports: 'named',
-      plugins: [],
+      plugins: [sveld.default()],
     },
   },
   rollupDedupe: ['svelte'],
-})
+}

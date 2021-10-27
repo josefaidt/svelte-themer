@@ -11,17 +11,15 @@
   "types": "./types/index.d.ts",
   "exports": {
     ".": {
-      "import": "./lib/index.js",
-      "require": "./lib/index.cjs"
+      "import": "./lib/svelte-themer.js",
+      "require": "./lib/svelte-themer.umd.js"
     },
     "./package.json": "./package.json"
   },
   "files": [
+    "src",
     "lib",
-    "types",
-    "components",
-    "index.js",
-    "support"
+    "types"
   ],
   "keywords": [
     "svelte",
@@ -29,8 +27,9 @@
     "theming"
   ],
   "scripts": {
-    "dev": "vite",
+    "dev": "vite build --watch",
     "build": "vite build",
+    "build:types": "sveld",
     "prepublishOnly": "pnpm test && pnpm build",
     "release": "changeset publish",
     "format": "prettier --write \"{components,support,docs}/**/*.{js,json,svelte}\"",
@@ -57,11 +56,10 @@
     "jest": "^27.1.1",
     "prettier": "^2.3.2",
     "prettier-plugin-svelte": "^2.4.0",
-    "rollup": "^2.56.3",
-    "rollup-plugin-svelte": "^7.1.0",
     "sveld": "^0.10.2",
     "svelte": "^3.43.2",
     "svelte-jester": "1.8.2",
+    "svelte-preprocess": "^4.9.8",
     "vite": "^2.6.7"
   },
   "peerDependencies": {
@@ -105,15 +103,13 @@
         "processor": "svelte3/svelte3"
       }
     ],
-    "parser": "@babel/eslint-parser",
     "parserOptions": {
       "sourceType": "module",
       "ecmaVersion": 2020
     },
     "env": {
       "browser": true,
-      "es2020": true,
-      "node": true
+      "es6": true
     }
   },
   "babel": {

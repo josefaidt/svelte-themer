@@ -1,5 +1,8 @@
 import adapter from '@sveltejs/adapter-static'
 
+// add preprocess
+// style global
+
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
   kit: {
