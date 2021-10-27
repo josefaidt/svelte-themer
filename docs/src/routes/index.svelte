@@ -1,5 +1,17 @@
+<script context="module">
+  export async function load({ fetch }) {
+    const { SVELTE_THEMER_VERSION } = await (await fetch('/index.json')).json()
+    return {
+      props: {
+        SVELTE_THEMER_VERSION,
+      },
+    }
+  }
+</script>
+
 <script>
   import { ThemeToggle } from 'svelte-themer'
+  export let SVELTE_THEMER_VERSION
 </script>
 
 <div id="container">
@@ -32,7 +44,9 @@
   </main>
   <footer>
     <!-- svelte-ignore missing-declaration -->
-    <!-- <span>v{PKG_VERSION}</span> -->
+    {#if SVELTE_THEMER_VERSION}
+      <span>v{SVELTE_THEMER_VERSION}</span>
+    {/if}
   </footer>
 </div>
 
@@ -44,6 +58,7 @@
     font-size: var(--theme-font-size);
     text-size-adjust: 100%;
     font-feature-settings: 'kern', 'liga', 'clig', 'calt';
+    max-width: 100vw;
   }
 
   :global(*) {
