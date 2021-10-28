@@ -67,7 +67,9 @@ Turns into
 .theme--light {
   --theme-colors-text: var(--theme-light-colors-text);
   --theme-colors-background: var(--theme-light-colors-background);
-  --theme-colors-background-contrast: --var(theme-light-colors-background-contrast);
+  --theme-colors-background-contrast: --var(
+    theme-light-colors-background-contrast
+  );
   --theme-colors-primary: var(--theme-light-colors-primary);
   --theme-colors-primary_dark: var(--theme-light-colors-primary_dark);
   --theme-colors-secondary: var(--theme-light-colors-secondary);
@@ -191,3 +193,11 @@ Described below is the pattern used for accessing `theme` context to create your
   </main>
 </ThemeWrapper>
 ```
+
+## Contributing
+
+Refer to the [contributing guidelines](CONTRIBUTING.md).
+
+## License
+
+[MIT](LICENSE)
