@@ -30,7 +30,7 @@ This guide utilizes the [GitHub CLI](https://cli.github.com/)
 ```console
 git checkout main
 git fetch upstream
-git pull
+git pull --strategy-option theirs
 ```
 
 ## Releasing
