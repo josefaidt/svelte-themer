@@ -27,6 +27,7 @@
     "theming"
   ],
   "scripts": {
+    "start": "pnpm run dev --filter . --parallel",
     "dev": "vite build --watch",
     "build": "vite build",
     "prepublishOnly": "pnpm test && pnpm build",
