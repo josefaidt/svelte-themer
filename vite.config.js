@@ -2,15 +2,23 @@ import { readFile } from 'fs/promises'
 import { resolve } from 'path'
 import { svelte } from '@sveltejs/vite-plugin-svelte'
 import sveld from 'sveld'
+// import sveltePreprocess from 'svelte-preprocess'
 
 const { npm_package_svelte, npm_package_name } = process.env
 const pkg = JSON.parse(await readFile(resolve('./package.json')))
+
+const svelteConfig = {
+  // preprocess: sveltePreprocess(),
+  // compilerOptions: {
+  //   generate: 'ssr',
+  // },
+}
 
 /**
  * @type {import('vite').UserConfig}
  */
 export default {
-  plugins: [svelte()],
+  plugins: [svelte(svelteConfig)],
   build: {
     minify: true,
     outDir: resolve('./lib'),
