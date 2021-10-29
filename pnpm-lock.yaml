@@ -6,7 +6,6 @@ importers:
     specifiers:
       '@babel/core': ^7.15.8
       '@babel/eslint-parser': ^7.15.8
-      '@babel/plugin-syntax-top-level-await': ^7.14.5
       '@babel/preset-env': ^7.15.8
       '@changesets/cli': ^2.17.0
       '@leveluptuts/svelte-toy': ^0.0.15
@@ -32,7 +31,6 @@ importers:
     devDependencies:
       '@babel/core': 7.15.8
       '@babel/eslint-parser': 7.15.8_@babel+core@7.15.8+eslint@8.0.1
-      '@babel/plugin-syntax-top-level-await': 7.14.5_@babel+core@7.15.8
       '@babel/preset-env': 7.15.8_@babel+core@7.15.8
       '@changesets/cli': 2.17.0
       '@leveluptuts/svelte-toy': 0.0.15
@@ -56,15 +54,19 @@ importers:
   docs:
     specifiers:
       '@sveltejs/adapter-static': next
+      '@sveltejs/adapter-vercel': ^1.0.0-next.31
       '@sveltejs/kit': next
       autoprefixer: ^10.4.0
       svelte: ^3.42.6
+      svelte-preprocess: ^4.9.8
       svelte-themer: ../
     devDependencies:
       '@sveltejs/adapter-static': 1.0.0-next.21
+      '@sveltejs/adapter-vercel': 1.0.0-next.31
       '@sveltejs/kit': 1.0.0-next.192_svelte@3.44.0
       autoprefixer: 10.4.0
       svelte: 3.44.0
+      svelte-preprocess: 4.9.8_@babel+core@7.15.8+svelte@3.44.0
       svelte-themer: link:..
 
 packages:
@@ -1738,6 +1740,12 @@ packages:
 
   /@sveltejs/adapter-static/1.0.0-next.21:
     resolution: {integrity: sha512-B4+QoUVAaANKx+mHntG8SqF45zbj3Ct4Akg/cGauo6COyfKZRhO5OsMa+wPuT2TKJBZC4eEDK0p+p9nyQBkxKQ==}
+    dev: true
+
+  /@sveltejs/adapter-vercel/1.0.0-next.31:
+    resolution: {integrity: sha512-W8p/U00B6ihVrDpwMkgEexfVUzaLmn4MRtXj//Gw4NDFfsrZR4P5wBidrOAIkCYBMvqCOHD+vbAvIiAMOaN23g==}
+    dependencies:
+      esbuild: 0.13.8
     dev: true
 
   /@sveltejs/kit/1.0.0-next.192_svelte@3.44.0:
