@@ -40,7 +40,6 @@
   "devDependencies": {
     "@babel/core": "^7.15.8",
     "@babel/eslint-parser": "^7.15.8",
-    "@babel/plugin-syntax-top-level-await": "^7.14.5",
     "@babel/preset-env": "^7.15.8",
     "@changesets/cli": "^2.17.0",
     "@leveluptuts/svelte-toy": "^0.0.15",
@@ -82,7 +81,6 @@
     ]
   },
   "eslintConfig": {
-    "root": true,
     "extends": [
       "eslint:recommended",
       "prettier"
@@ -102,30 +100,23 @@
         "processor": "svelte3/svelte3"
       }
     ],
+    "parser": "@babel/eslint-parser",
     "parserOptions": {
       "sourceType": "module",
-      "ecmaVersion": 2020
+      "ecmaVersion": 2021,
+      "requireConfigFile": false,
+      "babelOptions": {
+        "presets": [
+          "@babel/preset-env"
+        ]
+      }
     },
     "env": {
       "browser": true,
+      "node": true,
       "es6": true,
       "jest/globals": true
     }
-  },
-  "babel": {
-    "presets": [
-      [
-        "@babel/preset-env",
-        {
-          "targets": {
-            "node": "current"
-          }
-        }
-      ]
-    ],
-    "plugins": [
-      "@babel/plugin-syntax-top-level-await"
-    ]
   },
   "husky": {
     "hooks": {
