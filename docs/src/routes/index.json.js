@@ -1,12 +1,9 @@
-import { promises } from 'fs'
-import { resolve } from 'path'
-const { readFile } = promises
+import pkg from 'svelte-themer/package.json'
 
 /**
  * @type {import('@sveltejs/kit').RequestHandler}
  */
 export async function get() {
-  const pkg = JSON.parse(await readFile(resolve('../package.json')))
   const { version } = pkg
   return {
     body: {
