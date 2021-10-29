@@ -1,0 +1,17 @@
+{
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "serve": "vite preview"
+  },
+  "devDependencies": {
+    "@sveltejs/vite-plugin-svelte": "next",
+    "autoprefixer": "^10.3.4",
+    "postcss": "^8.3.6",
+    "svelte": "^3.42.4",
+    "svelte-themer": "../../",
+    "vite": "^2.5.6"
+  }
+}
