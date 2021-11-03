@@ -39,16 +39,18 @@ export function createCSSVariableStatement(variableName, value) {
 
 /**
  * @typedef {object} CreateCSSVariableOverrideInput
- * @property {string} variablePrefix
- * @property {string} prop property name
- * @property {string} [key] optional prop prefix
+ * @property {CSSVariableName} initialVariableName
+ * @property {CSSVariableName} themeVariableName
  *
  * Helper to create variable overrides for themed use
  * @param {CreateCSSVariableOverrideInput}
  * @returns {string}
  */
-export function createCSSVariableOverride({ variablePrefix, prop, key }) {
-  return `${variablePrefix}-${prop}: var(${variablePrefix}-${key}-${prop});`
+export function createCSSVariableOverride({
+  initialVariableName,
+  themeVariableName,
+}) {
+  return `${initialVariableName}: var(${themeVariableName});`
 }
 
 /**
@@ -98,9 +100,12 @@ export function createCSS(prefix, base = {}) {
       // add theme-specific overrides of initial variables
       overrides.push(
         createCSSVariableOverride({
-          variableName: createCSSVariableName({ variablePrefix, prop }),
-          prop,
-          key: themeName,
+          initialVariableName,
+          themeVariableName: createCSSVariableName({
+            variablePrefix,
+            prop,
+            key: themeName,
+          }),
         })
       )
     }
