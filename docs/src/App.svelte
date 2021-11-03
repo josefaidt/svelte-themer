@@ -45,6 +45,7 @@
 <ThemeWrapper base="{base}">
   <div id="container">
     <div id="nav--container">
+      <div></div>
       <div>
         <ThemeToggle />
       </div>
@@ -80,7 +81,8 @@
   }
 
   :global(body) {
-    align-items: center;
+    place-items: center;
+    place-content: center;
     display: flex;
     font-size: var(--theme-font-size);
   }
