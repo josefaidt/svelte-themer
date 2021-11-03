@@ -43,4 +43,4 @@ git pull --strategy-option theirs
 ### Next
 
 1. `pnpm version prerelease --preid next`
-2. `pnpm publish --tag next`
+2. `pnpm publish --tag next --publish-branch next`

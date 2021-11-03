@@ -1,4 +1,7 @@
 {
+  "name": "@svelte-themer/sample-svelte-kit",
+  "private": true,
+  "type": "module",
   "version": "0.0.1",
   "scripts": {
     "dev": "svelte-kit dev",
@@ -11,7 +14,6 @@
     "autoprefixer": "^10.4.0",
     "svelte": "^3.42.6",
     "svelte-preprocess": "^4.9.8",
-    "svelte-themer": "../"
-  },
-  "type": "module"
+    "svelte-themer": "workspace:../../"
+  }
 }

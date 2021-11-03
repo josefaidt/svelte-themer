@@ -1,4 +1,5 @@
 {
+  "name": "@svelte-themer/sample-vite",
   "private": true,
   "type": "module",
   "scripts": {
@@ -11,7 +12,7 @@
     "autoprefixer": "^10.3.4",
     "postcss": "^8.3.6",
     "svelte": "^3.42.4",
-    "svelte-themer": "../../",
+    "svelte-themer": "workspace:../../",
     "vite": "^2.5.6"
   }
 }
