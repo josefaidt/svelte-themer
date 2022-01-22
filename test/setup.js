@@ -1,7 +1,7 @@
 import { vi, beforeEach } from 'vitest'
 
 function createLocalStorage() {
-  let state
+  let state = {}
 
   const localStorageMock = {
     getItem: vi.fn(x => state[x]),
@@ -19,8 +19,8 @@ function createMatchMedia() {
   const matchMediaMock = vi.fn().mockImplementation(query => ({
     matches: false,
     media: query,
-    addListener: vi.fn(() => {}),
-    removeListener: vi.fn(() => {}),
+    addEventListener: vi.fn(() => {}),
+    removeEventListener: vi.fn(() => {}),
     dispatchEvent: vi.fn(() => {}),
   }))
   // jest.fn().mockImplementation(query => ({

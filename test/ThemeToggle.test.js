@@ -1,10 +1,10 @@
-import { describe, it, beforeEach, expect } from 'vitest'
+import { describe, expect, it } from 'vitest'
 import { currentThemeName } from '../support/store'
 import { presets } from '../components/presets'
 import ThemeToggle from './ThemeToggle.test.svelte'
 
 describe(ThemeToggle.name, () => {
-  const createTestComponent = (props = {}) => {
+  const render = (props = {}) => {
     const host = document.createElement('div')
     host.setAttribute('id', 'host')
     document.body.appendChild(host)
@@ -13,23 +13,23 @@ describe(ThemeToggle.name, () => {
   }
 
   it('should render', () => {
-    const instance = createTestComponent()
+    const instance = render()
     expect(instance).toBeTruthy()
   })
 
   it('should update store on toggle', async () => {
     const key = 'testing'
     const names = Object.keys(presets)
-    const instance = createTestComponent({
+    const instance = render({
       themes: presets,
       key,
     })
     let current
     let unsub = currentThemeName.subscribe(value => (current = value))
-    // const toggleButton = getByTestId(container, 'test-toggle')
+    const toggleButton = document.querySelector('[data-testid="test-toggle"]')
 
     expect(current).toEqual(names[0])
-    // await fireEvent.click(toggleButton)
+    toggleButton.click()
     expect(current).toEqual(names[1])
 
     return unsub()
