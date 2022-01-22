@@ -1,3 +1,7 @@
-.changesets
+.changeset
 .github
 .vscode
+
+examples
+lib
+/*.md
