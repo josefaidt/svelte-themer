@@ -19,7 +19,8 @@
     "./store": "./support/store.js"
   },
   "files": [
-    "src",
+    "components",
+    "support",
     "lib",
     "types"
   ],
