@@ -15,7 +15,8 @@
       "require": "./lib/svelte-themer.umd.js"
     },
     "./package.json": "./package.json",
-    "./components": "./components/index.js"
+    "./components": "./components/index.js",
+    "./store": "./support/store.js"
   },
   "files": [
     "src",
