@@ -33,7 +33,6 @@ export default {
       external: [...Object.keys(pkg.dependencies || {}), 'svelte'],
       output: {
         globals: {
-          'css-vars-ponyfill': 'cssVariablesPolyfill',
           svelte: 'svelte',
         },
       },

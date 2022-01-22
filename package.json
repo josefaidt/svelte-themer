@@ -34,9 +34,6 @@
     "format": "prettier --write \"{src,docs}/**/*.{js,json,svelte}\"",
     "test": "jest components"
   },
-  "dependencies": {
-    "css-vars-ponyfill": "^2.4.7"
-  },
   "devDependencies": {
     "@babel/core": "^7.16.10",
     "@babel/eslint-parser": "^7.16.5",
