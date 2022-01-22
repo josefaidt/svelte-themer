@@ -63,7 +63,7 @@
 
   themesStore.set(themes)
   const [fallback] = Object.keys(themes)
-  $: if (!Object.keys(themes).includes($currentThemeName))
+  if (!Object.keys(themes).includes($currentThemeName))
     currentThemeName.set(fallback)
   $: currentThemeObject.set(themes[$currentThemeName])
 
@@ -96,7 +96,7 @@
     } else if (saved && themes[saved]) {
       currentThemeName.set(saved)
     } else {
-      if (mode === 'auto' && preferredMode) {
+      if (mode === 'auto' && preferredMode && themes[preferredMode]) {
         currentThemeName.set(preferredMode)
       } else if (['light', 'dark'].includes(mode) && themes[mode]) {
         currentThemeName.set(mode)

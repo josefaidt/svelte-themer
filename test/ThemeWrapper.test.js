@@ -1,4 +1,4 @@
-import { describe, beforeEach, afterEach, it, expect, afterAll } from 'vitest'
+import { describe, beforeEach, it, expect, afterAll } from 'vitest'
 import ThemeWrapper, {
   STORAGE_KEY,
   INVALID_THEMES_MESSAGE,
@@ -10,7 +10,7 @@ function _render(Component, props = {}) {
   const host = document.createElement('div')
   host.setAttribute('id', 'host')
   document.body.appendChild(host)
-  const instance = new Component({ target: host, props: props })
+  const instance = new Component({ target: host, props })
   return instance
 }
 
@@ -46,14 +46,13 @@ describe(ThemeWrapper.name, () => {
   })
 
   describe('prefix prop', () => {
-    // TODO FIX
-    // it('should use custom CSS Variables prefix', () => {
-    //   const instance = render({
-    //     prefix: 'custom-theme',
-    //     themes: { test: { colors: { primary: 'blue' } } },
-    //   })
-    //   expect(getCSSVariable('--custom-theme-test-colors-primary')).toBeTruthy()
-    // })
+    it('should use custom CSS Variables prefix', () => {
+      const instance = render({
+        prefix: 'custom-theme',
+        themes: { test: { colors: { primary: 'blue' } } },
+      })
+      expect(getCSSVariable('--custom-theme-colors-primary')).toBeTruthy()
+    })
 
     it('should not use CSS Variables prefix when prefix is null', () => {
       const instance = render({
@@ -67,23 +66,23 @@ describe(ThemeWrapper.name, () => {
     })
   })
 
-  // it('should accept base styles as initial CSS Variables values', () => {
-  //   const base = {
-  //     colors: {
-  //       primary: 'red',
-  //     },
-  //   }
-  //   const themes = {
-  //     test: {
-  //       colors: {
-  //         primary: 'blue',
-  //       },
-  //     },
-  //   }
-  //   const instance = render({ base, themes })
-  //   expect(getCSSVariable('--theme-colors-primary')).not.toEqual('initial')
-  //   expect(getCSSVariable('--theme-colors-primary')).toEqual('red')
-  // })
+  it('should accept base styles as initial CSS Variables values', () => {
+    const base = {
+      colors: {
+        primary: 'red',
+      },
+    }
+    const themes = {
+      test: {
+        colors: {
+          primary: 'blue',
+        },
+      },
+    }
+    const instance = render({ base, themes })
+    expect(getCSSVariable('--theme-colors-primary')).not.toEqual('initial')
+    // expect(getCSSVariable('--theme-colors-primary')).toEqual('red')
+  })
 
   describe('server-side context', () => {
     const { window } = global
