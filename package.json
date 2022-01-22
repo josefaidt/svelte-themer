@@ -7,7 +7,7 @@
   "repository": {
     "url": "https://github.com/josefaidt/svelte-themer"
   },
-  "svelte": "./src/index.js",
+  "svelte": "./components/index.js",
   "types": "./types/index.d.ts",
   "exports": {
     ".": {
@@ -32,31 +32,26 @@
     "build": "vite build",
     "prepublishOnly": "pnpm test && pnpm build",
     "format": "prettier --write \"{src,docs}/**/*.{js,json,svelte}\"",
-    "test": "jest components"
+    "test": "vitest",
+    "coverage": "vitest --coverage"
   },
   "devDependencies": {
-    "@babel/core": "^7.16.10",
-    "@babel/eslint-parser": "^7.16.5",
-    "@babel/plugin-transform-runtime": "^7.16.10",
-    "@babel/preset-env": "^7.16.11",
     "@changesets/cli": "^2.19.0",
-    "@leveluptuts/svelte-toy": "^0.0.15",
     "@sveltejs/vite-plugin-svelte": "next",
-    "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/svelte": "^3.0.3",
-    "babel-jest": "^27.4.6",
+    "@vitest/ui": "latest",
     "eslint": "^8.7.0",
     "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-jest": "^25.7.0",
     "eslint-plugin-svelte3": "^3.4.0",
-    "jest": "^27.4.7",
+    "happy-dom": "^2.28.0",
     "prettier": "^2.5.1",
     "prettier-plugin-svelte": "^2.6.0",
     "sveld": "^0.10.2",
     "svelte": "^3.46.2",
     "svelte-jester": "1.8.2",
     "svelte-preprocess": "^4.10.2",
-    "vite": "^2.7.13"
+    "vite": "^2.7.13",
+    "vitest": "^0.1.27"
   },
   "peerDependencies": {
     "svelte": "^3.43.2"
@@ -98,22 +93,14 @@
         "processor": "svelte3/svelte3"
       }
     ],
-    "parser": "@babel/eslint-parser",
     "parserOptions": {
       "sourceType": "module",
-      "ecmaVersion": 2021,
-      "requireConfigFile": false,
-      "babelOptions": {
-        "presets": [
-          "@babel/preset-env"
-        ]
-      }
+      "ecmaVersion": 2021
     },
     "env": {
       "browser": true,
       "node": true,
-      "es6": true,
-      "jest/globals": true
+      "es2017": true
     }
   },
   "husky": {
