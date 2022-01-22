@@ -1,5 +1,6 @@
 {
-  "private": true,
+  "name": "@svelte-themer/docs",
+  "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -7,12 +8,9 @@
     "serve": "vite preview"
   },
   "devDependencies": {
-    "@rollup/plugin-replace": "^3.0.0",
-    "@sveltejs/vite-plugin-svelte": "^1.0.0-next.22",
-    "autoprefixer": "^10.3.4",
-    "postcss": "^8.3.6",
-    "svelte": "^3.42.4",
-    "svelte-themer": "../",
-    "vite": "^2.5.6"
+    "@sveltejs/vite-plugin-svelte": "next",
+    "svelte": "^3.46.2",
+    "svelte-themer": "workspace:../",
+    "vite": "^2.7.13"
   }
 }

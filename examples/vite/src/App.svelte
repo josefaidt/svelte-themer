@@ -28,7 +28,7 @@
 
 <svelte:head>
   <meta name="description" content="{description}" />
-  <meta name="keywords" content="{keywords.join(',')}" />
+  <meta name="keywords" content="{keywords}" />
 
   <meta property="og:url" content="{url}" />
   <meta property="og:title" content="{title}" />
@@ -45,7 +45,6 @@
 <ThemeWrapper base="{base}">
   <div id="container">
     <div id="nav--container">
-      <div></div>
       <div>
         <ThemeToggle />
       </div>
@@ -81,8 +80,7 @@
   }
 
   :global(body) {
-    place-items: center;
-    place-content: center;
+    align-items: center;
     display: flex;
     font-size: var(--theme-font-size);
   }

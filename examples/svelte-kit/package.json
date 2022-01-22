@@ -1,0 +1,19 @@
+{
+  "name": "@svelte-themer/sample-svelte-kit",
+  "private": true,
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "svelte-kit dev",
+    "build": "svelte-kit build",
+    "preview": "svelte-kit preview"
+  },
+  "devDependencies": {
+    "@sveltejs/adapter-static": "next",
+    "@sveltejs/kit": "next",
+    "autoprefixer": "^10.4.0",
+    "svelte": "^3.42.6",
+    "svelte-preprocess": "^4.9.8",
+    "svelte-themer": "workspace:../../"
+  }
+}

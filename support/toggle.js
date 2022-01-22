@@ -1,6 +1,9 @@
 import { get } from 'svelte/store'
 import { currentThemeName, themes as themesStore } from './store'
 
+/**
+ * Toggle Theme
+ */
 export default function toggle() {
   let themes = get(themesStore)
   currentThemeName.update(current => {

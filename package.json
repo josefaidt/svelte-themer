@@ -1,29 +1,26 @@
 {
   "name": "svelte-themer",
-  "version": "0.4.13",
-  "homepage": "https://svelte-themer.now.sh",
+  "type": "module",
+  "version": "0.5.0-next.6",
+  "homepage": "https://svelte-themer.vercel.app",
   "license": "MIT",
   "repository": {
     "url": "https://github.com/josefaidt/svelte-themer"
   },
-  "sideEffects": false,
-  "svelte": "./index.js",
-  "module": "./lib/index.mjs",
-  "main": "./lib/index.js",
+  "svelte": "./components/index.js",
   "types": "./types/index.d.ts",
   "exports": {
     ".": {
-      "import": "./lib/index.mjs",
-      "require": "./lib/index.js"
+      "import": "./lib/svelte-themer.js",
+      "require": "./lib/svelte-themer.umd.js"
     },
-    "./package.json": "./package.json"
+    "./package.json": "./package.json",
+    "./components": "./components/index.js"
   },
   "files": [
+    "src",
     "lib",
-    "types",
-    "components",
-    "index.js",
-    "support"
+    "types"
   ],
   "keywords": [
     "svelte",
@@ -31,37 +28,35 @@
     "theming"
   ],
   "scripts": {
-    "build": "rollup -c",
-    "dev": "yarn build -w",
-    "prepublishOnly": "yarn test && yarn build",
-    "release": "changeset publish",
-    "format": "prettier --write \"{components,support,docs}/**/*.{js,json,svelte}\"",
-    "test": "jest components"
-  },
-  "dependencies": {
-    "css-vars-ponyfill": "^2.4.7"
+    "start": "pnpm run dev --parallel --filter svelte-themer --filter */docs",
+    "dev": "vite build --watch",
+    "build": "vite build",
+    "prepublishOnly": "pnpm test && pnpm build",
+    "format": "prettier --write \"{src,docs}/**/*.{js,json,svelte}\"",
+    "test": "vitest",
+    "coverage": "vitest --coverage"
   },
   "devDependencies": {
-    "@babel/core": "^7.15.5",
-    "@babel/preset-env": "^7.15.4",
-    "@changesets/cli": "^2.17.0",
-    "@rollup/plugin-commonjs": "^20.0.0",
-    "@rollup/plugin-json": "^4.1.0",
-    "@rollup/plugin-node-resolve": "^13.0.4",
-    "@testing-library/jest-dom": "^5.14.1",
+    "@changesets/cli": "^2.19.0",
+    "@sveltejs/vite-plugin-svelte": "next",
     "@testing-library/svelte": "^3.0.3",
-    "babel-jest": "^27.1.1",
-    "eslint": "^7.32.0",
+    "@vitest/ui": "latest",
+    "eslint": "^8.7.0",
     "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-svelte3": "^3.2.1",
-    "jest": "^27.1.1",
-    "prettier": "^2.3.2",
-    "prettier-plugin-svelte": "^2.4.0",
-    "rollup": "^2.56.3",
-    "rollup-plugin-svelte": "^7.1.0",
-    "sveld": "^0.10.2",
-    "svelte": "^3.42.4",
-    "svelte-jester": "1.8.2"
+    "eslint-plugin-svelte3": "^3.4.0",
+    "eslint-plugin-testing-library": "^5.0.4",
+    "happy-dom": "^2.28.0",
+    "jsdom": "^19.0.0",
+    "prettier": "^2.5.1",
+    "prettier-plugin-svelte": "^2.6.0",
+    "sveld": "^0.12.1",
+    "svelte": "^3.46.2",
+    "svelte-preprocess": "^4.10.2",
+    "vite": "^2.7.13",
+    "vitest": "^0.1.27"
+  },
+  "peerDependencies": {
+    "svelte": "^3.46.2"
   },
   "prettier": {
     "printWidth": 80,
@@ -72,10 +67,43 @@
     "htmlWhitespaceSensitivity": "ignore",
     "arrowParens": "avoid",
     "singleQuote": true,
-    "svelteSortOrder": "scripts-markup-styles",
+    "svelteSortOrder": "options-scripts-markup-styles",
     "svelteStrictMode": true,
     "svelteBracketNewLine": true,
-    "svelteAllowShorthand": false
+    "svelteAllowShorthand": false,
+    "plugins": [
+      "./node_modules/prettier-plugin-svelte"
+    ]
+  },
+  "eslintConfig": {
+    "extends": [
+      "eslint:recommended",
+      "prettier"
+    ],
+    "plugins": [
+      "svelte3",
+      "testing-library"
+    ],
+    "ignorePatterns": [
+      "*.cjs"
+    ],
+    "overrides": [
+      {
+        "files": [
+          "*.svelte"
+        ],
+        "processor": "svelte3/svelte3"
+      }
+    ],
+    "parserOptions": {
+      "sourceType": "module",
+      "ecmaVersion": 2021
+    },
+    "env": {
+      "browser": true,
+      "node": true,
+      "es2017": true
+    }
   },
   "husky": {
     "hooks": {
@@ -90,32 +118,8 @@
       "prettier --write"
     ]
   },
-  "babel": {
-    "presets": [
-      [
-        "@babel/preset-env",
-        {
-          "targets": {
-            "node": "current"
-          }
-        }
-      ]
-    ]
-  },
-  "jest": {
-    "transform": {
-      "^.+\\.js$": "babel-jest",
-      "^.+\\.svelte$": "svelte-jester"
-    },
-    "setupFilesAfterEnv": [
-      "<rootDir>/tests.setup.js"
-    ],
-    "moduleFileExtensions": [
-      "js",
-      "svelte"
-    ]
-  },
-  "setupFilesAfterEnv": [
-    "@testing-library/jest-dom/extend-expect"
-  ]
+  "engines": {
+    "node": ">=12",
+    "pnpm": ">=3"
+  }
 }

@@ -3,4 +3,6 @@ node_modules
 *.log
 .vscode
 
-lib
+/lib
+
+.vercel

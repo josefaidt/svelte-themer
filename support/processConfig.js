@@ -1,7 +1,7 @@
 /**
  * Recursively process configuration object from nested to kebab-case
  * @name processConfig
- * @param {Object} obj
+ * @param {object} obj
  *
  */
 export default function processConfig(obj) {
