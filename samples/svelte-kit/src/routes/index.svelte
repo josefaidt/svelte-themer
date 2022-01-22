@@ -63,7 +63,7 @@
 
   :global(*) {
     transition-property: background-color;
-    transition-duration: 0.2s;
+    transition-duration: 150ms;
     transition-timing-function: ease;
     text-rendering: optimizeLegibility;
     text-shadow: rgb(0 0 0 / 1%) 0 0 1px;
