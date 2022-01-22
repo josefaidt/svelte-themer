@@ -1,37 +1,35 @@
-/**
- * @jest-environment jsdom
- */
-import '@testing-library/jest-dom/extend-expect'
-import { render, fireEvent, getByTestId } from '@testing-library/svelte'
+import { describe, it, beforeEach, expect } from 'vitest'
 import { currentThemeName } from '../support/store'
-import { presets } from './presets'
-import ThemeToggle from './ThemeToggle.test.component'
+import { presets } from '../components/presets'
+import ThemeToggle from './ThemeToggle.test.svelte'
 
 describe(ThemeToggle.name, () => {
-  let TestHarness
-
-  beforeEach(() => {
-    TestHarness = props => render(ThemeToggle, { props })
-  })
+  const createTestComponent = (props = {}) => {
+    const host = document.createElement('div')
+    host.setAttribute('id', 'host')
+    document.body.appendChild(host)
+    const instance = new ThemeToggle({ target: host, props: props })
+    return instance
+  }
 
   it('should render', () => {
-    const { component } = TestHarness()
-    expect(component).toBeTruthy()
+    const instance = createTestComponent()
+    expect(instance).toBeTruthy()
   })
 
   it('should update store on toggle', async () => {
     const key = 'testing'
     const names = Object.keys(presets)
-    const { container } = TestHarness({
+    const instance = createTestComponent({
       themes: presets,
       key,
     })
     let current
     let unsub = currentThemeName.subscribe(value => (current = value))
-    const toggleButton = getByTestId(container, 'test-toggle')
+    // const toggleButton = getByTestId(container, 'test-toggle')
 
     expect(current).toEqual(names[0])
-    await fireEvent.click(toggleButton)
+    // await fireEvent.click(toggleButton)
     expect(current).toEqual(names[1])
 
     return unsub()

@@ -1,14 +1,18 @@
-/**
- * @jest-environment jsdom
- */
-import '@testing-library/jest-dom/extend-expect'
-import { render } from '@testing-library/svelte'
+import { describe, beforeEach, afterEach, it, expect, afterAll } from 'vitest'
 import ThemeWrapper, {
   STORAGE_KEY,
   INVALID_THEMES_MESSAGE,
   INVALID_PREFIX_MESSAGE,
-} from './ThemeWrapper'
-import { presets } from './presets'
+} from '../components/ThemeWrapper.svelte'
+import { presets } from '../components/presets'
+
+function render(Component, props = {}) {
+  const host = document.createElement('div')
+  host.setAttribute('id', 'host')
+  document.body.appendChild(host)
+  const instance = new Component({ target: host, props: props })
+  return instance
+}
 
 describe(ThemeWrapper.name, () => {
   let style
@@ -16,7 +20,7 @@ describe(ThemeWrapper.name, () => {
   let TestHarness
 
   beforeEach(() => {
-    TestHarness = props => render(ThemeWrapper, { props })
+    TestHarness = props => render(ThemeWrapper, props)
     style = doc =>
       Array.from(doc.styleSheets).reduce((acc, sheet) => {
         let rules = Array.from(sheet.cssRules)
