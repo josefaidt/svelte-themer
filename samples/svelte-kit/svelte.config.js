@@ -1,9 +1,5 @@
 import adapter from '@sveltejs/adapter-static'
 import autoprefixer from 'autoprefixer'
-import sveltePreprocess from 'svelte-preprocess'
-
-// add preprocess
-// style global
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
@@ -24,7 +20,6 @@ const config = {
       },
     },
   },
-  preprocess: sveltePreprocess(),
 }
 
 export default config
