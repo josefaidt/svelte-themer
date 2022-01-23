@@ -217,6 +217,27 @@ Described below is the pattern used for accessing `theme` context to create your
 </style>
 ```
 
+### use:stylesheet
+
+```svelte
+<script>
+  import { stylesheet } from 'svelte-themer/use'
+  export let myTheme = {
+    text: 'red',
+  }
+</script>
+
+<div use:stylesheet="{myTheme}">
+  <p>Hello, World!</p>
+</div>
+
+<style>
+  p {
+    color: var(--text);
+  }
+</style>
+```
+
 ## Contributing
 
 Refer to the [contributing guidelines](CONTRIBUTING.md).
