@@ -16,7 +16,8 @@
     },
     "./package.json": "./package.json",
     "./components": "./components/index.js",
-    "./store": "./support/store.js"
+    "./store": "./support/store.js",
+    "./use": "./components/use.js"
   },
   "files": [
     "components",

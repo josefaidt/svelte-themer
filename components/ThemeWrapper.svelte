@@ -15,7 +15,7 @@
   import { onMount, afterUpdate, setContext } from 'svelte'
   import { presets } from './presets'
   import toggle from '../support/toggle'
-  import { createCSS } from '../support/css'
+  import { createCSSTemplate } from '../support/css'
   import {
     currentThemeName,
     currentThemeObject,
@@ -63,12 +63,13 @@
 
   themesStore.set(themes)
   const [fallback] = Object.keys(themes)
-  if (!Object.keys(themes).includes($currentThemeName))
+  if (!Object.keys(themes).includes($currentThemeName)) {
     currentThemeName.set(fallback)
+  }
   $: currentThemeObject.set(themes[$currentThemeName])
 
   // create CSS
-  const style = createCSS(prefix, base, themes)
+  const style = createCSSTemplate(prefix, base, themes)
 
   setContext(CONTEXT_KEY, {
     current: currentThemeName,
