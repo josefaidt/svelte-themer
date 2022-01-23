@@ -54,13 +54,29 @@ export function createCSSVariableOverride({
 }
 
 /**
+ *
+ * @param {object} config
+ * @param {Object} options
+ * @param {string} options.prefix
+ * @returns {[CSSVariableName, <string,CSSVariableName>]}
+ */
+export function createCSSVariableCollection(config, { prefix } = {}) {
+  const variablePrefix = prefix ? `--${prefix}` : '-'
+  const processedConfig = processConfig(config)
+  const variables = Object.entries(processedConfig).map(([prop, value]) => {
+    return [createCSSVariableName({ variablePrefix, prop }), value]
+  })
+  return variables
+}
+
+/**
  * Create CSS template
- * @name setCSS
+ * @name createCSSTemplate
  * @param {string} prefix - CSS variable prefix
  * @param {Object[]} themes - themes array
  * @returns {string} CSS template
  */
-export function createCSS(prefix, base = {}) {
+export function createCSSTemplate(prefix, base = {}) {
   const variablePrefix = prefix ? `--${prefix}` : '-'
 
   const themes = get(themesStore)
@@ -125,7 +141,7 @@ export function createCSS(prefix, base = {}) {
       :root {
         ${rootCSSVariables
           .map(vars => createCSSVariableStatement(...vars))
-          .join('\n\t')}
+          .join('')}
       }
 
       ${themeCSSContent.join('')}
