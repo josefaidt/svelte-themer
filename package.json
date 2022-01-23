@@ -34,7 +34,7 @@
     "start": "pnpm run dev --parallel --filter svelte-themer --filter */docs",
     "dev": "vite build --watch",
     "build": "vite build",
-    "prepublishOnly": "pnpm test && pnpm build",
+    "prepublishOnly": "pnpm test run && pnpm build",
     "format": "prettier --write \"{src,docs}/**/*.{js,json,svelte}\"",
     "test": "vitest",
     "coverage": "vitest --coverage"
@@ -47,7 +47,6 @@
     "eslint": "^8.7.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-svelte3": "^3.4.0",
-    "eslint-plugin-testing-library": "^5.0.4",
     "happy-dom": "^2.28.0",
     "jsdom": "^19.0.0",
     "prettier": "^2.5.1",
@@ -56,7 +55,7 @@
     "svelte": "^3.46.2",
     "svelte-preprocess": "^4.10.2",
     "vite": "^2.7.13",
-    "vitest": "^0.1.27"
+    "vitest": "^0.2.0"
   },
   "peerDependencies": {
     "svelte": "^3.46.2"
@@ -84,8 +83,7 @@
       "prettier"
     ],
     "plugins": [
-      "svelte3",
-      "testing-library"
+      "svelte3"
     ],
     "ignorePatterns": [
       "*.cjs"
