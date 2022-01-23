@@ -17,7 +17,10 @@ export async function theme(node, theme) {
 
   function setProperties() {
     const variables = createCSSVariableCollection(theme)
-    let innerHTML = `:root{`
+    const svelteClass = Array.from(node.classList).find(className =>
+      className.startsWith('s-')
+    )
+    let innerHTML = `${node.localName}${svelteClass ? `.${svelteClass}` : ''}{`
     for (let [name, value] of variables) {
       innerHTML += `${name}:${value};`
     }

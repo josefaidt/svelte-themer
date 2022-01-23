@@ -12,13 +12,23 @@ describe('Theme Action', () => {
     expect(instance).toBeTruthy()
   })
 
-  it('should create inline styles', () => {
+  it('should not create inline styles', () => {
     const myTheme = {
       text: 'red',
     }
     const instance = render({ myTheme })
     const container = getByTestId('container')
     expect(container.style).toBeTruthy()
-    expect(container.style.getPropertyValue('--text')).toBe('red')
+    expect(container.style.getPropertyValue('--text')).not.toBe('red')
+  })
+
+  it('should create stylesheet scoped to parent', () => {
+    const myTheme = {
+      text: 'red',
+    }
+    const instance = render({ myTheme })
+    const container = getByTestId('container')
+    const childStylesheet = container.childNodes[0]
+    expect(childStylesheet).toBeTruthy()
   })
 })
