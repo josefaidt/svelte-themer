@@ -7,7 +7,7 @@ import { createCSSVariableCollection } from '../support/css'
  */
 
 /**
- *
+ * use:theme
  * @param {HTMLElement} node
  * @param {Object.<string, string|number>} theme
  * @returns
@@ -35,6 +35,8 @@ export async function theme(node, theme) {
     }
   }
 
+  setProperties()
+
   return {
     update(newTheme) {
       theme = newTheme
@@ -44,7 +46,7 @@ export async function theme(node, theme) {
 }
 
 /**
- * use:theme
+ * use:stylesheet
  * @param {HTMLElement} node
  * @param {Object.<string, string|number>} theme
  * @returns {ActionReturn}
@@ -52,7 +54,7 @@ export async function theme(node, theme) {
 export async function stylesheet(node, theme) {
   const stylesheet = document.createElement('style')
 
-  function setProperties() {
+  function setStylesheet() {
     const variables = createCSSVariableCollection(theme)
     const svelteClass = Array.from(node.classList).find(className =>
       className.startsWith('s-')
@@ -66,12 +68,12 @@ export async function stylesheet(node, theme) {
     node.prepend(stylesheet)
   }
 
-  setProperties()
+  setStylesheet()
 
   return {
     update(newTheme) {
       theme = newTheme
-      setProperties()
+      setStylesheet()
     },
   }
 }
