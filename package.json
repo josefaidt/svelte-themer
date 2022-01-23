@@ -1,7 +1,7 @@
 {
   "name": "svelte-themer",
   "type": "module",
-  "version": "0.5.2",
+  "version": "0.5.3-next.1",
   "homepage": "https://svelte-themer.vercel.app",
   "license": "MIT",
   "repository": {
@@ -16,7 +16,8 @@
     },
     "./package.json": "./package.json",
     "./components": "./components/index.js",
-    "./store": "./support/store.js"
+    "./store": "./support/store.js",
+    "./use": "./components/use.js"
   },
   "files": [
     "components",
