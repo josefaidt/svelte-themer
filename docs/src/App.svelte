@@ -33,13 +33,13 @@
   <meta property="og:url" content="{url}" />
   <meta property="og:title" content="{title}" />
   <meta property="og:description" content="{description}" />
-  <meta property="og:image" content="/favicon.png" />
+  <meta property="og:image" content="/favicon.ico" />
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:creator" content="{author}" />
   <meta name="twitter:title" content="{title}" />
   <meta name="twitter:description" content="{description}" />
-  <meta name="twitter:image" content="/favicon.png" />
+  <meta name="twitter:image" content="/favicon.ico" />
 </svelte:head>
 
 <ThemeWrapper base="{base}">
