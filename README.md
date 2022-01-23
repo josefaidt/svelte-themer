@@ -194,6 +194,29 @@ Described below is the pattern used for accessing `theme` context to create your
 </ThemeWrapper>
 ```
 
+## Actions
+
+### use:theme
+
+```svelte
+<script>
+  import { theme } from 'svelte-themer/use'
+  export let myTheme = {
+    text: 'red',
+  }
+</script>
+
+<div use:theme="{myTheme}">
+  <p>Hello, World!</p>
+</div>
+
+<style>
+  p {
+    color: var(--text);
+  }
+</style>
+```
+
 ## Contributing
 
 Refer to the [contributing guidelines](CONTRIBUTING.md).
