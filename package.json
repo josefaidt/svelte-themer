@@ -19,11 +19,14 @@
     "theme",
     "theming"
   ],
+  "publishConfig": {
+    "directory": "package"
+  },
   "scripts": {
     "dev": "svelte-kit dev",
     "build": "svelte-kit build",
     "package": "svelte-kit package",
-    "prepublishOnly": "pnpm test run && pnpm build",
+    "prepublishOnly": "pnpm test run && pnpm package",
     "format": "prettier --write \"{src,docs}/**/*.{js,json,svelte}\"",
     "test": "vitest",
     "types": "npx -p typescript tsc src/**/*.js --declaration --allowJs --emitDeclarationOnly",
