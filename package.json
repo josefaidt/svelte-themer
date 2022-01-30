@@ -7,10 +7,7 @@
   "repository": {
     "url": "https://github.com/josefaidt/svelte-themer"
   },
-  "svelte": "./src/index.js",
-  "types": "./src/index.d.ts",
   "exports": {
-    "./package.json": "./package.json",
     "./store": "./src/support/store.js",
     "./use": "./src/components/use.js"
   },
