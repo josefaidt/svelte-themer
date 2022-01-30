@@ -128,7 +128,7 @@ export function createCSSTemplate(prefix, base = {}) {
 
     const themeCSSClassName = prefix ? `${prefix}--${themeName}` : themeName
     themeCSSContent.push(`
-      [theme='${themeName}'],
+      [data-theme='${themeName}'],
       .${themeCSSClassName} {
         ${overrides.join('\n\t')}
       }
