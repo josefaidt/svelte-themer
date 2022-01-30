@@ -6,6 +6,6 @@ export default defineConfig({
   plugins: [svelte({ hot: !process.env.VITEST })],
   test: {
     environment: 'jsdom',
-    setupFiles: [new URL('test/setup.js', import.meta.url).pathname],
+    setupFiles: [new URL('tests/setup.js', import.meta.url).pathname],
   },
 })

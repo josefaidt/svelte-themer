@@ -1,4 +1,4 @@
-import { createCSSVariableCollection } from '../support/css'
+import { createCSSVariableCollection } from './support/css'
 
 /**
  * @typedef {Object} SvelteActionReturn

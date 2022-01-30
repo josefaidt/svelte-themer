@@ -8,103 +8,47 @@
     "url": "https://github.com/josefaidt/svelte-themer"
   },
   "svelte": "./src/index.js",
-  "types": "./types/index.d.ts",
+  "types": "./src/index.d.ts",
   "exports": {
-    ".": {
-      "import": "./lib/svelte-themer.js",
-      "require": "./lib/svelte-themer.umd.js"
-    },
     "./package.json": "./package.json",
-    "./components": "./src/components/index.js",
     "./store": "./src/support/store.js",
     "./use": "./src/components/use.js"
   },
-  "files": [
-    "src",
-    "lib",
-    "types"
-  ],
   "keywords": [
     "svelte",
     "theme",
     "theming"
   ],
   "scripts": {
-    "start": "pnpm run dev --parallel --filter svelte-themer --filter */docs",
-    "dev": "vite build --watch",
-    "build": "vite build",
+    "dev": "svelte-kit dev",
+    "build": "svelte-kit build",
+    "package": "svelte-kit package",
     "prepublishOnly": "pnpm test run && pnpm build",
     "format": "prettier --write \"{src,docs}/**/*.{js,json,svelte}\"",
     "test": "vitest",
-    "types": "npx -p typescript tsc src/**/*.js --declaration --allowJs --emitDeclarationOnly --outDir types",
+    "types": "npx -p typescript tsc src/**/*.js --declaration --allowJs --emitDeclarationOnly",
     "coverage": "vitest --coverage"
   },
   "devDependencies": {
-    "@changesets/cli": "^2.19.0",
-    "@sveltejs/vite-plugin-svelte": "next",
-    "@testing-library/svelte": "^3.0.3",
+    "@changesets/cli": "^2.20.0",
+    "@sveltejs/adapter-static": "next",
+    "@sveltejs/kit": "next",
+    "@sveltejs/vite-plugin-svelte": "^1.0.0-next.29",
     "@vitest/ui": "latest",
     "eslint": "^8.7.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-svelte3": "^3.4.0",
-    "happy-dom": "^2.28.0",
     "jsdom": "^19.0.0",
     "prettier": "^2.5.1",
     "prettier-plugin-svelte": "^2.6.0",
-    "sveld": "^0.12.1",
-    "svelte": "^3.46.2",
-    "svelte-preprocess": "^4.10.2",
+    "svelte": "^3.46.3",
+    "svelte2tsx": "^0.5.0",
+    "typescript": "^4.5.5",
     "vite": "^2.7.13",
-    "vitest": "^0.2.0"
+    "vitest": "^0.2.5"
   },
   "peerDependencies": {
-    "svelte": "^3.46.2"
-  },
-  "prettier": {
-    "printWidth": 80,
-    "trailingComma": "es5",
-    "tabWidth": 2,
-    "semi": false,
-    "bracketSpacing": true,
-    "htmlWhitespaceSensitivity": "ignore",
-    "arrowParens": "avoid",
-    "singleQuote": true,
-    "svelteSortOrder": "options-scripts-markup-styles",
-    "svelteStrictMode": true,
-    "svelteBracketNewLine": true,
-    "svelteAllowShorthand": false,
-    "plugins": [
-      "./node_modules/prettier-plugin-svelte"
-    ]
-  },
-  "eslintConfig": {
-    "extends": [
-      "eslint:recommended",
-      "prettier"
-    ],
-    "plugins": [
-      "svelte3"
-    ],
-    "ignorePatterns": [
-      "*.cjs"
-    ],
-    "overrides": [
-      {
-        "files": [
-          "*.svelte"
-        ],
-        "processor": "svelte3/svelte3"
-      }
-    ],
-    "parserOptions": {
-      "sourceType": "module",
-      "ecmaVersion": 2021
-    },
-    "env": {
-      "browser": true,
-      "node": true,
-      "es2017": true
-    }
+    "svelte": "^3.46.3"
   },
   "husky": {
     "hooks": {
@@ -120,7 +64,7 @@
     ]
   },
   "engines": {
-    "node": ">=12",
+    "node": ">=14",
     "pnpm": ">=3"
   }
 }
