@@ -9,7 +9,7 @@
   },
   "exports": {
     "./store": "./src/support/store.js",
-    "./use": "./src/components/use.js"
+    "./use": "./src/use.js"
   },
   "keywords": [
     "svelte",
