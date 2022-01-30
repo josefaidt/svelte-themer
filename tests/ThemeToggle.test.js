@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
-import { currentThemeName } from '../support/store'
-import { presets } from '../components/presets'
+import { currentThemeName } from '../src/support/store'
+import { presets } from '../src/components/presets'
 import ThemeToggle from './ThemeToggle.test.svelte'
 
 describe(ThemeToggle.name, () => {

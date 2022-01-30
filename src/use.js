@@ -1,7 +1,7 @@
-import { createCSSVariableCollection } from '../support/css'
+import { createCSSVariableCollection } from './support/css'
 
 /**
- * @typedef {Object} ActionReturn
+ * @typedef {Object} SvelteActionReturn
  * @property {Function} [update]
  * @property {Function} [destroy]
  */
@@ -49,7 +49,7 @@ export async function theme(node, theme) {
  * use:stylesheet
  * @param {HTMLElement} node
  * @param {Object.<string, string|number>} theme
- * @returns {ActionReturn}
+ * @returns {SvelteActionReturn}
  */
 export async function stylesheet(node, theme) {
   const stylesheet = document.createElement('style')

@@ -3,7 +3,9 @@ node_modules
 *.log
 .vscode
 
-/lib
+/build
+/.svelte-kit
+/package
 
 .vercel
 coverage

@@ -1,11 +1,11 @@
 <script>
-  import { stylesheet } from '../components/use'
+  import { theme } from '../src/use'
   export let myTheme = {
     text: 'red',
   }
 </script>
 
-<div use:stylesheet="{myTheme}" data-testid="container">
+<div use:theme="{myTheme}" data-testid="container">
   <p data-testid="paragraph">Hello, World!</p>
 </div>
 
