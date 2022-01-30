@@ -7,7 +7,7 @@
   "repository": {
     "url": "https://github.com/josefaidt/svelte-themer"
   },
-  "svelte": "./components/index.js",
+  "svelte": "./src/index.js",
   "types": "./types/index.d.ts",
   "exports": {
     ".": {
@@ -15,13 +15,12 @@
       "require": "./lib/svelte-themer.umd.js"
     },
     "./package.json": "./package.json",
-    "./components": "./components/index.js",
-    "./store": "./support/store.js",
-    "./use": "./components/use.js"
+    "./components": "./src/components/index.js",
+    "./store": "./src/support/store.js",
+    "./use": "./src/components/use.js"
   },
   "files": [
-    "components",
-    "support",
+    "src",
     "lib",
     "types"
   ],
@@ -37,6 +36,7 @@
     "prepublishOnly": "pnpm test run && pnpm build",
     "format": "prettier --write \"{src,docs}/**/*.{js,json,svelte}\"",
     "test": "vitest",
+    "types": "npx -p typescript tsc src/**/*.js --declaration --allowJs --emitDeclarationOnly --outDir types",
     "coverage": "vitest --coverage"
   },
   "devDependencies": {
