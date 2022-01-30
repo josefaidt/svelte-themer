@@ -1,6 +1,6 @@
 <script>
-  import ThemeWrapper from '../components/ThemeWrapper.svelte'
-  import ThemeToggle from '../components/ThemeToggle.svelte'
+  import ThemeWrapper from '../src/components/ThemeWrapper.svelte'
+  import ThemeToggle from '../src/components/ThemeToggle.svelte'
 </script>
 
 <ThemeWrapper>

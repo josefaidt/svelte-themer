@@ -3,8 +3,8 @@ import ThemeWrapper, {
   STORAGE_KEY,
   INVALID_THEMES_MESSAGE,
   INVALID_PREFIX_MESSAGE,
-} from '../components/ThemeWrapper.svelte'
-import { presets } from '../components/presets'
+} from '../src/components/ThemeWrapper.svelte'
+import { presets } from '../src/components/presets'
 
 function _render(Component, props = {}) {
   const host = document.createElement('div')

@@ -1,5 +1,5 @@
 <script>
-  import { stylesheet } from '../components/use'
+  import { stylesheet } from '../src/use'
   export let myTheme = {
     text: 'red',
   }
